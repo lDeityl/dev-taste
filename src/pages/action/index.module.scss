@@ -1,0 +1,18 @@
+.customHR {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(45deg, #ffffff3a, #ffffff00);
+}
+
+.actions {
+    padding: 40px 20px 40px 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 25px 15px;
+    margin-bottom: 130px;
+
+    @media (max-width:1440px) {
+        justify-content: space-around;
+    }
+}

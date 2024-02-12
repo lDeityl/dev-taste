@@ -1,0 +1,51 @@
+.cardBox {
+    border-radius: 10px;
+    background: linear-gradient(#494544, #504B4A);
+    width: 100%;
+    max-width: 325px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transform: scale(.97);
+    transition: all .3s ease;
+
+    &:hover {
+        transform: scale(1);
+    }
+
+    .image {
+        user-select: none;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        max-height: 220px;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .characteristic {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px;
+        width: 100%;
+
+        .up {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .price {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+
+            .but {
+                width: 24px;
+                height: 24px;
+            }
+        }
+    }
+}

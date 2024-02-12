@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html,
+body {
+    overflow-x: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+body:has(> [data-state="open"]),
+body:has(> [data-radix-focus-guard]) {
+    margin: 0 !important;
+    overflow: auto !important;
+}
+
+input {
+    all: unset;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url('assets/images/bg.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+
+    @media (max-width: 1400px) {
+        cursor: default;
+    }
+}
+
+:root {
+    --fs-8: 8px;
+    --fs-9: 9px;
+    --fs-10: 10px;
+    --fs-11: 11px;
+    --fs-12: 12px;
+    --fs-13: 13px;
+    --fs-14: 14px;
+    --fs-15: 15px;
+    --fs-16: 16px;
+    --fs-17: 17px;
+    --fs-18: 18px;
+    --fs-19: 19px;
+    --fs-20: 20px;
+    --fs-21: 21px;
+    --fs-22: 22px;
+    --fs-23: 23px;
+    --fs-24: 24px;
+    --fs-25: 25px;
+    --fs-26: 26px;
+    --fs-27: 27px;
+    --fs-28: 28px;
+    --fs-29: 29px;
+    --fs-30: 30px;
+    --fs-31: 31px;
+    --fs-32: 32px;
+    --fs-38: 38px;
+    --fs-48: 48px;
+}
+
+:root {
+    --white: #FFFFFF;
+    --dark: #252525;
+    --gray: #808080;
+    --blueLink: #8364E2;
+    --whiteTransparent: #FFFFFF80;
+    --gray2: #727272;
+    --secondary-color: #1AA7EC;
+    --secondary-color-2: #797EF6;
+    --primary-color: #040836;
+    --muffledWhite: #eeeeee;
+    --thunderBird: #f24e1e;
+    // от фигмы добавить
+}

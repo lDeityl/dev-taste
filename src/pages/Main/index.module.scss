@@ -1,0 +1,70 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+    margin-bottom: 235px;
+
+    .ourCoffe {
+        background-position: center;
+        background-size: cover;
+        position: relative;
+        background: linear-gradient(90deg, #211F20, #44403F);
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 100%;
+        padding: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        z-index: 2;
+        overflow: hidden;
+
+        .leftSide {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 650px;
+            width: 100%;
+
+            .btnGray {
+                max-width: 250px;
+                width: 100%;
+                margin-top: 40px;
+            }
+        }
+
+        .chicken {
+            position: absolute;
+            top: 0;
+            width: 90%;
+            right: 0;
+            z-index: -1;
+            opacity: .5;
+            height: 100%;
+            user-select: none;
+        }
+
+        .chicken2 {
+            position: absolute;
+            top: 0;
+            width: 600%;
+            left: 0;
+            z-index: -1;
+            height: 100%;
+            user-select: none;
+        }
+
+        .rightSide {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 520px;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+    }
+
+
+}

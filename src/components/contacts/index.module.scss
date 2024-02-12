@@ -1,0 +1,89 @@
+.contacts {
+    position: relative;
+    width: 100%;
+
+    .section {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        z-index: 2;
+        max-width: 650px;
+        position: relative;
+        width: 100%;
+        background-color: #2E2B2C;
+        border-radius: 15px;
+
+        .hrCustom {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(45deg, #ffffff00, #ffffff38, #ffffff00);
+        }
+
+        .spanContacts {
+            padding: 30px 45px 5px 45px;
+        }
+
+        .data {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 10px 45px 10px 45px;
+
+            .address {
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+
+                img {
+                    width: 24px;
+                    height: 24px;
+                    user-select: none;
+                }
+
+                .right {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 3px;
+                }
+            }
+        }
+
+        .bron {
+            padding: 10px 45px 35px 45px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+
+            .greenBron {
+                padding: 15px 30px;
+            }
+
+            .phone {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+
+    .map {
+        position: absolute;
+        left: -100px;
+        top: -100px;
+        width: 112%;
+        height: 200%;
+        user-select: none;
+        z-index: -1;
+    }
+
+    .here {
+        position: absolute;
+        width: 100px;
+        height: 110px;
+        top: 260px;
+        right: 330px;
+        user-select: none;
+        z-index: -1;
+    }
+}

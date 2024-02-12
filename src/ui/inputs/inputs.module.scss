@@ -1,0 +1,90 @@
+.basis {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.label {
+    font-size: var(--fs-18);
+    font-weight: 500;
+    color: #000;
+}
+
+.wrapperInput {
+    input {
+        width: 100%;
+        padding: 10px 5px;
+        border-radius: 5px;
+        border: 1px solid rgb(225, 203, 203);
+        transition: all 0.1s ease;
+        padding-left: 10px;
+        font-size: var(--fs-15);
+    }
+
+    input:focus {
+        background: rgba(var(--secondary-color-rgb), .1);
+        box-shadow: 0px 0px 0px 4px rgba(var(--secondary-color-rgb), .3);
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover,
+    textarea:-webkit-autofill:focus,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus {
+        // border: none;
+        -webkit-text-fill-color: rgb(0, 0, 0);
+        // -webkit-box-shadow: 0 0 0px 1000px #485f84 inset;
+        transition: background-color 100000000000000000000000s ease-in-out 0s;
+    }
+
+}
+
+.InputSearch {
+
+    .inputBox {
+        background: #504B4A;
+        font-size: var(--fs-18);
+        border-radius: 10px;
+        width: 100%;
+        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+
+        svg {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+    }
+
+    input {
+        width: 100%;
+        border: none;
+
+        &::placeholder {
+            color: #CFCFCF;
+        }
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover,
+    textarea:-webkit-autofill:focus,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus {
+        // border: none;
+        -webkit-text-fill-color: rgb(0, 0, 0);
+        // -webkit-box-shadow: 0 0 0px 1000px #485f84 inset;
+        transition: background-color 100000000000000000000000s ease-in-out 0s;
+    }
+
+}

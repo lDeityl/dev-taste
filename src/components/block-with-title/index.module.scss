@@ -1,0 +1,33 @@
+.block {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 10px;
+    cursor: pointer;
+    align-items: center;
+    background-color: hsla(10, 4%, 30%, 0.61);
+    max-width: 250px;
+    width: 100%;
+    height: 228px;
+    text-align: center;
+    transition: all .3s ease;
+    transform: scale(1);
+
+    &:hover {
+        transition: all .3s ease;
+        transform: scale(1.03);
+
+        span {
+            color: #79B282;
+            transition: all .3s ease;
+        }
+    }
+
+    img,
+    svg {
+        width: 70px;
+        height: 70px;
+        user-select: none;
+    }
+}

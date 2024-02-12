@@ -1,0 +1,112 @@
+.box {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    padding: 40px 0;
+
+    .cart {
+        display: flex;
+        height: 100%;
+        background: linear-gradient(45deg, #494544, #504B4A);
+        border-radius: 10px;
+
+        img {
+            max-width: 800px;
+            max-height: 500px;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            user-select: none;
+            border-radius: 10px 0 0 10px;
+        }
+
+        .blocks {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 30px;
+            width: 100%;
+
+            .up {
+                display: flex;
+                flex-direction: column;
+                padding: 40px;
+                gap: 5px;
+            }
+
+            .bottom {
+                display: flex;
+                flex-direction: column;
+                gap: 30px;
+
+                .cartBox {
+                    display: flex;
+                    align-items: center;
+                    padding: 0 40px;
+                    gap: 20px;
+
+                    .cart {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        background: #618967;
+                        border-radius: 10px;
+                        padding: 10px 20px;
+                        cursor: pointer;
+
+                        .unvisibleSqr {
+                            height: 100%;
+                            border-left: 1px solid rgba(255, 255, 255, 0.295);
+                            padding-left: 15px;
+
+                            svg {
+                                width: 24px;
+                                height: 24px;
+                            }
+                        }
+                    }
+                }
+
+                .bjy {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+                    padding-bottom: 40px;
+
+                    hr {
+                        border: 1px solid rgba(255, 255, 255, 0.185);
+                    }
+
+                    .characteristic {
+                        span {
+                            color: rgba(255, 255, 255, 0.568);
+                        }
+                    }
+
+                    .digits,
+                    .characteristic {
+                        display: flex;
+                        gap: 10px;
+                        align-items: center;
+                        padding-left: 40px;
+
+                        span {
+                            max-width: 100px;
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.customHR {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(45deg, #ffffff3a, #ffffff00);
+}
+
+.wrapperContacts {
+    margin-top: 130px;
+}

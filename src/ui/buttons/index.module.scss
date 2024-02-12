@@ -1,0 +1,60 @@
+.base {
+    cursor: pointer;
+    user-select: none;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 40px;
+    gap: 5px;
+    transition: all var(--speed-regularTransition);
+
+    &:active {
+        transform: translateY(1px);
+    }
+
+    @media (max-width: 1400px) {
+        cursor: default;
+    }
+}
+
+.loading {
+    opacity: 0.6;
+    cursor: default !important;
+}
+
+.disabled {
+    cursor: default !important;
+    opacity: 0.6 !important;
+
+    &:active {
+        transform: unset !important;
+    }
+}
+
+.buttonStandart {
+    background: black;
+    color: white;
+    border-radius: 5px;
+}
+
+
+.ButtonGreen {
+    background: linear-gradient(90deg, #618967, #72A479);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 10px;
+    padding: 8px 15px;
+}
+
+.ButtonGray {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 10px;
+    padding: 20px 25px;
+    border: 1px solid #fff;
+}

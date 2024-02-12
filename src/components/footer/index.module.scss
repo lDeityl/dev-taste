@@ -1,0 +1,56 @@
+.main_1 {
+    background: linear-gradient(2120deg, #44403F, #211F20);
+    width: 100%;
+    margin-top: 50px;
+
+    .main {
+        display: flex;
+        justify-content: space-between;
+        gap: 5px;
+        width: 100%;
+        padding: 50px 0;
+
+        .blocks_1 {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+
+            .blocks {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+
+                .span {
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+
+                    img {
+                        width: 30px;
+                        height: 30px;
+                    }
+                }
+
+                .column {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+
+                    .link {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                    }
+                }
+            }
+        }
+
+    }
+
+    .rules {
+        color: #cfcfcf;
+        display: flex;
+        justify-content: center;
+        padding-bottom: 20px;
+    }
+}
