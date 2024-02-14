@@ -1,0 +1,25 @@
+.wrapper {
+    width: 100%;
+    max-width: 1400px;
+}
+
+
+.AccordionTrigger {
+    gap: 24px;
+
+    .title {
+        display: block;
+        width: 100%;
+        max-width: 97%;
+    }
+}
+
+.AccordionContent {
+    @media (max-width: 575px) {
+        padding: 15px 20px;
+    }
+}
+
+.AccordionItem {
+    margin-bottom: 8px;
+}

@@ -1,0 +1,132 @@
+.AccordionRoot {
+    width: 100%;
+}
+
+.AccordionItem {
+    overflow: hidden;
+    margin-top: 1px;
+}
+
+.AccordionHeader {
+    display: flex;
+}
+
+.AccordionTrigger {
+    background-color: transparent;
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: var(--fs-24);
+    line-height: 24px;
+    color: #494949;
+    font-weight: 400;
+    background: linear-gradient(45deg, #618967, #72A479);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.AccordionContent {
+    overflow: hidden;
+    font-size: var(--fs-18);
+    font-weight: 400;
+    line-height: 135%;
+    border-radius: 0 0 10px 10px;
+    margin-top: -7px;
+    color: #62666D;
+    background: linear-gradient(45deg, #504B4A, #504B4A);
+    cursor: pointer;
+}
+
+.AccordionContent p {
+    margin-top: 7px;
+    padding: 20px;
+}
+
+.AccordionContent.active {
+    border-radius: 3px;
+    background: #EDEDFC;
+    color: #9D75FE;
+}
+
+.AccordionContent[data-state='open'] {
+    animation: slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+.AccordionContent[data-state='closed'] {
+    animation: slideUp 300ms cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+.AccordionContentText {
+    padding: 15px 20px;
+}
+
+.AccordionChevron {
+    color: rgb(255, 255, 255);
+    transition: transform 300ms cubic-bezier(0.87, 0, 0.13, 1);
+    width: 23px;
+    height: 23px;
+}
+
+.AccordionChevron2 {
+    transition: transform 300ms cubic-bezier(0.87, 0, 0.13, 1);
+    width: 15px;
+    height: 15px;
+}
+
+.AccordionChevronOrders {
+    transition: transform 300ms cubic-bezier(0.87, 0, 0.13, 1);
+    width: 16px;
+    height: 16px;
+}
+
+.AccordionTrigger[data-state='open']>.AccordionChevron,
+.AccordionTrigger[data-state='open']>.AccordionChevron2,
+.AccordionTrigger[data-state='open']>.AccordionChevronOrders {
+    transform: rotate(180deg);
+}
+
+@keyframes slideDown {
+    from {
+        height: 0;
+    }
+
+    to {
+        height: var(--radix-accordion-content-height);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        height: var(--radix-accordion-content-height);
+    }
+
+    to {
+        height: 0;
+    }
+}
+
+@media (max-width: 1400px) {
+    .AccordionChevron2 {
+        display: none;
+    }
+
+    .AccordionTrigger {
+        cursor: default;
+    }
+
+    .AccordionContent {
+        cursor: default;
+    }
+}
+
+@media (max-width: 575px) {
+    .AccordionContentText {
+        padding: 0;
+    }
+
+    .AccordionTrigger {
+        padding: 10px;
+    }
+}

@@ -12,6 +12,7 @@ import { Contacts } from '../../../../components/contacts'
 import { useParams } from 'react-router-dom';
 import { allProducts } from '../all'
 import ScrollToTop from '../../../../utils/scrollToTop'
+import { FirstSwiper } from '../../../Main/first-swiper'
 
 export const Product = () => {
 
@@ -69,7 +70,15 @@ export const Product = () => {
             <div className={styles.customHR} />
             <Wrapper>
                 <HeadLine title='С ЭТИМ ТОВАРОМ ПОКУПАЮТ' />
-                <SecondSwiper />
+                {
+                    Number(el?.link) >= 1 && Number(el?.link) < 6 && <SecondSwiper />
+                }
+                {
+                    Number(el?.link) >= 6 && Number(el?.link) < 11 && <FirstSwiper />
+                }
+                {
+                    Number(el?.link) >= 11 && Number(el?.link) < 16 && <ThirdSwiper />
+                }
             </Wrapper>
             <Wrapper className={styles.wrapperContacts}>
                 <Contacts />
