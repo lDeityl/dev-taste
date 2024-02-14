@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useLayoutEffect } from 'react'
 import styles from './index.module.scss'
 import { Wrapper } from '../../../../components/wrapper'
 import { Fs12Fw300White, Fs12Fw500Black, Fs13Fw400Gray, Fs13Fw500White, Fs14Fw500White, Fs16Fw400White, Fs25BoldWhite } from '../../../../components/typography'
@@ -11,6 +11,7 @@ import { SecondSwiper } from '../../../Main/second-swiper'
 import { Contacts } from '../../../../components/contacts'
 import { useParams } from 'react-router-dom';
 import { allProducts } from '../all'
+import ScrollToTop from '../../../../utils/scrollToTop'
 
 export const Product = () => {
 
@@ -61,7 +62,9 @@ export const Product = () => {
                     </div>
                 </Wrapper>
                 :
-                <HeadLine title='товар не найден!' />
+                <Wrapper>
+                    <HeadLine title='товар не найден!' />
+                </Wrapper>
             }
             <div className={styles.customHR} />
             <Wrapper>

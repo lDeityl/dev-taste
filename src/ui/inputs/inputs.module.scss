@@ -88,3 +88,206 @@
     }
 
 }
+
+.InputDark {
+    input {
+        height: 32px;
+        padding: 6px 12px;
+        background: rgb(21, 22, 33);
+        border: 1px solid rgb(49, 50, 72);
+        border-radius: 4px;
+        font-size: var(--fs-14);
+        color: rgb(238, 239, 252);
+        margin: 0px;
+        appearance: none;
+        transition: border var(--speed-regularTransition);
+
+        &:hover {
+            border-color: rgb(60, 61, 83);
+            transition-duration: var(--speed-highlightFadeIn);
+        }
+
+        &:focus {
+            box-shadow: none;
+            border-color: rgb(108, 121, 255);
+            outline: none;
+        }
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover,
+    textarea:-webkit-autofill:focus,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus {
+        // border: none;
+        -webkit-text-fill-color: rgb(255, 255, 255);
+        // -webkit-box-shadow: 0 0 0px 1000px #485f84 inset;
+        transition: background-color 100000000000000000000000s ease-in-out 0s;
+    }
+}
+
+
+.InputPassword {
+    position: relative;
+    width: 100%;
+
+    .labels {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        label {
+            color: #333;
+            font-size: var(--fs-16);
+            font-weight: 700;
+        }
+    }
+
+
+    input {
+        border-radius: 11px;
+        background: #EFEFEF;
+        font-size: var(--fs-14);
+        color: black;
+        appearance: none;
+        transition: border var(--speed-regularTransition);
+        padding: 16px 24px;
+        padding-right: 40px;
+
+        &::placeholder {
+            color: #838383;
+            font-size: var(--fs-16);
+            font-weight: 400;
+        }
+
+        &:hover {
+            border-color: #000000;
+            transition-duration: var(--speed-highlightFadeIn);
+        }
+
+        &:focus {
+            box-shadow: none;
+            border-color: #000000;
+            outline: none;
+        }
+    }
+
+    .svg {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 40px;
+        right: 10px;
+        cursor: pointer;
+    }
+}
+
+.InputEmail {
+    position: relative;
+    width: 100%;
+
+    label {
+        color: #ffffff;
+        font-size: var(--fs-16);
+        font-weight: 700;
+    }
+
+    input {
+        border-radius: 11px;
+        border: 1px solid #EFEFEF;
+        font-size: var(--fs-14);
+        color: #ffffff;
+        transition: all .5s ease;
+        appearance: none;
+        padding: 16px 24px;
+        padding-right: 40px;
+
+        &::placeholder {
+            color: #838383;
+            font-size: var(--fs-16);
+            font-weight: 400;
+        }
+
+        &:hover {
+            border-color: #000000;
+            transition-duration: var(--speed-highlightFadeIn);
+        }
+
+        &:focus {
+            box-shadow: none;
+            border-color: #000000;
+            outline: none;
+        }
+    }
+
+    .svg {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 48px;
+        right: 10px;
+        cursor: pointer;
+    }
+}
+
+.InputPassword_1 {
+    position: relative;
+    width: 100%;
+
+    label {
+        color: #ffffff;
+        font-size: var(--fs-16);
+        font-weight: 700;
+    }
+
+    input {
+        border-radius: 11px;
+        border: 1px solid #EFEFEF;
+        font-size: var(--fs-14);
+        color: #ffffff;
+        appearance: none;
+        transition: border var(--speed-regularTransition);
+        padding: 16px 24px;
+        padding-right: 40px;
+        transition: all .5s ease;
+
+        &::placeholder {
+            color: #838383;
+            font-size: var(--fs-16);
+            font-weight: 400;
+        }
+
+        &:hover {
+            border-color: #000000;
+            transition-duration: var(--speed-highlightFadeIn);
+        }
+
+        &:focus {
+            box-shadow: none;
+            border-color: #000000;
+            outline: none;
+        }
+    }
+
+    .svg {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 48px;
+        right: 10px;
+        cursor: pointer;
+    }
+}

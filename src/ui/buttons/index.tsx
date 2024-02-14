@@ -20,4 +20,5 @@ const withStyle = (styleName: string) => {
 
 export const Button = withStyle("buttonStandart");
 export const ButtonGreen = withStyle("ButtonGreen");
+export const ButtonWhite = withStyle("ButtonWhite");
 export const ButtonGray = withStyle("ButtonGray");
