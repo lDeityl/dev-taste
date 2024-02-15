@@ -1,7 +1,6 @@
 import React from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import styles from './index.module.scss'
-import { useQuery } from 'react-query';
 import { Fs16Fw400White, Fs18Fw500White, Fs20Fw400Gray, Fs20Fw400White } from '../../../../components/typography';
 import { AccordionContent, AccordionTrigger } from '../../../../ui/accordion';
 
@@ -51,6 +50,6 @@ export const AccordionDevTaste = () => {
                 ))}
             </Accordion.Root>
         </div>
+
     )
 }
-

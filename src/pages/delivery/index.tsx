@@ -7,6 +7,7 @@ import minimap from '../../assets/images/minimap.png'
 import { Fs22BoldWhite } from '../../components/typography'
 
 export const Delivery = () => {
+
     return (
         <Wrapper>
             <HeadLine title='Условия доставки' />
@@ -28,12 +29,11 @@ export const Delivery = () => {
                     </div>
                     <div className={styles.texts}>
                         <Fs22BoldWhite.span>Минимальный заказ:</Fs22BoldWhite.span>
-                        <Fs22BoldWhite.p className={styles.fontwe}>Бесплатная доставка пешим курьером при сумме заказа от 400 ₽
-                            Доставка оператором такси от любой суммы заказа - по тарифам
-                            перевозчика.</Fs22BoldWhite.p>
+                        <Fs22BoldWhite.p className={styles.fontwe}>Бесплатная доставка пешим курьером при сумме заказа от 400 ₽ Доставка оператором такси от любой суммы заказа - по тарифам перевозчика.</Fs22BoldWhite.p>
                     </div>
                 </div>
             </div>
         </Wrapper>
     )
+
 }
