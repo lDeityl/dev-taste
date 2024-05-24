@@ -9,6 +9,7 @@ import Catalog from './pages/catalog';
 import ScrollToTop from './utils/scrollToTop';
 import { Authorization } from './pages/auth';
 import { Delivery } from './pages/delivery';
+import React from 'react';
 
 function App() {
 
