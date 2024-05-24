@@ -1,0 +1,36 @@
+name: Client
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "dev" branch
+  push:
+    branches: ["production"]
+  pull_request:
+    branches: ["production"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  client:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: connection ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: 164.92.100.238
+          username: root
+          key: ${{ secrets.STAGING_PASSWORD }}
+          port: 22
+          script: |
+            cd shell
+            git pull
+            cd client
+            sudo docker-compose up -d --build
