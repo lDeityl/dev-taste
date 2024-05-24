@@ -4,3 +4,8 @@ export interface IRegisterForm {
     password: string
     confirmPassword: string
 }
+
+export interface Users {
+    email?: string
+    name: string
+}

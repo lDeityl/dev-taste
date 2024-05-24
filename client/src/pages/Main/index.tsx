@@ -16,10 +16,20 @@ import { BsLightning } from "react-icons/bs";
 import { SecondSwiper } from './second-swiper'
 import { Contacts } from '../../components/contacts'
 import { useNavigate } from 'react-router-dom'
+import { useQuery } from 'react-query'
+import { getUsers } from '../../api'
 
 export const Main = () => {
 
     const nav = useNavigate();
+
+    const { data } = useQuery({
+        queryFn: getUsers,
+        queryKey: ['all-users'],
+        keepPreviousData: true
+    })
+
+    console.log(data);
 
     return (
         <Wrapper className={styles.main}>
