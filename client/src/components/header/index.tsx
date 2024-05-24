@@ -43,7 +43,6 @@ export const Header = () => {
                 <Wrapper className={styles.rowOne}>
                     <Link to={'/'} className={styles.sadasds} >
                         <Fs25BoldWhite.h1>DEV - TASTE</Fs25BoldWhite.h1>
-                        <img src={logo} alt="" />
                     </Link>
                     <InputSearch className={styles.input} type='text' placeholder='Введите адрес доставки' search />
                     <div className={styles.phone}>
@@ -73,7 +72,7 @@ export const Header = () => {
                         </Link>
                     ))}
                     <Link to="/auth/register">
-                        <Fs18Fw400Gray.span className={checkIsActive('/auth/register') ? styles.activeSpan : ''}>Вход / Регистрация</Fs18Fw400Gray.span>
+                        <Fs18Fw400Gray.span className={checkIsActive('/auth/register') || checkIsActive('/auth/sign-in') ? styles.activeSpan : ''}>Вход / Регистрация</Fs18Fw400Gray.span>
                     </Link>
                 </Wrapper>
             </div>

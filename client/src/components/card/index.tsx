@@ -18,7 +18,6 @@ export const Card = ({ title, weight, image, link, description, price }: Props) 
 
     const navigate = useNavigate();
 
-
     return (
         <div className={styles.cardBox}>
             <img src={image} alt={title} className={styles.image} onClick={() => navigate(`/catalog/${link}`)} />

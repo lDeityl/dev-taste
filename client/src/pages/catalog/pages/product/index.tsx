@@ -64,7 +64,7 @@ export const Product = () => {
                 </Wrapper>
                 :
                 <Wrapper>
-                    <HeadLine title='товар не найден!' />
+                    <HeadLine title='Товар не найден!' />
                 </Wrapper>
             }
             <div className={styles.customHR} />

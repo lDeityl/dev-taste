@@ -6,12 +6,6 @@
             "dom.iterable",
             "esnext"
         ],
-        "baseUrl": "src",
-        "paths": {
-            "assets/*": [
-                "assets/*"
-            ]
-        },
         "allowJs": true,
         "skipLibCheck": true,
         "esModuleInterop": true,
@@ -27,6 +21,6 @@
         "jsx": "react-jsx"
     },
     "include": [
-        "client/src"
+        "src"
     ]
 }

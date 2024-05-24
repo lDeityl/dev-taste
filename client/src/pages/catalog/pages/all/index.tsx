@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './index.module.scss'
 import * as RadioGroup from '@radix-ui/react-radio-group';
 import { coldDishes, dishes, hotDishes } from '../../../../arraysOfObjects';
@@ -9,14 +9,38 @@ import * as Accordion from '@radix-ui/react-accordion';
 
 export const allProducts = [...coldDishes, ...hotDishes, ...dishes];
 
+interface Props {
+    title: string
+    weight: number
+    description: string
+    price: number
+    image: string
+    link: string
+}
+
+const shuffleArray = (array: any) => {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+};
+
 export const AllProducts = () => {
+
+    const [shuffledProducts, setShuffledProducts] = useState([]);
+
+    useEffect(() => {
+        setShuffledProducts(shuffleArray(allProducts));
+    }, [allProducts]);
+
     return (
         <Wrapper className={styles.wrapper}>
             <div className={styles.shopBox}>
                 <Accordion.Root type="multiple" className={styles.AccordionRoot}>
                     <Accordion.Item value="item-1" className={styles.AccordionItem}>
                         <Accordion.Header className={styles.AccordionHeader}>
-                            <Accordion.Trigger className={styles.AccordionTrigger}>Фильтр 1</Accordion.Trigger>
+                            <Accordion.Trigger className={styles.AccordionTrigger}>Цена</Accordion.Trigger>
                         </Accordion.Header>
                         <Accordion.Content className={styles.AccordionContent}>
                             <form>
@@ -26,7 +50,7 @@ export const AllProducts = () => {
                                             <RadioGroup.Indicator className={styles.RadioGroupIndicator} />
                                         </RadioGroup.Item>
                                         <label className={styles.Label} htmlFor="r1">
-                                            Default
+                                            Мясо
                                         </label>
                                     </div>
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -34,7 +58,7 @@ export const AllProducts = () => {
                                             <RadioGroup.Indicator className={styles.RadioGroupIndicator} />
                                         </RadioGroup.Item>
                                         <label className={styles.Label} htmlFor="r2">
-                                            Comfortable
+                                            Закуски
                                         </label>
                                     </div>
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -42,7 +66,7 @@ export const AllProducts = () => {
                                             <RadioGroup.Indicator className={styles.RadioGroupIndicator} />
                                         </RadioGroup.Item>
                                         <label className={styles.Label} htmlFor="r3">
-                                            Compact
+                                            Салаты
                                         </label>
                                     </div>
                                 </RadioGroup.Root>
@@ -51,7 +75,7 @@ export const AllProducts = () => {
                     </Accordion.Item>
                     <Accordion.Item value="item-2" className={styles.AccordionItem}>
                         <Accordion.Header className={styles.AccordionHeader}>
-                            <Accordion.Trigger className={styles.AccordionTrigger}>Фильтр 2</Accordion.Trigger>
+                            <Accordion.Trigger className={styles.AccordionTrigger}>Сортировка</Accordion.Trigger>
                         </Accordion.Header>
                         <Accordion.Content className={styles.AccordionContent}>
                             <form>
@@ -61,7 +85,7 @@ export const AllProducts = () => {
                                             <RadioGroup.Indicator className={styles.RadioGroupIndicator} />
                                         </RadioGroup.Item>
                                         <label className={styles.Label} htmlFor="r4">
-                                            Default
+                                            По убыванию
                                         </label>
                                     </div>
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -69,7 +93,7 @@ export const AllProducts = () => {
                                             <RadioGroup.Indicator className={styles.RadioGroupIndicator} />
                                         </RadioGroup.Item>
                                         <label className={styles.Label} htmlFor="r5">
-                                            Comfortable
+                                            По возрастанию
                                         </label>
                                     </div>
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -77,7 +101,7 @@ export const AllProducts = () => {
                                             <RadioGroup.Indicator className={styles.RadioGroupIndicator} />
                                         </RadioGroup.Item>
                                         <label className={styles.Label} htmlFor="r6">
-                                            Compact
+                                            Популярные
                                         </label>
                                     </div>
                                 </RadioGroup.Root>
@@ -87,7 +111,7 @@ export const AllProducts = () => {
                 </Accordion.Root>
             </div>
             <div className={styles.box}>
-                {allProducts.map((product) => (
+                {shuffleArray(allProducts).map((product: Props) => (
                     <Card
                         key={product.link}
                         title={product.title}
