@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    
+
+   * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+    
+    body {
+      font-family: 'Inter';
+      color: #040404;
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    .wrapper {
+      max-width: 600px;
+    }
+
+    .headline {
+      font-size: 32px;
+      font-weight: 700;
+      margin-top: 25px;
+      margin-bottom: 10px;
+    }
+
+    .body {
+      padding: 0 40px;
+    }
+
+    .code {
+      color: #8364E2;
+      font-weight: 700;
+      font-size: 36px;
+      text-align: center;
+      margin: 15px 0;
+    }
+
+    .purple {
+      color: #8364E2;
+    }
+
+    .small {
+      font-size: 12px;
+    }
+
+    .footer {
+      text-align: center;
+      max-width: 368px;
+      margin: 0 auto;
+
+      display: grid;
+      gap: 7px;
+    }
+
+    hr {
+      border-color: #1EA6E9;
+      margin: 30px 0;
+    }
+
+    .lead {
+      display: grid;
+      gap: 10px;
+    }
+
+    .text {
+      display: grid;
+      gap: 27px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <img src="https://sun9-24.userapi.com/impg/tUbsIVx7-GwGHITX6Fstth6yaJXBpszqc8AdfQ/Nroxr7_tbnw.jpg?size=600x140&quality=96&sign=0103ebe88a65533e3fafe41c0a132301&type=album" />
+    <div class="body">
+      <h2 class="headline">{{headline}}</h2>
+      <div class="lead">
+        <span>Welcome to the ASSETMAKER.</span>
+        <span>Your verification code:</span>
+      </div>
+      <div class="code">{{code}}</div>
+      <div class="text">
+        <span>The verification code will be valid for 30 minutes. If you are not affiliated with i@van.com, you can ignore this email or contact <span class="purple">support</span>.</span>
+        <span>This is an automated email, please do not reply.</span>
+      </div>
+      <hr />
+      <div class="footer">
+        <span class="small">You have received this email because we received a request for this email on the ASSETMAKER service</span>
+        <span class="small">© 2023 ASSETMAKER, All rights reserved</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

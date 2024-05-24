@@ -1,0 +1,28 @@
+generator client {
+    provider      = "prisma-client-js"
+    binaryTargets = ["native", "darwin", "debian-openssl-1.1.x"]
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Users {
+    id                               Int      @id @default(autoincrement())
+    createdAt                        DateTime @default(now())
+    email                            String   @unique
+    name                             String
+    role                             Roles    @default(USER)
+    isEmailActivated                 Boolean  @default(false)
+    password                         String
+    code_change_password             Int?
+    code_confirmation_email          String?
+    twoFactorAuthenticationSecret    String?
+    isTwoFactorAuthenticationEnabled Boolean?
+}
+
+enum Roles {
+    USER
+    ADMIN
+}

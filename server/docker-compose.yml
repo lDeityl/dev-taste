@@ -1,0 +1,22 @@
+version: '3'
+services:
+  nginx:
+    image: valian/docker-nginx-auto-ssl
+    restart: on-failure
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ssl_data:/etc/resty-auto-ssl
+    environment:
+      ALLOWED_DOMAINS: 'nonequilibrium-api.circuit-blaze.space'
+      SITES: 'nonequilibrium-api.circuit-blaze.space=nonequilibrium:3000'
+  nonequilibrium:
+    image: nonequilibrium
+    build: .
+    # ports:
+    #   - 80:3000
+    env_file:
+      - ./.env
+volumes:
+  ssl_data:
