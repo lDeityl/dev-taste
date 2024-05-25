@@ -35,7 +35,7 @@ export const AccordionDevTaste = () => {
 
     return (
         <div className={styles.wrapper}>
-            <Accordion.Root className="AccordionRoot" type="single" collapsible>
+            <Accordion.Root className="AccordionRoot" type="single" collapsible >
                 {question.map((el, idx) => (
                     <>
                         <Accordion.Item key={idx} className={styles.AccordionItem} value={`${idx + 1}`}>

@@ -5,10 +5,11 @@ import { Fs12Fw300White, Fs12Fw500Black, Fs13Fw400Gray, Fs14Fw500White, Fs16Bold
 import { InputSearch } from '../../ui/inputs/input'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FiPhoneCall } from "react-icons/fi";
-import logo from '../../assets/icons/logo.svg'
-import { useQuery } from 'react-query'
-import { getUserById } from '../../api'
 import { useIsAuthenticated } from '../../utils/requireAuth'
+import { VisibleDesktop1280, VisibleHandheld1280 } from '../../utils/visibleComponents'
+import buy from '../../assets/images/Buy.png'
+import { RxCross2 } from "react-icons/rx";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 const links = [
     {
@@ -42,51 +43,88 @@ export const Header = () => {
 
     const isAuthed = useIsAuthenticated();
 
+    const [isBurger, setBurger] = useState<boolean>(false);
+
     return (
-        <header className={styles.header}>
-            <div className={styles.up}>
-                <Wrapper className={styles.rowOne}>
-                    <Link to={'/'} className={styles.sadasds} >
-                        <Fs25BoldWhite.h1>DEV - TASTE</Fs25BoldWhite.h1>
-                    </Link>
-                    <InputSearch className={styles.input} type='text' placeholder='Введите адрес доставки' search />
-                    <div className={styles.phone}>
-                        <a href='tel:' className={styles.iconPhone}>
-                            <FiPhoneCall />
-                        </a>
-                        <div className={styles.contacts}>
-                            <Fs13Fw400Gray.span>Контакты:</Fs13Fw400Gray.span>
-                            <Fs16BoldWhite.span>+7 (917) 510-57-59</Fs16BoldWhite.span>
-                        </div>
+        <>
+            <VisibleDesktop1280>
+                <header className={styles.header}>
+                    <div className={styles.up}>
+                        <Wrapper className={styles.rowOne}>
+                            <Link to={'/'} className={styles.sadasds} >
+                                <Fs25BoldWhite.h1>DEV - TASTE</Fs25BoldWhite.h1>
+                            </Link>
+                            <InputSearch className={styles.input} type='text' placeholder='Введите адрес доставки' search />
+                            <div className={styles.phone}>
+                                <a href='tel:' className={styles.iconPhone}>
+                                    <FiPhoneCall />
+                                </a>
+                                <div className={styles.contacts}>
+                                    <Fs13Fw400Gray.span>Контакты:</Fs13Fw400Gray.span>
+                                    <Fs16BoldWhite.span>+7 (917) 510-57-59</Fs16BoldWhite.span>
+                                </div>
+                            </div>
+                            <div className={styles.cart} onClick={() => nav('/cart')}>
+                                <Fs14Fw500White.span>Корзина</Fs14Fw500White.span>
+                                <div className={styles.unvisibleSqr}>
+                                    <div className={styles.circle}>
+                                        <Fs12Fw500Black.span>0</Fs12Fw500Black.span>
+                                    </div>
+                                </div>
+                            </div>
+                        </Wrapper>
                     </div>
-                    <div className={styles.cart} onClick={() => nav('/cart')}>
-                        <Fs14Fw500White.span>Корзина</Fs14Fw500White.span>
-                        <div className={styles.unvisibleSqr}>
-                            <div className={styles.circle}>
-                                <Fs12Fw500Black.span>0</Fs12Fw500Black.span>
+                    <div className={styles.bot}>
+                        <Wrapper className={styles.navBottom}>
+                            {links.map((el, idx) => (
+                                <Link to={el.link} key={idx}>
+                                    <Fs18Fw400Gray.span className={checkIsActive(el.link) ? styles.activeSpan : ''}>{el.title}</Fs18Fw400Gray.span>
+                                </Link>
+                            ))}
+                            {isAuthed ?
+                                <Link to="/profile">
+                                    <Fs18Fw400Gray.span className={checkIsActive('/profile') ? styles.activeSpan : ''}>Профиль</Fs18Fw400Gray.span>
+                                </Link>
+                                :
+                                <Link to="/auth/register">
+                                    <Fs18Fw400Gray.span className={checkIsActive('/auth/register') || checkIsActive('/auth/sign-in') ? styles.activeSpan : ''}>Вход / Регистрация</Fs18Fw400Gray.span>
+                                </Link>
+                            }
+                        </Wrapper>
+                    </div>
+                </header>
+            </VisibleDesktop1280>
+            <VisibleHandheld1280>
+                <header className={styles.header}>
+                    <Wrapper className={`${styles.up} ${styles.mobileFull}`}>
+                        <div className={styles.mobileUp}>
+                            {isBurger ?
+                                <RxCross2 onClick={() => setBurger(el => !el)} className={styles.iconBurger} />
+                                :
+                                <RxHamburgerMenu onClick={() => setBurger(el => !el)} className={styles.iconBurger} />
+                            }
+                            <Link to={'/'} className={styles.sadasds} >
+                                <Fs25BoldWhite.h1>DEV - TASTE</Fs25BoldWhite.h1>
+                            </Link>
+                            <div className={styles.cart} onClick={() => nav('/cart')}>
+                                <img src={buy} alt="icon-buy" />
+                                <Fs12Fw300White.span>корзина</Fs12Fw300White.span>
                             </div>
                         </div>
-                    </div>
-                </Wrapper>
-            </div>
-            <div className={styles.bot}>
-                <Wrapper className={styles.navBottom}>
-                    {links.map((el, idx) => (
-                        <Link to={el.link} key={idx}>
-                            <Fs18Fw400Gray.span className={checkIsActive(el.link) ? styles.activeSpan : ''}>{el.title}</Fs18Fw400Gray.span>
-                        </Link>
-                    ))}
-                    {isAuthed ?
-                        <Link to="/profile">
-                            <Fs18Fw400Gray.span className={checkIsActive('/profile') ? styles.activeSpan : ''}>Профиль</Fs18Fw400Gray.span>
-                        </Link>
-                        :
-                        <Link to="/auth/register">
-                            <Fs18Fw400Gray.span className={checkIsActive('/auth/register') || checkIsActive('/auth/sign-in') ? styles.activeSpan : ''}>Вход / Регистрация</Fs18Fw400Gray.span>
-                        </Link>
+                    </Wrapper>
+                    {isBurger &&
+                        <div className={styles.hrTOp}>
+                            <Wrapper className={styles.linksMobile}>
+                                {links.map((el, idx) => (
+                                    <Link to={el.link} key={idx}>
+                                        <Fs14Fw500White.span className={checkIsActive(el.link) ? styles.activeSpan : ''}>{el.title}</Fs14Fw500White.span>
+                                    </Link>
+                                ))}
+                            </Wrapper>
+                        </div>
                     }
-                </Wrapper>
-            </div>
-        </header>
+                </header>
+            </VisibleHandheld1280>
+        </>
     )
 }

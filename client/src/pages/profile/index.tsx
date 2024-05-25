@@ -1,6 +1,8 @@
 import React from 'react'
 import { useQuery } from 'react-query'
 import { getUserById } from '../../api'
+import { Wrapper } from '../../components/wrapper'
+import styles from './index.module.scss'
 
 export const Profile = () => {
 
@@ -11,10 +13,10 @@ export const Profile = () => {
     })
 
     return (
-        <div>
+        <Wrapper className={styles.wrapper}>
             {data?.email}
             {data?.name}
             {data?.password}
-        </div>
+        </Wrapper>
     )
 }

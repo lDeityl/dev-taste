@@ -24,3 +24,23 @@ export const VisibleDesktop = ({ children }: Props) => {
         </>
     )
 }
+
+export const VisibleHandheld1280 = ({ children }: Props) => {
+    const { width } = useWindowDimensions();
+
+    return (
+        <>
+            {width < 1280 ? <>{children}</> : <></>}
+        </>
+    )
+}
+
+export const VisibleDesktop1280 = ({ children }: Props) => {
+    const { width } = useWindowDimensions();
+
+    return (
+        <>
+            {width >= 1280 ? <>{children}</> : <></>}
+        </>
+    )
+}

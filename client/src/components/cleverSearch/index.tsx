@@ -36,7 +36,6 @@ export const SelectWithSearch: React.FC<SelectWithSearch> = ({ options, setIsVis
         }
     }
 
-
     const ref: RefObject<HTMLDivElement> = useOutsideClick(handleClickOutside);
 
     useEffect(() => {
@@ -124,13 +123,14 @@ export const SelectWithSearch: React.FC<SelectWithSearch> = ({ options, setIsVis
                                 value={search}
                                 onChange={e => setSearch(e.target.value)}
                                 className={styles.searchInput}
-                                placeholder='Select crypto...'
+                                placeholder='Выбрать...'
                                 ref={inputRef}
                             />
                         </div>
                         <ul className={styles.ul}>
-                            {filteredOptions.map(option => (
+                            {filteredOptions.map((option, idx) => (
                                 <div className={styles.boxImgLi}
+                                    key={idx}
                                     onClick={() => handleSelectOption(option)}>
                                     <li key={option.value}>
                                         {option.label}
