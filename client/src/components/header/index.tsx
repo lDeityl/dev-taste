@@ -6,6 +6,9 @@ import { InputSearch } from '../../ui/inputs/input'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FiPhoneCall } from "react-icons/fi";
 import logo from '../../assets/icons/logo.svg'
+import { useQuery } from 'react-query'
+import { getUserById } from '../../api'
+import { useIsAuthenticated } from '../../utils/requireAuth'
 
 const links = [
     {
@@ -33,9 +36,11 @@ const links = [
 export const Header = () => {
 
     const location = useLocation();
+    const nav = useNavigate();
 
     const checkIsActive = (path: string) => location.pathname === path;
-    const nav = useNavigate();
+
+    const isAuthed = useIsAuthenticated();
 
     return (
         <header className={styles.header}>
@@ -71,9 +76,15 @@ export const Header = () => {
                             <Fs18Fw400Gray.span className={checkIsActive(el.link) ? styles.activeSpan : ''}>{el.title}</Fs18Fw400Gray.span>
                         </Link>
                     ))}
-                    <Link to="/auth/register">
-                        <Fs18Fw400Gray.span className={checkIsActive('/auth/register') || checkIsActive('/auth/sign-in') ? styles.activeSpan : ''}>Вход / Регистрация</Fs18Fw400Gray.span>
-                    </Link>
+                    {isAuthed ?
+                        <Link to="/profile">
+                            <Fs18Fw400Gray.span className={checkIsActive('/profile') ? styles.activeSpan : ''}>Профиль</Fs18Fw400Gray.span>
+                        </Link>
+                        :
+                        <Link to="/auth/register">
+                            <Fs18Fw400Gray.span className={checkIsActive('/auth/register') || checkIsActive('/auth/sign-in') ? styles.activeSpan : ''}>Вход / Регистрация</Fs18Fw400Gray.span>
+                        </Link>
+                    }
                 </Wrapper>
             </div>
         </header>

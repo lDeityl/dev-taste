@@ -1,0 +1,18 @@
+.wrapper {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.7;
+    }
+}
+
+.wrapper2 {
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.7;
+    }
+}

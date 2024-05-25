@@ -10,14 +10,19 @@ import ScrollToTop from './utils/scrollToTop';
 import { Authorization } from './pages/auth';
 import { Delivery } from './pages/delivery';
 import React from 'react';
+import 'react-toastify/dist/ReactToastify.css';
+import { AxiosJWT } from './services/axiosJWT';
+import { Profile } from './pages/profile';
+import { RequireAuth } from './utils/requireAuth';
 
 function App() {
 
     return (
         <>
-            <Header />
+            <AxiosJWT />
             <ToastContainer />
             <ScrollToTop />
+            <Header />
             <Routes>
                 <Route path={"/"} element={<Main />}></Route>
                 <Route path={"/auth/*"} element={<Authorization />}></Route>
@@ -25,6 +30,9 @@ function App() {
                 <Route path={"/cart"} element={<Cart />}></Route>
                 <Route path={"/delivery"} element={<Delivery />}></Route>
                 <Route path={"/catalog/*"} element={<Catalog />}></Route>
+                <Route element={<RequireAuth />} >
+                    <Route path={"/profile"} element={<Profile />}></Route>
+                </Route>
             </Routes>
             <Footer />
         </>

@@ -9,9 +9,37 @@ export const useJwtStore = create(
             setJwt: (jwt: string) => set({ jwt }),
             role: null,
             setRole: (role: string) => set({ role }),
+            isTwoFactorAuthenticationEnabled: null,
+            isEmailActivated: null,
+            isTwoFactorAuthenticated: null,
+            setTwoFactorAuthenticationEnabled: (isTwoFactorAuthenticationEnabled: string) => set({ isTwoFactorAuthenticationEnabled }),
+            setEmailActivated: (isEmailActivated: string) => set({ isEmailActivated }),
+            setTwoFactorAuthenticated: (isTwoFactorAuthenticated: string) => set({ isTwoFactorAuthenticated }),
+            clearAll: () => set({ role: null, isTwoFactorAuthenticated: null, isEmailActivated: null, isTwoFactorAuthenticationEnabled: null, jwt: null }),
         }),
         {
-            name: 'container',
+            name: 'container', // unique name
         }
     )
 )
+
+interface PopupStoreState {
+    isPopupVisible: boolean;
+    showPopup: (visible: boolean) => void;
+}
+
+export const usePopupStore = create<PopupStoreState>((set) => ({
+    isPopupVisible: false,
+    showPopup: (visible) => set({ isPopupVisible: visible }),
+}));
+
+
+interface authentication2FAStoreProps {
+    isPopupVisible: boolean;
+    setisPopupVisible: (visible: boolean) => void;
+}
+
+export const use2FAAuthenticationStore = create<authentication2FAStoreProps>((set) => ({
+    isPopupVisible: false,
+    setisPopupVisible: (visible) => set({ isPopupVisible: visible }),
+}));

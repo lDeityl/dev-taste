@@ -29,8 +29,6 @@ export const Main = () => {
         keepPreviousData: true
     })
 
-    console.log(data);
-
     return (
         <Wrapper className={styles.main}>
             <section>

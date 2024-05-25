@@ -10,14 +10,14 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 
 @Module({
-  imports: [PrismaModule, AuthModule, UsersModule, PassRecoveryModule, TwoFactorModule, ThrottlerModule.forRoot({
-    ttl: 60,
-    limit: 10,
-  }), CacheModule.register()],
-  controllers: [AppController],
-  providers: [AppService, {
-    provide: APP_GUARD,
-    useClass: ThrottlerGuard
-  }],
+    imports: [PrismaModule, AuthModule, UsersModule, PassRecoveryModule, TwoFactorModule, ThrottlerModule.forRoot({
+        ttl: 60,
+        limit: 10,
+    }), CacheModule.register()],
+    controllers: [AppController],
+    providers: [AppService, {
+        provide: APP_GUARD,
+        useClass: ThrottlerGuard
+    }],
 })
 export class AppModule { }

@@ -1,0 +1,35 @@
+.main {
+    display: flex;
+    align-items: center;
+    padding: 42px;
+    gap: 24px;
+    flex-direction: column;
+    width: 100%;
+    max-width: 650px;
+    border-radius: 24px;
+
+    .text_3 {
+        width: 100%;
+    }
+
+    .button_1 {
+        width: 100%;
+    }
+
+    .text_1 {
+        color: #00000080;
+
+    }
+
+    .text {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        gap: 5px;
+
+        .text_gray {
+            color: #00000080;
+
+        }
+    }
+}
