@@ -22,6 +22,66 @@ model Users {
     isTwoFactorAuthenticationEnabled Boolean?
 }
 
+model Category {
+    id           Int          @id @default(autoincrement())
+    createdAt    DateTime     @default(now())
+    name         String
+    categoryType CategoryType
+    Product      Product[]
+    isActive     Boolean
+}
+
+model Product {
+    id            Int      @id @default(autoincrement())
+    createdAt     DateTime @default(now())
+    imageUrl      String
+    name          String
+    description   String
+    price         Int
+    squirrels     Int
+    fats          Int
+    carbohydrates Int
+    calories      Int
+    weight        Int
+    Category      Category @relation(fields: [categoryId], references: [id])
+    categoryId    Int
+    isActive      Boolean
+}
+
+model Stock {
+    id          Int      @id @default(autoincrement())
+    createdAt   DateTime @default(now())
+    imageUrl    String
+    title       String
+    description String
+    date        String
+}
+
+model Faq {
+    id          Int      @id @default(autoincrement())
+    createdAt   DateTime @default(now())
+    title       String
+    description String
+}
+
+model MainSettings {
+    id                 Int      @id @default(autoincrement())
+    createdAt          DateTime @default(now())
+    contactsPhone      String
+    delivery_schedule  String
+    cafe_opening_hours String
+    address            String
+    email              String
+    about_title        String
+    about_description  String
+}
+
+enum CategoryType {
+    COLD_APPETIZERS
+    HOT_APPETIZERS
+    MEAT_DISHES
+}
+
 enum Roles {
     USER
     ADMIN

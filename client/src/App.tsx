@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { Main } from './pages/Main';
 import { ToastContainer } from "react-toastify";
 import { Header } from './components/header';
@@ -14,15 +14,19 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AxiosJWT } from './services/axiosJWT';
 import { Profile } from './pages/profile';
 import { RequireAuth } from './utils/requireAuth';
+import { RequireRole } from './utils/requireRole';
+import AdminPanelRoutes from './admin';
 
 function App() {
+
+    const location = useLocation();
 
     return (
         <>
             <AxiosJWT />
             <ToastContainer />
             <ScrollToTop />
-            <Header />
+            {location.pathname.startsWith('/admin-panel') ? null : <Header />}
             <Routes>
                 <Route path={"/"} element={<Main />}></Route>
                 <Route path={"/auth/*"} element={<Authorization />}></Route>
@@ -33,8 +37,13 @@ function App() {
                 <Route element={<RequireAuth />} >
                     <Route path={"/profile"} element={<Profile />}></Route>
                 </Route>
+
+                <Route element={<RequireRole />} >
+                    <Route path='/admin-panel/*' element={<AdminPanelRoutes />}></Route>
+                </Route>
+                <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
-            <Footer />
+            {location.pathname.startsWith('/admin-panel') ? null : <Footer />}
         </>
     );
 }
