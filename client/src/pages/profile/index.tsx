@@ -14,9 +14,7 @@ export const Profile = () => {
 
     return (
         <Wrapper className={styles.wrapper}>
-            {data?.email}
-            {data?.name}
-            {data?.password}
+            profile
         </Wrapper>
     )
 }
