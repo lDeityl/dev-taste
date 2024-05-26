@@ -11,7 +11,7 @@ import { Fs18Fw400Gray } from '../../components/typography';
 
 interface Input extends React.HTMLAttributes<HTMLInputElement> {
     value?: any
-    type: "password" | "text" | "email" | 'date' | 'number'
+    type: "password" | "text" | "email" | 'date' | 'number' 
     name?: string
     register?: any
     error?: FieldError | undefined
@@ -20,6 +20,7 @@ interface Input extends React.HTMLAttributes<HTMLInputElement> {
     reg?: boolean
     currency?: string
     search?: boolean
+    placeholder?: string
 }
 
 const withStyle = (styleName: string) => {
