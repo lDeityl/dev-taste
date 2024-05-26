@@ -2,7 +2,7 @@ import React from 'react'
 
 function AdminPanelRoutes() {
     return (
-        <div>AdminPanelRoutes</div>
+        <div>Adminfdsfsd</div>
     )
 }
 
