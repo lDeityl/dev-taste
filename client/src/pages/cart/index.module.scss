@@ -16,10 +16,27 @@
         gap: 20px;
         align-items: center;
         padding: 20px;
-        @media (max-width:480px) {
+        @media (max-width:900px) {
             flex-direction: column;
         }
-
+        .parent{
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            width: 100%;
+            @media (max-width:580px) {
+                grid-template-columns: 0.8fr 1.3fr;
+            }
+            @media (max-width:380px) {
+                display: flex;
+                align-items: center;
+            }
+        }
+        .rowMobile{
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            gap: 50px;
+        }
         img {
             user-select: none;
             object-fit: cover;
