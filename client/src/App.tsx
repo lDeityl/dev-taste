@@ -35,7 +35,7 @@ function App() {
                 <Route path={"/delivery"} element={<Delivery />}></Route>
                 <Route path={"/catalog/*"} element={<Catalog />}></Route>
                 <Route element={<RequireAuth />} >
-                    <Route path={"/profile"} element={<Profile />}></Route>
+                    <Route path={"/profile/*"} element={<Profile />}></Route>
                 </Route>
 
                 <Route element={<RequireRole />} >

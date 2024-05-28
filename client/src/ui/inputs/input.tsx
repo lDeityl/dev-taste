@@ -11,7 +11,7 @@ import { Fs18Fw400Gray } from '../../components/typography';
 
 interface Input extends React.HTMLAttributes<HTMLInputElement> {
     value?: any
-    type: "password" | "text" | "email" | 'date' | 'number' 
+    type: "password" | "text" | "email" | 'date' | 'number'
     name?: string
     register?: any
     error?: FieldError | undefined
@@ -106,11 +106,10 @@ const withStyleClearableInput = (styleName: string) => {
         className,
         ...rest
     }: Input) => {
+
         const [inputValue, setInputValue] = useState<string>(value);
 
-        const handleClearInput = () => {
-            setInputValue('');
-        };
+        const handleClearInput = () => setInputValue('');
 
         return (
             <div className={`${styles.basis} ${styles[styleName]} ${className}`}>
@@ -127,7 +126,6 @@ const withStyleClearableInput = (styleName: string) => {
                 />
                 {inputValue && (
                     <RxCross1 className={styles.svg} onClick={handleClearInput} />
-
                 )}
                 <Error isVisible={!!error?.message}>{error?.message}</Error>
             </div>

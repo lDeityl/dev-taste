@@ -8,6 +8,7 @@
     cursor: pointer;
     transform: scale(.97);
     transition: all .3s ease;
+    position: relative;
 
     &:hover {
         transform: scale(1);
@@ -47,5 +48,13 @@
                 height: 24px;
             }
         }
+    }
+
+    .heart {
+        position: absolute;
+        top: 15px;
+        font-size: 30px;
+        right: 15px;
+        fill: rgb(252, 72, 72);
     }
 }

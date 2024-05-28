@@ -1,0 +1,37 @@
+.wrapper {
+    margin: 50px auto;
+
+    .upNavbar {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        .justifyBetween {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .helloExit {
+            @extend .justifyBetween;
+        }
+
+        .navigation {
+            @extend .justifyBetween;
+            border-top: 4px solid #618967;
+            border-bottom: 4px solid #618967;
+            padding: 15px 0;
+        }
+    }
+
+    .routes {
+        margin-top: 30px;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid #6189674d;
+        border-radius: 6px;
+        padding: 20px;
+    }
+}

@@ -1,0 +1,22 @@
+.table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 15px;
+
+    th {
+        text-align: left;
+    }
+
+    .tr {
+        border-bottom: 2px solid #618967;
+        padding-bottom: 10px;
+    }
+
+    tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        width: 100%;
+        gap: 5px;
+    }
+}

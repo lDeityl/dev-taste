@@ -30,6 +30,8 @@ export interface IUsers {
     role: keyof typeof Roles;
     isEmailActivated: boolean;
     password: string;
+    phone?: string;
+    imgURL?: string;
     code_change_password?: string;
     code_confirmation_email?: string;
     twoFactorAuthenticationSecret?: string;

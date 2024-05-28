@@ -1,0 +1,52 @@
+.reqBlock {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    width: 100%;
+    justify-content: space-between;
+
+    .left {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        width: 50%;
+
+        .blocks {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+
+            .item {
+                width: 100%;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+                border-radius: 25px;
+                border: 1px solid #618967;
+
+                .rightSideCart {
+                    display: flex;
+                    gap: 10px;
+                    align-items: center;
+                }
+
+                img {
+                    width: 50px;
+                    height: 50px;
+                    object-fit: cover;
+                    border-radius: 9999px;
+                }
+            }
+        }
+    }
+
+    .right {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 50%;
+    }
+}

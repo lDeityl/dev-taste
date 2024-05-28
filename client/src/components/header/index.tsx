@@ -54,7 +54,7 @@ export const Header = () => {
                             <Link to={'/'} className={styles.sadasds} >
                                 <Fs25BoldWhite.h1>DEV - TASTE</Fs25BoldWhite.h1>
                             </Link>
-                            <InputSearch className={styles.input} type='text' placeholder='Введите адрес доставки' search />
+                            <InputSearch className={styles.input} type='text' placeholder='Введите название блюда' search />
                             <div className={styles.phone}>
                                 <a href='tel:' className={styles.iconPhone}>
                                     <FiPhoneCall />
@@ -116,7 +116,7 @@ export const Header = () => {
                         <div className={styles.hrTOp}>
                             <Wrapper className={styles.linksMobile}>
                                 {links.map((el, idx) => (
-                                    <Link to={el.link} key={idx}>
+                                    <Link to={el.link} key={idx} onClick={() => setBurger(false)} style={{ cursor: 'pointer' }}>
                                         <Fs14Fw500White.span className={checkIsActive(el.link) ? styles.activeSpan : ''}>{el.title}</Fs14Fw500White.span>
                                     </Link>
                                 ))}
