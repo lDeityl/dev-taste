@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './index.module.scss'
 import { Fs12Fw400White, Fs13Fw400Gray, Fs14Fw500White, Fs20Fw500White, Fs22BoldWhite } from '../typography'
 import { ButtonGreen } from '../../ui/buttons'
 import { Link, useNavigate } from 'react-router-dom'
 import but from '../../assets/icons/Buy.svg'
+import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
 
 interface Props {
     title: string
@@ -17,6 +18,7 @@ interface Props {
 export const Card = ({ title, weight, image, link, description, price }: Props) => {
 
     const navigate = useNavigate();
+    const [isHeart, setHeart] = useState<boolean>(false);
 
     return (
         <div className={styles.cardBox}>
@@ -35,6 +37,11 @@ export const Card = ({ title, weight, image, link, description, price }: Props) 
                     </ButtonGreen>
                 </div>
             </div>
+            {isHeart ?
+                <IoIosHeart onClick={() => setHeart(el => !el)} className={`${isHeart ? styles.activeHeart : null} ${styles.heart}`} />
+                :
+                <IoIosHeartEmpty onClick={() => setHeart(el => !el)} className={`${styles.heart}`} />
+            }
         </div>
     )
 }

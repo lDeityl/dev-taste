@@ -1,0 +1,12 @@
+.favouritesBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    .blocks {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+}

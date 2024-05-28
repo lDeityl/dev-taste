@@ -16,6 +16,8 @@ model Users {
     role                             Roles    @default(USER)
     isEmailActivated                 Boolean  @default(false)
     password                         String
+    phone                            String?
+    imgURL                           String?
     code_change_password             Int?
     code_confirmation_email          String?
     twoFactorAuthenticationSecret    String?
@@ -46,6 +48,7 @@ model Product {
     Category      Category @relation(fields: [categoryId], references: [id])
     categoryId    Int
     isActive      Boolean
+    isFavourite   Boolean? @default(false)
 }
 
 model Stock {
