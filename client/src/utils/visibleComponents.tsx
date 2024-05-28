@@ -20,7 +20,7 @@ export const VisibleDesktop = ({ children }: Props) => {
 
     return (
         <>
-            {width > 1024 ? <>{children}</> : <></>}
+            {width >= 1024 ? <>{children}</> : <></>}
         </>
     )
 }
@@ -41,6 +41,26 @@ export const VisibleDesktop1280 = ({ children }: Props) => {
     return (
         <>
             {width >= 1280 ? <>{children}</> : <></>}
+        </>
+    )
+}
+
+export const VisibleHandheld480 = ({ children }: Props) => {
+    const { width } = useWindowDimensions();
+
+    return (
+        <>
+            {width < 480 ? <>{children}</> : <></>}
+        </>
+    )
+}
+
+export const VisibleDesktop480 = ({ children }: Props) => {
+    const { width } = useWindowDimensions();
+
+    return (
+        <>
+            {width >= 480 ? <>{children}</> : <></>}
         </>
     )
 }
