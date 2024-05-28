@@ -63,6 +63,9 @@
             align-items: center;
             justify-content: center;
             gap: 15px;
+            @media (max-width:320px) {
+                display: none;
+            }
         }
     }
 
