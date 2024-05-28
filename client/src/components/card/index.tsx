@@ -5,33 +5,41 @@ import { ButtonGreen } from '../../ui/buttons'
 import { Link, useNavigate } from 'react-router-dom'
 import but from '../../assets/icons/Buy.svg'
 import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
+import { useCartStore } from '../../stores'
+import { IProduct } from '../../interfaces'
+import { toast } from 'react-toastify'
 
 interface Props {
-    title: string
-    weight: number
-    description: string
-    price: number
-    image: string
-    link: string
+    item: IProduct
 }
 
-export const Card = ({ title, weight, image, link, description, price }: Props) => {
+export const Card = ({ item }: Props) => {
 
     const navigate = useNavigate();
     const [isHeart, setHeart] = useState<boolean>(false);
 
+    const { addToCart } = useCartStore()
+
+    const handleAddToCartProduct = () => {
+        if (!item) return;
+        addToCart(item, 1)
+        toast.success(`${String(item.name)} добавлен в корзину`, {
+            position: "top-left"
+        })
+    }
+
     return (
         <div className={styles.cardBox}>
-            <img src={image} alt={title} className={styles.image} onClick={() => navigate(`/catalog/${link}`)} />
+            <img src={item.imageUrl} alt={item.name} className={styles.image} onClick={() => navigate(`/catalog/${item.id}`)} />
             <div className={styles.characteristic}>
-                <div className={styles.up} onClick={() => navigate(`/catalog/${link}`)}>
-                    <Fs22BoldWhite.h4>{title}</Fs22BoldWhite.h4>
-                    <Fs12Fw400White.span>Вес: {weight} г</Fs12Fw400White.span>
+                <div className={styles.up} onClick={() => navigate(`/catalog/${item.id}`)}>
+                    <Fs22BoldWhite.h4>{item.name}</Fs22BoldWhite.h4>
+                    <Fs12Fw400White.span>Вес: {item.weight} г</Fs12Fw400White.span>
                 </div>
-                <Fs13Fw400Gray.p onClick={() => navigate(`/catalog/${link}`)}>{description}</Fs13Fw400Gray.p>
+                <Fs13Fw400Gray.p onClick={() => navigate(`/catalog/${item.id}`)}>{item.description}</Fs13Fw400Gray.p>
                 <div className={styles.price}>
-                    <Fs20Fw500White.span>{price} ₽</Fs20Fw500White.span>
-                    <ButtonGreen className={styles.button}>
+                    <Fs20Fw500White.span>{item.price} ₽</Fs20Fw500White.span>
+                    <ButtonGreen onClick={handleAddToCartProduct} className={styles.button}>
                         <Fs14Fw500White.span>В корзину </Fs14Fw500White.span>
                         <img src={but} alt="" className={styles.but} />
                     </ButtonGreen>

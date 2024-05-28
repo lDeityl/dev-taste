@@ -38,6 +38,40 @@ export interface IUsers {
     isTwoFactorAuthenticationEnabled?: boolean;
 }
 
+export interface IProduct {
+    id: number
+    createdAt: string
+    imageUrl: string
+    name: string
+    description: string
+    price: number
+    squirrels: number
+    fats: number
+    carbohydrates: number
+    calories: number
+    weight: number
+    category: ICategory
+    categoryId: number
+    isActive: boolean
+    isFavourite?: boolean
+}
+
+export interface ICategory {
+    id: number
+    createdAt: string
+    name: string
+    categoryType: keyof typeof CategoryType;
+    profuct: IProduct[]
+    isActive: boolean
+}
+
+enum CategoryType {
+    COLD_APPETIZERS,
+    HOT_APPETIZERS,
+    MEAT_DISHES
+}
+
+
 enum Roles {
     ADMIN,
     USER

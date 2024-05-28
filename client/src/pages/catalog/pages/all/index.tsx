@@ -112,15 +112,16 @@ export const AllProducts = () => {
             </div>
             <div className={styles.box}>
                 {shuffleArray(allProducts).map((product: Props) => (
-                    <Card
-                        key={product.link}
-                        title={product.title}
-                        description={product.description}
-                        weight={product.weight}
-                        price={product.price}
-                        link={product.link}
-                        image={product.image}
-                    />
+                    // <Card
+                    //     key={product.link}
+                    //     title={product.title}
+                    //     description={product.description}
+                    //     weight={product.weight}
+                    //     price={product.price}
+                    //     link={product.link}
+                    //     image={product.image}
+                    // />
+                    <>админка</>
                 ))}
             </div>
         </Wrapper>

@@ -40,14 +40,15 @@ export const FirstSwiper = () => {
         >
             {coldDishes.map((dish, index) => (
                 <SwiperSlide key={index} style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Card
+                    {/* <Card
                         title={dish.title}
                         description={dish.description}
                         weight={dish.weight}
                         price={dish.price}
                         link={dish.link}
                         image={dish.image}
-                    />
+                    /> */}
+                    админка
                 </SwiperSlide>
             ))}
         </Swiper>

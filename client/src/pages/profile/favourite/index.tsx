@@ -11,7 +11,7 @@ export const Favourite = () => {
         <div className={styles.favouritesBlock}>
             <Fs22BoldWhite.span>Ваши избранные товары:</Fs22BoldWhite.span>
             <div className={styles.blocks}>
-                {allProducts.map(el => (
+                {/* {allProducts.map(el => (
                     <Card
                         key={el.link}
                         title={el.title}
@@ -21,7 +21,8 @@ export const Favourite = () => {
                         link={el.link}
                         image={el.image}
                     />
-                ))}
+                ))} */}
+                после админки сделать
             </div>
         </div>
     )
