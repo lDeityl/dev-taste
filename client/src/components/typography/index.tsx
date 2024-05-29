@@ -48,3 +48,10 @@ export const Fs13Fw400Gray = Typography('Fs13Fw400Gray');
 export const Fs12Fw500Black = Typography('Fs12Fw500Black');
 export const Fs12Fw400White = Typography('Fs12Fw400White');
 export const Fs12Fw300White = Typography('Fs12Fw300White');
+
+// admin-panel
+
+export const Fs18Fw400Black = Typography('Fs18Fw400Black');
+export const Fs14Fw400Black = Typography('Fs14Fw400Black');
+export const Fs14Fw400Gray = Typography('Fs14Fw400Gray');
+export const Fs10Fw400Gray = Typography('Fs10Fw400Gray');

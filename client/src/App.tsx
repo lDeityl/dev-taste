@@ -37,7 +37,6 @@ function App() {
                 <Route element={<RequireAuth />} >
                     <Route path={"/profile/*"} element={<Profile />}></Route>
                 </Route>
-
                 <Route element={<RequireRole />} >
                     <Route path='/admin-panel/*' element={<AdminPanelRoutes />}></Route>
                 </Route>

@@ -11,6 +11,7 @@ import { HeadLine } from '../../components/headline'
 import { Fs16Fw400White, Fs18Fw500White, Fs32BoldWhite } from '../../components/typography'
 import { ButtonGreen } from '../../ui/buttons'
 import { Requisites } from './requisites'
+import { useJwtStore } from '../../stores/jwt'
 
 export const Profile = () => {
 
@@ -20,6 +21,8 @@ export const Profile = () => {
         keepPreviousData: true
     })
 
+    const { clearAll } = useJwtStore()
+
     if (!data) return <></>
 
     return (
@@ -28,7 +31,7 @@ export const Profile = () => {
             <div className={styles.upNavbar}>
                 <div className={styles.helloExit}>
                     <Fs32BoldWhite.h2>Привет, {data?.name}</Fs32BoldWhite.h2>
-                    <ButtonGreen><Fs16Fw400White.span>Выйти</Fs16Fw400White.span></ButtonGreen>
+                    <ButtonGreen onClick={clearAll}><Fs16Fw400White.span>Выйти</Fs16Fw400White.span></ButtonGreen>
                 </div>
                 <nav className={styles.navigation}>
                     <Link to='/profile' className={styles.link}><Fs18Fw500White.span>Главная</Fs18Fw500White.span></Link>

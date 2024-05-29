@@ -102,6 +102,36 @@
 
 .Fs12Fw300White {
     font-size: var(--fs-12);
-    font-weight: 7300;
+    font-weight: 300;
     color: white;
+}
+
+.Fs18Fw400Gray {
+    font-size: var(--fs-18);
+    font-weight: 400;
+    color: #62666D;
+}
+
+.Fs18Fw400Black {
+    font-size: var(--fs-18);
+    font-weight: 400;
+    color: #000;
+}
+
+.Fs14Fw400Black {
+    font-size: var(--fs-14);
+    font-weight: 400;
+    color: #000;
+}
+
+.Fs14Fw400Gray {
+    font-size: var(--fs-14);
+    font-weight: 400;
+    color: #CDCDCD;
+}
+
+.Fs10Fw400Gray {
+    font-size: var(--fs-12);
+    font-weight: 400;
+    color: #CDCDCD;
 }

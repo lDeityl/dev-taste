@@ -1,0 +1,97 @@
+.wrapper {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    min-height: 100vh;
+    background: white;
+
+    aside {
+        display: flex;
+        flex-direction: column;
+        border-right: 2px solid #E7E7E7;
+        min-height: 100vh;
+
+        .logo {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border-bottom: 2px solid #E7E7E7;
+        }
+
+        .profile {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 2px solid #E7E7E7;
+
+            .avatar {
+                width: 40px;
+                height: 40px;
+                border-radius: 9999px;
+            }
+
+            .col {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+            }
+        }
+
+        nav {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+
+            .navigate {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                .mainCategory {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+
+                    .iconMain {
+                        font-size: 20px;
+                        line-height: 80%;
+                        color: black;
+                    }
+                }
+
+                .subNavigation {
+                    margin-left: 15px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+
+                    .subCategory {
+                        display: flex;
+                        align-items: center;
+                        gap: 4px;
+                        padding: 4px 14px;
+                        border-radius: 4px;
+
+                        &.active {
+                            background: rgba(114, 164, 121, 0.26);
+                        }
+
+                        .iconMain2 {
+                            font-size: 17px;
+                            line-height: 40%;
+                            color: black;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .routes {
+        padding: 20px;
+    }
+}
