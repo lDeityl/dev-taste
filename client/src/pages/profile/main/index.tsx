@@ -5,6 +5,7 @@ import { Fs18Fw400Green, Fs18Fw500White } from '../../../components/typography';
 import { IUsers } from '../../../interfaces';
 import { ButtonGreen, ButtonGreenBorder } from '../../../ui/buttons';
 import { InputEmail } from '../../../ui/inputs/input';
+import { UpdateProfile } from './components/edit';
 
 export const ProfileMain = (el: IUsers) => {
 
@@ -12,14 +13,10 @@ export const ProfileMain = (el: IUsers) => {
 
     return (
         <div className={styles.main}>
-            <img src={image} alt="avatar" className={styles.img} />
+            {!isChange && <img src={el.imgURL || image} alt="avatar" className={styles.img} />}
             <div className={styles.inputs}>
                 {isChange ?
-                    <>
-                        <InputEmail type='text' placeholder='Имя:' />
-                        <InputEmail type='email' placeholder='E-mail:' />
-                        <InputEmail type='text' placeholder='Телефон:' />
-                    </>
+                    <UpdateProfile setEdit={setChange} />
                     :
                     <>
                         <div className={styles.block}>
@@ -39,7 +36,6 @@ export const ProfileMain = (el: IUsers) => {
             </div>
             {isChange ?
                 <div className={styles.col}>
-                    <ButtonGreen><Fs18Fw500White.span>Сохранить</Fs18Fw500White.span></ButtonGreen>
                     <ButtonGreenBorder onClick={() => setChange(el => !el)}><Fs18Fw500White.span>Отменить</Fs18Fw500White.span></ButtonGreenBorder>
                 </div>
                 :

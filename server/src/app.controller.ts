@@ -5,17 +5,17 @@ import { Jwt2faAuthGuard } from 'auth/jwt-2fa-auth.guard';
 
 @Controller()
 export class AppController {
-  constructor(private authService: AuthService,
-    private prisma: PrismaService) { }
+    constructor(private authService: AuthService,
+        private prisma: PrismaService) { }
 
-  @Get('/')
-  async Hello() {
-    return 'API created by CircuitBlaze Team'
-  }
+    @Get('/')
+    async Hello() {
+        return 'API created by Deity'
+    }
 
-  @UseGuards(Jwt2faAuthGuard)
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
-  }
+    @UseGuards(Jwt2faAuthGuard)
+    @Get('profile')
+    getProfile(@Request() req) {
+        return req.user;
+    }
 }

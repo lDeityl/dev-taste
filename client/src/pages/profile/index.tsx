@@ -17,7 +17,7 @@ export const Profile = () => {
 
     const { data } = useQuery({
         queryFn: getUserById,
-        queryKey: ['user-by-id'],
+        queryKey: ['profile-info'],
         keepPreviousData: true
     })
 

@@ -21,7 +21,9 @@ export class UsersController {
             },
             select: {
                 email: true,
-                name: true
+                name: true,
+                phone: true,
+                imgURL: true
             }
         });
     }

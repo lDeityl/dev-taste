@@ -65,6 +65,13 @@ export interface ICategory {
     isActive: boolean
 }
 
+export interface IUpdateUserProfile {
+    name: string;
+    email: string;
+    phone?: string | null;
+    imgUrl?: string | null;
+}
+
 enum CategoryType {
     COLD_APPETIZERS,
     HOT_APPETIZERS,

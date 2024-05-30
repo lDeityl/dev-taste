@@ -78,12 +78,12 @@ export const Header = () => {
                         <Wrapper className={styles.navBottom}>
                             {links.map((el, idx) => (
                                 <Link to={el.link} key={idx}>
-                                    <Fs18Fw400Gray.span className={checkIsActive(el.link) ? styles.activeSpan : ''}>{el.title}</Fs18Fw400Gray.span>
+                                    <Fs18Fw400Gray.span style={{ color: !checkIsActive(el.link) ? '#cfcfcf' : '' }} className={checkIsActive(el.link) ? styles.activeSpan : ''}>{el.title}</Fs18Fw400Gray.span>
                                 </Link>
                             ))}
                             {isAuthed ?
                                 <Link to="/profile">
-                                    <Fs18Fw400Gray.span className={checkIsActive('/profile') ? styles.activeSpan : ''}>Профиль</Fs18Fw400Gray.span>
+                                    <Fs18Fw400Gray.span style={{ color: !checkIsActive('/profile') ? '#cfcfcf' : '' }} className={checkIsActive('/profile') ? styles.activeSpan : ''}>Профиль</Fs18Fw400Gray.span>
                                 </Link>
                                 :
                                 <Link to="/auth/register">

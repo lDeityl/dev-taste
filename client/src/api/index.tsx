@@ -1,4 +1,4 @@
-import { IEmailConfirm, ILoginForm, IRegisterForm, ISignRes, IUsers } from '../interfaces';
+import { IEmailConfirm, ILoginForm, IRegisterForm, ISignRes, IUpdateUserProfile, IUsers } from '../interfaces';
 import { api } from '../services/api';
 
 export const signUp = async (data: IRegisterForm): Promise<ISignRes> => {
@@ -25,7 +25,18 @@ export const getUsers = async (): Promise<IUsers[]> => {
     let response = await api.get(`/users/all-users`);
     return response.data;
 }
+
 export const getUserById = async (): Promise<IUsers> => {
     let response = await api.get(`/users/get-user-by-id`);
+    return response.data;
+}
+
+export const getAdminById = async (): Promise<IUsers> => {
+    let response = await api.get(`/admin/get-admin-by-id`);
+    return response.data;
+}
+
+export const UpdateProfileReq = async (data: IUpdateUserProfile): Promise<IUsers> => {
+    let response = await api.post(`/profile/update-date`, data);
     return response.data;
 }

@@ -7,6 +7,15 @@ import img from '../assets/images/action/action2.png'
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { TbTruckDelivery } from "react-icons/tb";
+import { Users } from './users';
+import { Admins } from './admins';
+import { Categories } from './categories';
+import { Products } from './products';
+import { Stock } from './stock';
+import { FAQ } from './faq';
+import { Settings } from './settings';
+import { useQuery } from 'react-query';
+import { getAdminById } from '../api';
 
 interface Navigation {
     title: string;
@@ -25,33 +34,28 @@ const linksNav: NavMain[] = [
         title: 'Главная панель',
         icon: HiOutlineSquares2X2,
         navigation: [
-            { title: 'Панель управления', link: '/admin-panel/', icon: HiOutlineSquares2X2 },
+            { title: 'Панель управления', link: '/admin-panel/panel', icon: HiOutlineSquares2X2 },
             { title: 'Пользователи', link: '/admin-panel/users', icon: HiOutlineSquares2X2 },
             { title: 'Админы', link: '/admin-panel/admins', icon: HiOutlineSquares2X2 },
-            { title: 'Партнеры', link: '/admin-panel/partners', icon: HiOutlineSquares2X2 },
-            { title: 'Заявки', link: '/admin-panel/applications', icon: HiOutlineSquares2X2 },
-            { title: 'Заявки на вывод', link: '/admin-panel/withdrawal-applications', icon: HiOutlineSquares2X2 },
-            { title: 'Письма', link: '/admin-panel/emails', icon: HiOutlineSquares2X2 },
-            { title: 'Отзывы', link: '/admin-panel/reviews', icon: HiOutlineSquares2X2 },
-            { title: 'Акция', link: '/admin-panel/promotions', icon: HiOutlineSquares2X2 },
+            { title: 'Категории', link: '/admin-panel/categories', icon: HiOutlineSquares2X2 },
+            { title: 'Продукты', link: '/admin-panel/products', icon: HiOutlineSquares2X2 },
+            { title: 'Акции', link: '/admin-panel/stock', icon: HiOutlineSquares2X2 },
+            { title: 'FAQ', link: '/admin-panel/faq', icon: HiOutlineSquares2X2 },
         ]
     },
-    {
-        title: 'Обменник',
-        icon: TbTruckDelivery,
-        navigation: [
-            { title: 'Акция', link: '/admin-panel/promotions', icon: TbTruckDelivery },
-            { title: 'Пользователи', link: '/admin-panel/users', icon: TbTruckDelivery },
-        ]
-    },
+    // {
+    //     title: 'Обменник',
+    //     icon: TbTruckDelivery,
+    //     navigation: [
+    //         { title: 'Акция', link: '/admin-panel/promotions', icon: TbTruckDelivery },
+    //         { title: 'Пользователи', link: '/admin-panel/users', icon: TbTruckDelivery },
+    //     ]
+    // },
     {
         title: 'Настройки',
         icon: MdOutlineAdminPanelSettings,
         navigation: [
-            { title: 'Заявки', link: '/admin-panel/applications', icon: MdOutlineAdminPanelSettings },
-            { title: 'Пользователи', link: '/admin-panel/users', icon: MdOutlineAdminPanelSettings },
-            { title: 'Админы', link: '/admin-panel/admins', icon: MdOutlineAdminPanelSettings },
-            { title: 'Заявки', link: '/admin-panel/applications', icon: MdOutlineAdminPanelSettings },
+            { title: 'Настройки', link: '/admin-panel/settings', icon: MdOutlineAdminPanelSettings },
         ]
     }
 ]
@@ -59,6 +63,12 @@ const linksNav: NavMain[] = [
 function AdminPanelRoutes() {
 
     const loc = useLocation();
+
+    const { data } = useQuery({
+        queryFn: getAdminById,
+        queryKey: ['admin-by-id'],
+        keepPreviousData: true
+    })
 
     return (
         <div className={styles.wrapper}>
@@ -70,8 +80,8 @@ function AdminPanelRoutes() {
                 <div className={styles.profile}>
                     <img src={img} alt="avatar" className={styles.avatar} />
                     <div className={styles.col}>
-                        <Fs14Fw400Black.span>Admin Dev</Fs14Fw400Black.span>
-                        <Fs14Fw400Gray.span>liveof@admin.ex</Fs14Fw400Gray.span>
+                        <Fs14Fw400Black.span>{data?.name}</Fs14Fw400Black.span>
+                        <Fs14Fw400Gray.span>{data?.email}</Fs14Fw400Gray.span>
                     </div>
                 </div>
                 <nav>
@@ -95,8 +105,15 @@ function AdminPanelRoutes() {
             </aside>
             <div className={styles.routes}>
                 <Routes>
-                    <Route path='/' element={<PanelMain />}></Route>
-                    <Route path="*" element={<Navigate to="/admin-panel/" replace />} />
+                    <Route path='/panel' element={<PanelMain />}></Route>
+                    <Route path='/users' element={<Users />}></Route>
+                    <Route path='/admins' element={<Admins />}></Route>
+                    <Route path='/categories' element={<Categories />}></Route>
+                    <Route path='/products' element={<Products />}></Route>
+                    <Route path='/stock' element={<Stock />}></Route>
+                    <Route path='/faq' element={<FAQ />}></Route>
+                    <Route path='/settings' element={<Settings />}></Route>
+                    <Route path="*" element={<Navigate to="/admin-panel/panel" replace />} />
                 </Routes>
             </div>
         </div>

@@ -1,0 +1,243 @@
+.base {
+    cursor: pointer;
+    user-select: none;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 40px;
+    gap: 5px;
+    transition: all var(--speed-regularTransition);
+
+    &:active {
+        transform: translateY(1px);
+    }
+
+    overflow: hidden;
+
+    img {
+        object-fit: contain;
+        width: 100%;
+    }
+}
+
+.error {
+    border: 1px solid var(--thunderBird) !important;
+}
+
+.customFileUpload {
+
+    input[type="file"] {
+        display: none;
+    }
+
+    border-radius: 4px;
+    font-size: var(--fs-14);
+    transition-property: border,
+    background-color,
+    color,
+    box-shadow,
+    opacity;
+    transition-duration: var(--speed-regularTransition);
+    position: relative;
+    border: 1px solid rgb(57, 58, 75);
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 1px;
+    background-color: rgb(41, 42, 53);
+    color: rgb(210, 211, 224);
+    min-width: 32px;
+    height: 32px;
+    padding: 0px 14px;
+
+    &:hover {
+        background-color: rgb(44, 45, 66);
+        border-color: rgb(68, 69, 86);
+    }
+}
+
+
+.customFileUploadLight {
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+
+    border-radius: 8px;
+    font-size: var(--fs-14);
+    transition-property: border,
+    background-color,
+    color,
+    box-shadow,
+    opacity;
+    transition-duration: var(--speed-regularTransition);
+    position: relative;
+    border: 2px dashed #FBCE07;
+    background: #FAFAFA;
+    color: rgb(60, 65, 73);
+    width: 124px;
+    height: 124px;
+    padding: 0px;
+    font-size: var(--fs-13);
+
+    // &:hover {
+    //     background-color: rgb(244, 245, 248);
+    //     border-color: rgb(223, 225, 228);
+    // }
+
+    .container {
+        width: 124px;
+        height: 124px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .circleContainer {
+            width: 34px;
+            height: 34px;
+            background-color: #fbce0770;
+            border: 1px solid #FBCE07;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            svg {
+                width: 24px;
+                height: 24px;
+            }
+        }
+    }
+}
+
+.customFileUploadLightDocument {
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+
+    border-radius: 8px;
+    font-size: var(--fs-14);
+    transition-property: border,
+    background-color,
+    color,
+    box-shadow,
+    opacity;
+    transition-duration: var(--speed-regularTransition);
+    position: relative;
+    border: 2px dashed #FBCE07;
+    background: #FAFAFA;
+    color: rgb(60, 65, 73);
+    width: 160px;
+    height: 60px;
+    padding: 0px;
+    font-size: var(--fs-13);
+
+    // &:hover {
+    //     background-color: rgb(244, 245, 248);
+    //     border-color: rgb(223, 225, 228);
+    // }
+
+    .container {
+        width: 160px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .circleContainer {
+            width: 34px;
+            height: 34px;
+            background-color: #fbce0770;
+            border: 1px solid #FBCE07;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            svg {
+                width: 24px;
+                height: 24px;
+            }
+        }
+    }
+}
+
+.customFileUploadLight2 {
+    input[type="file"] {
+        display: none;
+    }
+
+    border-radius: 4px;
+    font-size: var(--fs-14);
+    transition-property: border,
+    background-color,
+    color,
+    box-shadow,
+    opacity;
+    transition-duration: var(--speed-regularTransition);
+    position: relative;
+    border: 1px solid rgb(223, 225, 228);
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 1px 4px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(60, 65, 73);
+    min-width: 32px;
+    height: 32px;
+    padding: 0px 14px;
+    font-size: var(--fs-13);
+
+    &:hover {
+        background-color: rgb(244, 245, 248);
+        border-color: rgb(223, 225, 228);
+    }
+}
+
+.customFileUploadLight3 {
+    input[type="file"] {
+        display: none;
+    }
+
+    border-radius: 6px;
+    font-size: var(--fs-15);
+    transition-property: border,
+    background-color,
+    color,
+    opacity;
+    transition-duration: var(--speed-regularTransition);
+    position: relative;
+    border: 1px solid rgb(223, 225, 228);
+    background-color: rgb(255, 255, 255);
+    color: #AFAFAF;
+    max-width: 100px;
+    width: 100%;
+    height: 100px;
+    padding: 0px 14px;
+    font-size: var(--fs-13);
+
+    div {
+        width: 100px;
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    &:hover {
+        background-color: rgb(244, 245, 248);
+        border-color: rgb(223, 225, 228);
+    }
+}
