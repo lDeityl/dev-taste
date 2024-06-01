@@ -61,8 +61,18 @@ export interface ICategory {
     createdAt: string
     name: string
     categoryType: keyof typeof CategoryType;
-    profuct: IProduct[]
+    product: IProduct[]
     isActive: boolean
+}
+
+export interface ICrateCategory {
+    name: string
+    categoryType: keyof typeof CategoryType;
+    isActive: boolean
+}
+
+export interface IUpsertCategory {
+    [key: string]: any
 }
 
 export interface IUpdateUserProfile {

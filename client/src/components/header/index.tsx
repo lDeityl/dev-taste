@@ -87,7 +87,7 @@ export const Header = () => {
                                 </Link>
                                 :
                                 <Link to="/auth/register">
-                                    <Fs18Fw400Gray.span className={checkIsActive('/auth/register') || checkIsActive('/auth/sign-in') ? styles.activeSpan : ''}>Вход / Регистрация</Fs18Fw400Gray.span>
+                                    <Fs18Fw400Gray.span style={{ color: !checkIsActive('/auth/register') ? '#cfcfcf' : '' }} className={checkIsActive('/auth/register') || checkIsActive('/auth/sign-in') ? styles.activeSpan : ''}>Вход / Регистрация</Fs18Fw400Gray.span>
                                 </Link>
                             }
                         </Wrapper>

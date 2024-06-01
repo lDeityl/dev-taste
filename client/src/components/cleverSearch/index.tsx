@@ -1,7 +1,7 @@
 import React, { RefObject, useEffect, useRef, useState } from 'react';
 import styles from './index.module.scss'
-import Expand from 'assets/icons/expang.svg'
-import SearchIcon from 'assets/icons/search-icon.svg'
+import Expand from '../../assets/icons/arrow.svg'
+import SearchIcon from '../../assets/icons/star.svg'
 import { MdClose } from 'react-icons/md';
 import { useOutsideClick } from '../../utils/useOutsideClick';
 
@@ -12,14 +12,12 @@ interface Option {
 
 interface SelectWithSearch {
     options: Option[];
-    setIsVisible: React.Dispatch<React.SetStateAction<boolean>>
-    isVisible: boolean
     setOption: (a: any) => void
     option: Option | null
     isOutsideClickOff?: boolean
 }
 
-export const SelectWithSearch: React.FC<SelectWithSearch> = ({ options, setIsVisible, setOption, option, isVisible, isOutsideClickOff }) => {
+export const SelectWithSearch: React.FC<SelectWithSearch> = ({ options, setOption, option, isOutsideClickOff }) => {
 
     const [isAllowed, setIsAllowed] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
@@ -30,20 +28,6 @@ export const SelectWithSearch: React.FC<SelectWithSearch> = ({ options, setIsVis
         opt.label.toLowerCase().includes(search.toLowerCase())
     );
 
-    const handleClickOutside = () => {
-        if (isAllowed && !isOutsideClickOff) {
-            setIsVisible(false);
-        }
-    }
-
-    const ref: RefObject<HTMLDivElement> = useOutsideClick(handleClickOutside);
-
-    useEffect(() => {
-        setTimeout(() => {
-            setIsAllowed(isVisible);
-        })
-    }, [isVisible])
-
     const handleSelectOption = (option: Option) => {
         setTimeout(() => {
             setOption(option);
@@ -51,19 +35,6 @@ export const SelectWithSearch: React.FC<SelectWithSearch> = ({ options, setIsVis
         });
     };
 
-    useEffect(() => {
-        function handleKeyDown(event: KeyboardEvent) {
-            if (event.key === 'Escape') {
-                setIsVisible(false);
-            }
-        }
-
-        window.addEventListener('keydown', handleKeyDown);
-
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown);
-        };
-    }, []);
 
     const handleOpen = () => {
         setIsOpen(prev => !prev);
@@ -88,7 +59,7 @@ export const SelectWithSearch: React.FC<SelectWithSearch> = ({ options, setIsVis
 
     return (
         <>
-            {isVisible && <div className={styles.selectSearch} ref={ref}>
+            <div className={styles.selectSearch} >
 
                 {option &&
                     <div className={styles.close} onClick={() => handleCloseSearch()}>
@@ -144,7 +115,6 @@ export const SelectWithSearch: React.FC<SelectWithSearch> = ({ options, setIsVis
                     </div>
                 )}
             </div>
-            }
         </>
     );
 };
