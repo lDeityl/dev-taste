@@ -146,6 +146,6 @@ export const Categories = () => {
                     <ButtonGreen isLoading={createCategories_.isLoading} onClick={handleSubmit(onSubmit)}>{isPopUpVisible.data ? 'Изменить категорию' : 'Добавить категорию'}</ButtonGreen>
                 </PopupComponent >
             }
-        </div >
+        </div>
     )
 }

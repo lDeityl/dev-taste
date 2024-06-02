@@ -1,8 +1,52 @@
-.asd {
+.wrapper {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    background: rgb(66, 66, 66);
-    padding: 20px;
-    border-radius: 6px;
+    gap: 40px;
+
+    .titleBlock {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .block {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        width: 100%;
+
+        .item {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 6px;
+            border: 1px solid gray;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+
+
+        }
+    }
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.bl {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.btns {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+    justify-content: space-between;
 }

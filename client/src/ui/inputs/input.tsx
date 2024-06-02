@@ -94,7 +94,6 @@ const withStylePassword = (styleName: string) => {
         );
     };
 };
-
 const withStyleClearableInput = (styleName: string) => {
     return ({
         value,
@@ -104,12 +103,13 @@ const withStyleClearableInput = (styleName: string) => {
         label,
         placeholder,
         className,
+        type, // Добавляем тип поля
         ...rest
     }: Input) => {
 
-        const [inputValue, setInputValue] = useState<string>(value);
+        const [inputValue, setInputValue] = useState<string | number>(value); // Изменяем тип на string | number
 
-        const handleClearInput = () => setInputValue('');
+        const handleClearInput = () => setInputValue(''); // Устанавливаем пустую строку вместо пустого значения для числового поля
 
         return (
             <div className={`${styles.basis} ${styles[styleName]} ${className}`}>
@@ -125,10 +125,31 @@ const withStyleClearableInput = (styleName: string) => {
                     {...rest}
                     className={error?.message ? styles.error : ''}
                     placeholder={placeholder}
+                    type={type} // Устанавливаем тип поля
                 />
                 {inputValue && (
                     <RxCross1 className={styles.svg} onClick={handleClearInput} />
                 )}
+                <Error isVisible={!!error?.message}>{error?.message}</Error>
+            </div>
+        );
+    };
+};
+
+
+
+const withStyleAdmin = (styleName: string) => {
+    return ({ search, value, register, name, error, label, type, className, ...rest }: Input) => {
+        return (
+            <div className={`${styles.basis} ${styles[styleName]} ${className}`}>
+                {label &&
+                    <label className={styles.label}>
+                        {label}
+                    </label>
+                }
+                <input {...register?.(name, {
+                    valueAsNumber: type === "number"
+                })} value={value} type={type} {...rest} className={error?.message && styles.error} />
                 <Error isVisible={!!error?.message}>{error?.message}</Error>
             </div>
         );
@@ -141,4 +162,4 @@ export const InputDark = withStyle("InputDark")
 export const InputPassword = withStylePassword("InputPassword")
 export const InputEmail = withStyleClearableInput("InputEmail")
 export const InputPassword_1 = withStylePassword("InputPassword_1")
-export const InputAdmin = withStyleClearableInput("InputAdmin")
+export const InputAdmin = withStyleAdmin("InputAdmin")

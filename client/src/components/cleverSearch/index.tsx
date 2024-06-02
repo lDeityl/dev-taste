@@ -35,7 +35,6 @@ export const SelectWithSearch: React.FC<SelectWithSearch> = ({ options, setOptio
         });
     };
 
-
     const handleOpen = () => {
         setIsOpen(prev => !prev);
 
