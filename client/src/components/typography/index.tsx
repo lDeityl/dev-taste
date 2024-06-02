@@ -31,9 +31,11 @@ const createComponentCache = (styleName: string) => {
 const Typography = (styleName: string) => createComponentCache(styleName);
 
 export const Fs32BoldWhite = Typography('Fs32BoldWhite');
+export const Fs32BoldBlack = Typography('Fs32BoldBlack');
 export const Fs30BoldWhite = Typography('Fs30BoldWhite');
 export const Fs25BoldWhite = Typography('Fs25BoldWhite');
 export const Fs22BoldWhite = Typography('Fs22BoldWhite');
+export const Fs22BoldBlack = Typography('Fs22BoldBlack');
 export const Fs20Fw500White = Typography('Fs20Fw500White');
 export const Fs20Fw400White = Typography('Fs20Fw400White');
 export const Fs20Fw400Gray = Typography('Fs20Fw400Gray');
@@ -41,7 +43,11 @@ export const Fs18Fw500White = Typography('Fs18Fw500White');
 export const Fs18Fw400Gray = Typography('Fs18Fw400Gray');
 export const Fs18Fw400Green = Typography('Fs18Fw400Green');
 export const Fs16Fw400White = Typography('Fs16Fw400White');
+export const Fs16Fw400Black = Typography('Fs16Fw400Black');
+export const Fs13Fw300Black = Typography('Fs13Fw300Black');
+export const Fs15Fw400Black = Typography('Fs15Fw400Black');
 export const Fs16BoldWhite = Typography('Fs16BoldWhite');
+export const Fs16BoldBlack = Typography('Fs16BoldBlack');
 export const Fs14Fw500White = Typography('Fs14Fw500White');
 export const Fs13Fw500White = Typography('Fs13Fw500White');
 export const Fs13Fw400Gray = Typography('Fs13Fw400Gray');

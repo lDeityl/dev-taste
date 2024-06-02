@@ -113,9 +113,11 @@ const withStyleClearableInput = (styleName: string) => {
 
         return (
             <div className={`${styles.basis} ${styles[styleName]} ${className}`}>
-                <label>
-                    {label}
-                </label>
+                {
+                    label && <label>
+                        {label}
+                    </label>
+                }
                 <input
                     {...register?.(name)}
                     value={inputValue}
@@ -139,3 +141,4 @@ export const InputDark = withStyle("InputDark")
 export const InputPassword = withStylePassword("InputPassword")
 export const InputEmail = withStyleClearableInput("InputEmail")
 export const InputPassword_1 = withStylePassword("InputPassword_1")
+export const InputAdmin = withStyleClearableInput("InputAdmin")

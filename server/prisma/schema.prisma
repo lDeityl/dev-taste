@@ -25,12 +25,11 @@ model Users {
 }
 
 model Category {
-    id           Int          @id @default(autoincrement())
-    createdAt    DateTime     @default(now())
-    name         String
-    categoryType CategoryType
-    Product      Product[]
-    isActive     Boolean
+    id        Int       @id @default(autoincrement())
+    createdAt DateTime  @default(now())
+    name      String
+    Product   Product[]
+    isActive  Boolean
 }
 
 model Product {
@@ -77,12 +76,6 @@ model MainSettings {
     email              String
     about_title        String
     about_description  String
-}
-
-enum CategoryType {
-    COLD_APPETIZERS
-    HOT_APPETIZERS
-    MEAT_DISHES
 }
 
 enum Roles {

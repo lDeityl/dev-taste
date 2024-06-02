@@ -4,6 +4,12 @@
     color: white;
 }
 
+.Fs32BoldBlack {
+    font-size: var(--fs-32);
+    font-weight: 700;
+    color: black;
+}
+
 .Fs30BoldWhite {
     font-size: var(--fs-30);
     font-weight: 700;
@@ -20,6 +26,12 @@
     font-size: var(--fs-22);
     font-weight: 700;
     color: white;
+}
+
+.Fs22BoldBlack {
+    font-size: var(--fs-22);
+    font-weight: 500;
+    color: black;
 }
 
 .Fs20Fw500White {
@@ -64,16 +76,40 @@
     color: white;
 }
 
+.Fs16Fw400Black {
+    font-size: var(--fs-16);
+    font-weight: 400;
+    color: black;
+}
+
+.Fs13Fw300Black {
+    font-size: var(--fs-13);
+    font-weight: 300;
+    color: rgb(61, 61, 61);
+}
+
 .Fs16BoldWhite {
     font-size: var(--fs-16);
     font-weight: 700;
     color: white;
 }
 
+.Fs16BoldBlack {
+    font-size: var(--fs-16);
+    font-weight: 700;
+    color: black;
+}
+
 .Fs14Fw500White {
     font-size: var(--fs-14);
     font-weight: 500;
     color: white;
+}
+
+.Fs15Fw400Black {
+    font-size: var(--fs-15);
+    font-weight: 500;
+    color: black;
 }
 
 .Fs13Fw500White {

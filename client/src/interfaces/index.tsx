@@ -60,19 +60,21 @@ export interface ICategory {
     id: number
     createdAt: string
     name: string
-    categoryType: keyof typeof CategoryType;
     product: IProduct[]
     isActive: boolean
 }
 
 export interface ICrateCategory {
     name: string
-    categoryType: keyof typeof CategoryType;
     isActive: boolean
 }
 
 export interface IUpsertCategory {
     [key: string]: any
+}
+
+export interface DeleteRequest {
+    id: number
 }
 
 export interface IUpdateUserProfile {
@@ -81,13 +83,6 @@ export interface IUpdateUserProfile {
     phone?: string | null;
     imgUrl?: string | null;
 }
-
-enum CategoryType {
-    COLD_APPETIZERS,
-    HOT_APPETIZERS,
-    MEAT_DISHES
-}
-
 
 enum Roles {
     ADMIN,

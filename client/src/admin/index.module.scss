@@ -11,13 +11,17 @@
         flex-direction: column;
         border-right: 2px solid #E7E7E7;
         min-height: 100vh;
+        max-width: 280px;
+        width: 100%;
 
         .logo {
             padding: 20px;
             display: flex;
             align-items: center;
             gap: 5px;
+            justify-content: center;
             border-bottom: 2px solid #E7E7E7;
+            width: 100%;
         }
 
         .profile {
@@ -93,5 +97,6 @@
 
     .routes {
         padding: 20px;
+        width: 100%;
     }
 }
