@@ -5,6 +5,7 @@ import { Error } from '../error'
 import { FontSizeIcon } from '@radix-ui/react-icons'
 import { IoMdAdd } from 'react-icons/io'
 
+
 interface Props extends HTMLAttributes<HTMLInputElement> {
     name?: string
     register?: any
@@ -107,7 +108,7 @@ export const InputFileDocumentsLight = ({ register, name, error, children, class
 
 export const InputFileLight3 = ({ register, name, error, children, className, image, ...rest }: Props) => {
     return (
-        <>
+        <div className={styles.sadasd}>
             <label className={`${styles.base} ${styles.customFileUploadLight3} ${className}`} >
                 {image ? <img src={image} /> :
                     <div>
@@ -117,7 +118,7 @@ export const InputFileLight3 = ({ register, name, error, children, className, im
                 <input type="file" accept="image/png, image/jpeg, image/svg+xml"  {...register?.(name)} {...rest} className={error?.message && styles.error} />
             </label>
             <Error isVisible={!!error?.message}>{error?.message}</Error>
-        </>
+        </div>
     )
 }
 

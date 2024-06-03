@@ -11,16 +11,17 @@ import { UpdateProfileReq, getUserById } from '../../../../../api';
 import { IUsers } from '../../../../../interfaces';
 import { InputFileLight } from '../../../../../ui/input-file';
 import image from '../../../../../assets/images/hot-mini/meat-4.png'
+import { withImageData } from '../../../../../utils/withImageData';
 
 const validationSchema = z.object({
     name: z.string().min(1, 'Поле не должно быть пустым'),
-    email: z.string().email().min(1, 'Поле не должно быть пустым'),
+    email: z.string().email('Введите корректный email').min(1, 'Поле не должно быть пустым'),
     phone: z.string().optional().nullable(),
     file: z.union([z.object({ 0: z.instanceof(File) }), z.any()]).optional(),
     imgURL: z.string().optional(),
-})
+});
 
-type validationSchema = z.infer<typeof validationSchema>;
+type ValidationSchema = z.infer<typeof validationSchema>;
 
 interface Props {
     setEdit: React.Dispatch<React.SetStateAction<boolean>>
@@ -28,37 +29,34 @@ interface Props {
 
 export const UpdateProfile = ({ setEdit }: Props) => {
 
-    const useFetchProfile = () => useQuery({
-        queryKey: ['profile-info'],
-        queryFn: getUserById
-    })
+    const useFetchProfile = () => useQuery(['profile-info'], getUserById);
 
-    const { data } = useFetchProfile();
+    const { data, error } = useFetchProfile();
 
-    const queryClient = useQueryClient()
+    const queryClient = useQueryClient();
 
-    const upsertInfo_ = useMutation({
-        mutationFn: UpdateProfileReq,
+    const upsertInfo_ = useMutation(UpdateProfileReq, {
         onSuccess: (data) => {
-            toast.success("Личный кабинет обновлён")
+            toast.success('Личный кабинет обновлён');
 
             const previousData = queryClient.getQueryData<IUsers>(['profile-info']);
 
-            if (!previousData) return
-
-            previousData.name = data.name
-            previousData.email = data.email
-            previousData.phone = data.phone
-            // previousData.imgURL = data.imgURL
-
-            queryClient.setQueryData<IUsers>(['profile-info'], previousData);
+            if (previousData) {
+                queryClient.setQueryData<IUsers>(['profile-info'], {
+                    ...previousData,
+                    name: data.name,
+                    email: data.email,
+                    phone: data.phone,
+                    imgURL: data.imgURL,
+                });
+            }
 
             setEdit(false);
         },
-        onError: (error: any) => {
-            toast.error("Что-то пошло не так...")
-        }
-    })
+        onError: (error) => {
+            toast.error(`Что-то пошло не так... `);
+        },
+    });
 
     const {
         setValue,
@@ -68,37 +66,45 @@ export const UpdateProfile = ({ setEdit }: Props) => {
         watch,
         getValues,
         formState: { errors },
-    } = useForm<validationSchema>({
+    } = useForm<ValidationSchema>({
         resolver: zodResolver(validationSchema),
+        defaultValues: {
+            imgURL: data?.imgURL,
+        },
     });
 
-    const onSubmit = (values: validationSchema) => {
-        upsertInfo_.mutate(values)
-    }
+    const previousImage = data?.imgURL;
+    const image = watch('file')?.[0] ? URL.createObjectURL(watch('file')[0]) : undefined;
 
-    // const previousImage = data?.imgURL;
-    // const image = watch('file')?.[0] ? URL.createObjectURL(watch('file')?.[0]) : undefined
+    const onSubmit = (values: ValidationSchema) => {
+        if (!data?.id) {
+            toast.error('User ID is missing');
+            return;
+        }
+        const formattedData = withImageData({ ...values, id: data.id });
+        upsertInfo_.mutate(formattedData);
+    };
 
     useEffect(() => {
         if (data) {
-
             reset({
                 name: data.name,
                 email: data.email,
                 phone: data.phone,
-                // imgURL: data.imgURL
-            })
+                imgURL: data.imgURL,
+            });
         }
-    }, [data])
-
+    }, [data, reset]);
 
     return (
         <>
-            <InputFileLight image={image} />
+            <InputFileLight image={image || previousImage} name='file' register={register} />
             <InputEmail type='text' placeholder='Имя:' name='name' register={register} error={errors.name} />
             <InputEmail type='email' placeholder='E-mail:' name='email' register={register} error={errors.email} />
             <InputEmail type='text' placeholder='Телефон:' name='phone' register={register} error={errors.phone} />
-            <ButtonGreen isLoading={upsertInfo_.isLoading} onClick={handleSubmit(onSubmit)}><Fs18Fw500White.span>Сохранить</Fs18Fw500White.span></ButtonGreen>
+            <ButtonGreen isLoading={upsertInfo_.isLoading} onClick={handleSubmit(onSubmit)}>
+                <Fs18Fw500White.span>Сохранить</Fs18Fw500White.span>
+            </ButtonGreen>
         </>
     )
 }

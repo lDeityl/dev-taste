@@ -36,12 +36,12 @@ export const getAdminById = async (): Promise<IUsers> => {
     return response.data;
 }
 
-export const UpdateProfileReq = async (data: IUpdateUserProfile): Promise<IUsers> => {
+export const UpdateProfileReq = async (data: IUpsertCategory): Promise<IUsers> => {
     let response = await api.post(`/profile/update-date`, data);
     return response.data;
 }
 
-export const createProducts = async (data: IUpsertCategory): Promise<boolean> => {
+export const createProducts = async (data: IUpsertCategory): Promise<IProduct> => {
     let response = await api.post(`/products/create`, data);
     return response.data;
 }

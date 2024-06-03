@@ -18,23 +18,23 @@ const imageFileFilter = (req: any, file: Express.Multer.File, callback: Function
 @Controller('profile')
 export class ProfileController {
     constructor(private prisma: PrismaService,
-        // private s3: S3Service
+        private s3: S3Service
     ) { }
 
     @UseGuards(Jwt2faAuthGuard, RolesGuard)
     @Post('update-date')
-    // @UseInterceptors(FileInterceptor('file', { fileFilter: imageFileFilter }))
+    @UseInterceptors(FileInterceptor('file', { fileFilter: imageFileFilter }))
     async updateContact(@Req() req, @Body() body: UpdateProfile, @UploadedFile() file: Express.Multer.File) {
 
-        // if (!file && !body.imgURL) {
-        //     throw new BadRequestException('Wrong image');
-        // }
+        if (!file && !body.imgURL) {
+            throw new BadRequestException('Wrong image');
+        }
 
-        // let link = body.imgURL;
+        let link = body.imgURL;
 
-        // if (file) {
-        //     link = await this.s3.uploadFile(file);
-        // }
+        if (file) {
+            link = await this.s3.uploadFile(file);
+        }
 
         return await this.prisma.users.update({
             where: {
@@ -44,7 +44,7 @@ export class ProfileController {
                 name: body.name,
                 email: body.email,
                 phone: body.phone,
-                // imgURL: link
+                imgURL: link
             }
         })
     }

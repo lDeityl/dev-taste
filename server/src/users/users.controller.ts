@@ -20,6 +20,7 @@ export class UsersController {
                 id: userId,
             },
             select: {
+                id: true,
                 email: true,
                 name: true,
                 phone: true,

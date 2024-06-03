@@ -34,7 +34,14 @@
             display: flex;
             justify-content: space-between;
             gap: 10px;
-            align-items: center;
+            align-items: flex-start;
+
+            .h4 {
+                max-width: 180px;
+                width: 100%;
+                line-height: 130%;
+                word-wrap: break-word;
+            }
         }
 
         .price {

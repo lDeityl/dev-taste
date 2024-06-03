@@ -14,6 +14,8 @@ import { getNormalDate } from '../../utils/normalDate';
 import { PopupComponent } from '../components/popup';
 import { PurpleSwitch } from '../../ui/switch';
 import { SelectWithSearch } from '../../components/cleverSearch';
+import { withImageData } from '../../utils/withImageData';
+import { InputFileLight, InputFileLight3 } from '../../ui/input-file';
 
 export interface PopUpVisibleCategories {
     visibility: boolean;
@@ -27,7 +29,6 @@ export interface Option {
 
 export const validationSchema = z.object({
     id: z.number().optional(),
-    // imageUrl: z.union([z.object({ 0: z.instanceof(File) }), z.any()]).optional(),
     name: z.string().min(1),
     description: z.string().min(1),
     price: z.number().min(0.1),
@@ -37,12 +38,13 @@ export const validationSchema = z.object({
     calories: z.number().min(0.1),
     weight: z.number().min(0.1),
     isActive: z.boolean().default(true),
+    file: z.union([z.object({ 0: z.instanceof(File) }), z.any()]).optional(),
+    imageUrl: z.string().optional(),
 });
 
 type ValidationSchema = z.infer<typeof validationSchema>;
 
 export const Products = () => {
-
     const queryClient = useQueryClient();
 
     const [isPopUpVisible, setIsPopUpVisible] = useState<PopUpVisibleCategories>({
@@ -113,7 +115,27 @@ export const Products = () => {
         formState: { errors },
     } = useForm<ValidationSchema>({
         resolver: zodResolver(validationSchema),
+        defaultValues: {
+            imageUrl: isPopUpVisible.data?.imageUrl
+        }
     });
+
+    const previousImage = isPopUpVisible.data?.imageUrl;
+    const image = watch('file')?.[0] ? URL.createObjectURL(watch('file')[0]) : undefined;
+
+    const openEditCategoryPopup = (category: IProduct) => {
+        setIsPopUpVisible({ visibility: true, data: category });
+    };
+
+    console.log(isPopUpVisible.data);
+
+    const onSubmit = async (values: ValidationSchema) => {
+        const formattedData = withImageData({ ...values, categoryId, id: isPopUpVisible.data?.id });
+        addNewProducts_.mutate({ ...values, categoryId, id: isPopUpVisible.data?.id });
+        setTimeout(() => {
+            setIsPopUpVisible(prevState => ({ ...prevState, visibility: false }));
+        });
+    };
 
     useEffect(() => {
         if (isPopUpVisible.data) {
@@ -127,21 +149,11 @@ export const Products = () => {
             setValue('calories', isPopUpVisible.data.calories);
             setValue('weight', isPopUpVisible.data.weight);
             setValue('isActive', isPopUpVisible.data.isActive);
+            setValue('imageUrl', isPopUpVisible.data.imageUrl);
         } else {
             reset();
         }
     }, [isPopUpVisible, setValue, reset]);
-
-    const openEditCategoryPopup = (category: IProduct) => {
-        setIsPopUpVisible({ visibility: true, data: category });
-    };
-
-    const onSubmit = async (values: ValidationSchema) => {
-        addNewProducts_.mutate({ ...values, categoryId, imageUrl: 'image' });
-        setTimeout(() => {
-            isPopUpVisible.visibility = false
-        })
-    };
 
     return (
         <div className={styles.wrapper}>
@@ -195,8 +207,9 @@ export const Products = () => {
                 <PopupComponent
                     headline={isPopUpVisible.data ? 'Изменить продукт' : 'Добавить продукт'}
                     isVisible={isPopUpVisible.visibility}
-                    setIsVisible={(visible) => setIsPopUpVisible({ visibility: visible, data: null })}
+                    setIsVisible={(visible) => setIsPopUpVisible({ ...isPopUpVisible, visibility: visible })}
                 >
+                    <InputFileLight3 image={image || previousImage} name='file' register={register} />
                     <InputAdmin type="text" register={register} error={errors.name} name='name' placeholder="Название продукта" label='Название продукта' />
                     <InputAdmin type="text" register={register} error={errors.description} name='description' placeholder="Описание продукта" label='Описание продукта' />
                     <InputAdmin type="number" register={register} error={errors.price} name='price' placeholder="Цена продукта" label='Цена продукта' />

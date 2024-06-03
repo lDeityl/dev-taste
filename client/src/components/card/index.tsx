@@ -34,7 +34,7 @@ export const Card = ({ item }: Props) => {
             <img src={image} alt={item.name} className={styles.image} onClick={() => navigate(`/catalog/${item.id}`)} />
             <div className={styles.characteristic}>
                 <div className={styles.up} onClick={() => navigate(`/catalog/${item.id}`)}>
-                    <Fs22BoldWhite.h4>{item.name}</Fs22BoldWhite.h4>
+                    <Fs22BoldWhite.h4 className={styles.h4}>{item.name}</Fs22BoldWhite.h4>
                     <Fs12Fw400White.span>Вес: {item.weight} г</Fs12Fw400White.span>
                 </div>
                 <Fs13Fw400Gray.p onClick={() => navigate(`/catalog/${item.id}`)}>{item.description}</Fs13Fw400Gray.p>
