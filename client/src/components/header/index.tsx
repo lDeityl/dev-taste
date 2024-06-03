@@ -10,6 +10,7 @@ import { VisibleDesktop1280, VisibleHandheld1280 } from '../../utils/visibleComp
 import buy from '../../assets/images/Buy.png'
 import { RxCross2 } from "react-icons/rx";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { useCartStore } from '../../stores'
 
 const links = [
     {
@@ -44,6 +45,7 @@ export const Header = () => {
     const isAuthed = useIsAuthenticated();
 
     const [isBurger, setBurger] = useState<boolean>(false);
+    const { cartItems } = useCartStore()
 
     return (
         <>
@@ -68,7 +70,7 @@ export const Header = () => {
                                 <Fs14Fw500White.span>Корзина</Fs14Fw500White.span>
                                 <div className={styles.unvisibleSqr}>
                                     <div className={styles.circle}>
-                                        <Fs12Fw500Black.span>0</Fs12Fw500Black.span>
+                                        <Fs12Fw500Black.span>{cartItems.length}</Fs12Fw500Black.span>
                                     </div>
                                 </div>
                             </div>

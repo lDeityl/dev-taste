@@ -32,19 +32,38 @@ export interface CartItem {
     product: IProduct;
     quantity: number;
 }
-
 export interface CartState {
     cartItems: CartItem[];
+    userAddress: string | null;
+    deliveryWithBags: boolean;
     addToCart: (product: IProduct, quantity: number) => void;
     removeFromCart: (productId: number) => void;
     updateQuantity: (productId: number, quantity: number) => void;
     clearCart: () => void; // Add clearCart to the interface
+    clearAll: () => void; // Add clearCart to the interface
+    setUserAddress: (address: string) => void;
+    setDeliveryOption: (withBags: boolean) => void;
 }
 
 export const useCartStore = create<CartState>()(
     persist(
         (set, get) => ({
             cartItems: [],
+            userAddress: null,
+            deliveryWithBags: false,
+            createdOrder: null,
+            paymentDetails: {
+                cardNumber: null,
+                expDate: null,
+                cvv: null,
+                cardHolderName: null,
+            },
+            setUserAddress: (address) => {
+                set({ userAddress: address });
+            },
+            setDeliveryOption: (withBags) => {
+                set({ deliveryWithBags: withBags });
+            },
             addToCart: (product, quantity) => {
                 const currentCartItems = get().cartItems;
                 const existingItem = currentCartItems.find(item => item.product.id === product.id);
@@ -73,7 +92,16 @@ export const useCartStore = create<CartState>()(
                 }));
             },
             clearCart: () => {
-                set({ cartItems: [] }); // Set cartItems to an empty array
+                set({
+                    cartItems: []
+                }); // Set cartItems to an empty array
+            },
+            clearAll: () => {
+                set({
+                    cartItems: [],
+                    userAddress: null,
+                    deliveryWithBags: false,
+                });
             }
         }),
         {

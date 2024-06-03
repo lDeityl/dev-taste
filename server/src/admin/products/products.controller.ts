@@ -9,7 +9,8 @@ import { id } from 'ethers/lib/utils';
 
 @Controller('products')
 export class ProductsController {
-    constructor(private prisma: PrismaService) { }
+    constructor(private prisma: PrismaService,
+    ) { }
 
     @Get('get')
     async getProducts() {
@@ -22,7 +23,9 @@ export class ProductsController {
 
     @UseGuards(JwtAuthGuard)
     @Post('create')
-    async createProduct(@Body() body: CreateProductDto) {
+    @UseInterceptors(FileInterceptor('file'))
+    async createProduct(@Body() body: CreateProductDto,
+        @UploadedFile() file: Express.Multer.File) {
 
         const categoryId = typeof body.categoryId === 'number' ? body.categoryId : -1;
 

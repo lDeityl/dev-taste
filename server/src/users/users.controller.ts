@@ -30,13 +30,10 @@ export class UsersController {
 
     @Get('get-product')
     async getProducts(@Query('productId') productId: string) {
-        return await this.prisma.product.findMany({
+        return await this.prisma.product.findFirst({
             where: {
                 id: Number(productId),
                 isActive: true
-            },
-            orderBy: {
-                id: 'asc'
             }
         });
     }
@@ -54,9 +51,6 @@ export class UsersController {
                 Product: {
                     where: {
                         isActive: true,
-                    },
-                    orderBy: {
-                        id: 'asc',
                     },
                 },
             },

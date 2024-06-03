@@ -31,14 +31,12 @@ export const Main = () => {
 
     return (
         <Wrapper className={styles.main}>
-            {categories &&
-                categories.map(category => (
-                    <section key={category.id}>
-                        <HeadLine title={category.name} />
-                        <FirstSwiper category={category} />
-                    </section>
-                ))
-            }
+            {categories?.map(category => (
+                <section key={category.id}>
+                    <HeadLine title={category.name} />
+                    <FirstSwiper key={category.id} category={category} />
+                </section>
+            ))}
             <section className={styles.ourCoffe}>
                 <div className={styles.leftSide}>
                     <Fs32BoldWhite.h4>НАШЕ КАФЕ</Fs32BoldWhite.h4>

@@ -21,6 +21,7 @@ import { getUserProduct } from '../../../../api'
 export const Product = () => {
 
     const nav = useNavigate();
+
     const { id } = useParams();
 
     const { data: el } = useQuery({
