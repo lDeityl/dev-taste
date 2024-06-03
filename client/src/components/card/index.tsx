@@ -8,6 +8,7 @@ import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
 import { useCartStore } from '../../stores'
 import { IProduct } from '../../interfaces'
 import { toast } from 'react-toastify'
+import image from '../../assets/images/cold/meat-5.png'
 
 interface Props {
     item: IProduct
@@ -30,7 +31,7 @@ export const Card = ({ item }: Props) => {
 
     return (
         <div className={styles.cardBox}>
-            <img src={item.imageUrl} alt={item.name} className={styles.image} onClick={() => navigate(`/catalog/${item.id}`)} />
+            <img src={image} alt={item.name} className={styles.image} onClick={() => navigate(`/catalog/${item.id}`)} />
             <div className={styles.characteristic}>
                 <div className={styles.up} onClick={() => navigate(`/catalog/${item.id}`)}>
                     <Fs22BoldWhite.h4>{item.name}</Fs22BoldWhite.h4>

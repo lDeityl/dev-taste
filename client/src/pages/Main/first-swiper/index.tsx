@@ -5,9 +5,14 @@ import 'swiper/swiper-bundle.css';
 import SwiperCore from 'swiper';
 import { Card } from '../../../components/card';
 import { coldDishes } from '../../../arraysOfObjects';
+import { useQuery } from 'react-query';
+import { ICategory } from '../../../interfaces';
 
+interface Props {
+    category: ICategory
+}
 
-export const FirstSwiper = () => {
+export const FirstSwiper = ({ category }: Props) => {
 
     const swiper = useRef<SwiperCore | null>(null);
 
@@ -38,17 +43,9 @@ export const FirstSwiper = () => {
                 }
             }}
         >
-            {coldDishes.map((dish, index) => (
+            {category.product?.map((dish, index) => (
                 <SwiperSlide key={index} style={{ display: 'flex', justifyContent: 'center' }}>
-                    {/* <Card
-                        title={dish.title}
-                        description={dish.description}
-                        weight={dish.weight}
-                        price={dish.price}
-                        link={dish.link}
-                        image={dish.image}
-                    /> */}
-                    админка
+                    <Card item={dish} />
                 </SwiperSlide>
             ))}
         </Swiper>

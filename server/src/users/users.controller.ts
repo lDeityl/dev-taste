@@ -1,4 +1,4 @@
-import { Controller, Get, Req, UseGuards } from "@nestjs/common";
+import { Controller, Get, Query, Req, UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "auth/jwt-auth.guard";
 import { PrismaService } from "prisma/prisma.service";
 
@@ -25,6 +25,41 @@ export class UsersController {
                 phone: true,
                 imgURL: true
             }
+        });
+    }
+
+    @Get('get-product')
+    async getProducts(@Query('productId') productId: string) {
+        return await this.prisma.product.findMany({
+            where: {
+                id: Number(productId),
+                isActive: true
+            },
+            orderBy: {
+                id: 'asc'
+            }
+        });
+    }
+
+    @Get('get-categories')
+    async getCategories() {
+        return await this.prisma.category.findMany({
+            where: {
+                isActive: true,
+            },
+            orderBy: {
+                id: "asc",
+            },
+            include: {
+                Product: {
+                    where: {
+                        isActive: true,
+                    },
+                    orderBy: {
+                        id: 'asc',
+                    },
+                },
+            },
         });
     }
 }

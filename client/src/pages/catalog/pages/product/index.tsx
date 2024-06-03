@@ -13,22 +13,29 @@ import { useParams } from 'react-router-dom';
 import { allProducts } from '../all'
 import ScrollToTop from '../../../../utils/scrollToTop'
 import { FirstSwiper } from '../../../Main/first-swiper'
+import { IProduct } from '../../../../interfaces'
+import image from '../../../../assets/images/hot/meat-3.png'
+import { useQuery } from 'react-query'
+import { getUserProduct } from '../../../../api'
 
 export const Product = () => {
 
     const nav = useNavigate();
-
     const { id } = useParams();
-    const el = allProducts.find((item) => item.link === id);
+
+    const { data: el } = useQuery({
+        queryFn: () => getUserProduct(Number(id)),
+        queryKey: ["get-product", id]
+    })
 
     return (
         <div className={styles.box}>
             {el ?
                 <Wrapper className={styles.cart}>
-                    <img src={el?.image} alt="" />
+                    <img src={image} alt="" />
                     <div className={styles.blocks}>
                         <div className={styles.up}>
-                            <Fs25BoldWhite.h4>{el.title}</Fs25BoldWhite.h4>
+                            <Fs25BoldWhite.h4>{el.name}</Fs25BoldWhite.h4>
                             <Fs13Fw400Gray.p>{el.description}</Fs13Fw400Gray.p>
                         </div>
                         <div className={styles.bottom}>
@@ -52,9 +59,9 @@ export const Product = () => {
                                 </div>
                                 <hr />
                                 <div className={styles.digits}>
-                                    <Fs13Fw500White.span>{el.protein}</Fs13Fw500White.span>
-                                    <Fs13Fw500White.span>{el.fat}</Fs13Fw500White.span>
-                                    <Fs13Fw500White.span>{el.carbs}</Fs13Fw500White.span>
+                                    <Fs13Fw500White.span>{el.squirrels}</Fs13Fw500White.span>
+                                    <Fs13Fw500White.span>{el.fats}</Fs13Fw500White.span>
+                                    <Fs13Fw500White.span>{el.carbohydrates}</Fs13Fw500White.span>
                                     <Fs13Fw500White.span>{el.calories}</Fs13Fw500White.span>
                                     <Fs13Fw500White.span>{el.weight}</Fs13Fw500White.span>
                                 </div>
@@ -70,7 +77,7 @@ export const Product = () => {
             <div className={styles.customHR} />
             <Wrapper>
                 <HeadLine title='С ЭТИМ ТОВАРОМ ПОКУПАЮТ' />
-                {
+                {/* {
                     Number(el?.link) >= 1 && Number(el?.link) < 6 && <SecondSwiper />
                 }
                 {
@@ -78,7 +85,7 @@ export const Product = () => {
                 }
                 {
                     Number(el?.link) >= 11 && Number(el?.link) < 16 && <ThirdSwiper />
-                }
+                } */}
             </Wrapper>
             <Wrapper className={styles.wrapperContacts}>
                 <Contacts />

@@ -31,6 +31,9 @@ export class CreateProductDto {
     @IsNumber()
     calories: number;
 
+    @IsString()
+    imageUrl: string;
+
     @IsNotEmpty()
     @IsNumber()
     weight: number;

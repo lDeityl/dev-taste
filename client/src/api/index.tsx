@@ -41,7 +41,7 @@ export const UpdateProfileReq = async (data: IUpdateUserProfile): Promise<IUsers
     return response.data;
 }
 
-export const createProducts = async (data: IUpsertCategory): Promise<any> => {
+export const createProducts = async (data: IUpsertCategory): Promise<boolean> => {
     let response = await api.post(`/products/create`, data);
     return response.data;
 }
@@ -68,5 +68,15 @@ export const getProduct = async (): Promise<IProduct[]> => {
 
 export const deleteProducts = async (data: DeleteRequest): Promise<boolean> => {
     let response = await api.post(`/products/delete`, data);
+    return response.data;
+}
+
+export const getUserProduct = async (id: number): Promise<IProduct> => {
+    let response = await api.get(`/users/get-product?productId=${id}`);
+    return response.data;
+}
+
+export const getUserCategories = async (): Promise<ICategory[]> => {
+    let response = await api.get(`/users/get-categories`);
     return response.data;
 }

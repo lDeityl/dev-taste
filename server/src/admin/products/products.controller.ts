@@ -24,9 +24,19 @@ export class ProductsController {
     @Post('create')
     async createProduct(@Body() body: CreateProductDto) {
 
+        const categoryId = typeof body.categoryId === 'number' ? body.categoryId : -1;
+
+        const category = await this.prisma.category.findUnique({
+            where: { id: categoryId }
+        });
+
+        if (!category) {
+            throw new Error(`Category with id ${categoryId} not found`);
+        }
+
         const product = await this.prisma.product.upsert({
             where: {
-                id: Number(body.id) ?? -1,
+                id: body.id ?? -1
             },
             create: {
                 name: body.name,
@@ -37,9 +47,9 @@ export class ProductsController {
                 carbohydrates: body.carbohydrates,
                 calories: body.calories,
                 weight: body.weight,
-                categoryId: Number(body.categoryId) || -1,
+                categoryId: category.id,
                 isActive: body.isActive,
-                imageUrl: 'need'
+                imageUrl: body.imageUrl || 'imageUrl'
             },
             update: {
                 name: body.name,
@@ -50,12 +60,11 @@ export class ProductsController {
                 carbohydrates: body.carbohydrates,
                 calories: body.calories,
                 weight: body.weight,
-                categoryId: Number(body.categoryId) || -1,
+                categoryId: category.id,
                 isActive: body.isActive,
-                imageUrl: 'need'
+                imageUrl: body.imageUrl || 'imageUrl'
             }
         });
-
         return product;
     }
 

@@ -17,32 +17,28 @@ import { SecondSwiper } from './second-swiper'
 import { Contacts } from '../../components/contacts'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
-import { getUsers } from '../../api'
+import { getCategories, getProduct, getUserCategories, getUsers } from '../../api'
 
 export const Main = () => {
 
     const nav = useNavigate();
 
-    const { data } = useQuery({
-        queryFn: getUsers,
-        queryKey: ['all-users'],
-        keepPreviousData: true
-    })
+    const { data: categories } = useQuery({
+        queryFn: getUserCategories,
+        queryKey: ['categories'],
+    });
+    console.log(categories);
 
     return (
         <Wrapper className={styles.main}>
-            <section>
-                <HeadLine title='Холодные закуски' />
-                <FirstSwiper />
-            </section>
-            <section>
-                <HeadLine title='ГОРЯЧИЕ ЗАКУСКИ' />
-                <ThirdSwiper />
-            </section>
-            <section>
-                <HeadLine title='Мясные блюда' />
-                <SecondSwiper />
-            </section>
+            {categories &&
+                categories.map(category => (
+                    <section key={category.id}>
+                        <HeadLine title={category.name} />
+                        <FirstSwiper category={category} />
+                    </section>
+                ))
+            }
             <section className={styles.ourCoffe}>
                 <div className={styles.leftSide}>
                     <Fs32BoldWhite.h4>НАШЕ КАФЕ</Fs32BoldWhite.h4>

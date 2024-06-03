@@ -9,6 +9,7 @@ export class CreateCategories {
     @IsBoolean()
     isActive: boolean
 }
+
 export class DeleteCategories {
     id: number;
 }
