@@ -41,7 +41,7 @@ export const UpdateProfileReq = async (data: IUpsertCategory): Promise<IUsers> =
     return response.data;
 }
 
-export const createProducts = async (data: IUpsertCategory): Promise<IProduct> => {
+export const createProducts = async (data: IUpsertCategory): Promise<boolean> => {
     let response = await api.post(`/products/create`, data);
     return response.data;
 }

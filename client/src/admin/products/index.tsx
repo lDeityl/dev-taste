@@ -115,45 +115,57 @@ export const Products = () => {
         formState: { errors },
     } = useForm<ValidationSchema>({
         resolver: zodResolver(validationSchema),
-        defaultValues: {
-            imageUrl: isPopUpVisible.data?.imageUrl
-        }
     });
 
     const previousImage = isPopUpVisible.data?.imageUrl;
-    const image = watch('file')?.[0] ? URL.createObjectURL(watch('file')[0]) : undefined;
+    const imageUrl = watch('file')?.[0] ? URL.createObjectURL(watch('file')?.[0]) : undefined
 
     const openEditCategoryPopup = (category: IProduct) => {
         setIsPopUpVisible({ visibility: true, data: category });
     };
 
-    console.log(isPopUpVisible.data);
-
     const onSubmit = async (values: ValidationSchema) => {
-        const formattedData = withImageData({ ...values, categoryId, id: isPopUpVisible.data?.id });
-        addNewProducts_.mutate({ ...values, categoryId, id: isPopUpVisible.data?.id });
-        setTimeout(() => {
-            setIsPopUpVisible(prevState => ({ ...prevState, visibility: false }));
-        });
+        const formattedData = withImageData({ ...values, id: isPopUpVisible.data?.id, categoryId });
+        addNewProducts_.mutate(formattedData);
+        setIsPopUpVisible({ data: null, visibility: false });
     };
 
     useEffect(() => {
         if (isPopUpVisible.data) {
-            setValue('id', isPopUpVisible.data.id);
-            setValue('name', isPopUpVisible.data.name);
-            setValue('description', isPopUpVisible.data.description);
-            setValue('price', isPopUpVisible.data.price);
-            setValue('squirrels', isPopUpVisible.data.squirrels);
-            setValue('fats', isPopUpVisible.data.fats);
-            setValue('carbohydrates', isPopUpVisible.data.carbohydrates);
-            setValue('calories', isPopUpVisible.data.calories);
-            setValue('weight', isPopUpVisible.data.weight);
-            setValue('isActive', isPopUpVisible.data.isActive);
-            setValue('imageUrl', isPopUpVisible.data.imageUrl);
-        } else {
-            reset();
+
+            reset({
+                id: isPopUpVisible.data.id,
+                name: isPopUpVisible.data.name,
+                description: isPopUpVisible.data.description,
+                price: isPopUpVisible.data.price,
+                squirrels: isPopUpVisible.data.squirrels,
+                fats: isPopUpVisible.data.fats,
+                carbohydrates: isPopUpVisible.data.carbohydrates,
+                calories: isPopUpVisible.data.calories,
+                weight: isPopUpVisible.data.weight,
+                isActive: isPopUpVisible.data.isActive,
+                imageUrl: isPopUpVisible.data.imageUrl,
+            })
         }
-    }, [isPopUpVisible, setValue, reset]);
+    }, [isPopUpVisible.data])
+
+    // useEffect(() => {
+    //     if (isPopUpVisible.data) {
+    //         setValue('id', isPopUpVisible.data.id);
+    //         setValue('name', isPopUpVisible.data.name);
+    //         setValue('description', isPopUpVisible.data.description);
+    //         setValue('price', isPopUpVisible.data.price);
+    //         setValue('squirrels', isPopUpVisible.data.squirrels);
+    //         setValue('fats', isPopUpVisible.data.fats);
+    //         setValue('carbohydrates', isPopUpVisible.data.carbohydrates);
+    //         setValue('calories', isPopUpVisible.data.calories);
+    //         setValue('weight', isPopUpVisible.data.weight);
+    //         setValue('isActive', isPopUpVisible.data.isActive);
+    //         setValue('imageUrl', isPopUpVisible.data.imageUrl);
+    //     } else {
+    //         reset();
+    //     }
+    // }, [isPopUpVisible, setValue, reset]);
 
     return (
         <div className={styles.wrapper}>
@@ -209,7 +221,7 @@ export const Products = () => {
                     isVisible={isPopUpVisible.visibility}
                     setIsVisible={(visible) => setIsPopUpVisible({ ...isPopUpVisible, visibility: visible })}
                 >
-                    <InputFileLight3 image={image || previousImage} name='file' register={register} />
+                    <InputFileLight3 image={imageUrl || previousImage} name='file' register={register} />
                     <InputAdmin type="text" register={register} error={errors.name} name='name' placeholder="Название продукта" label='Название продукта' />
                     <InputAdmin type="text" register={register} error={errors.description} name='description' placeholder="Описание продукта" label='Описание продукта' />
                     <InputAdmin type="number" register={register} error={errors.price} name='price' placeholder="Цена продукта" label='Цена продукта' />

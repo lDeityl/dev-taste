@@ -8,6 +8,10 @@ import { JwtAuthGuard } from 'auth/jwt-auth.guard';
 import { id } from 'ethers/lib/utils';
 import { S3Service } from 's3/s3.service';
 import { Jwt2faAuthGuard } from 'auth/jwt-2fa-auth.guard';
+import { Role } from 'entities/role.enum';
+import { Roles } from 'roles/roles.decorator';
+import { RolesGuard } from 'roles/roles.guard';
+import { SharpPipe } from 'pipes/compress-image/compress-image.pipe';
 
 const imageFileFilter = (req: any, file: Express.Multer.File, callback: Function) => {
     if (!file.mimetype.match(/\/(jpg|jpeg|png|svg+xml|webp|avif)$/)) {
@@ -31,9 +35,10 @@ export class ProductsController {
         });
     }
 
-    @UseGuards(Jwt2faAuthGuard)
+    @Roles(Role.ADMIN)
+    @UseGuards(Jwt2faAuthGuard, RolesGuard)
+    @UseInterceptors(FileInterceptor('file', { fileFilter: imageFileFilter, }))
     @Post('create')
-    @UseInterceptors(FileInterceptor('file', { fileFilter: imageFileFilter }))
     async createProduct(@Body() body: CreateProductDto, @UploadedFile() file: Express.Multer.File) {
 
         if (!file && !body.imageUrl) {
@@ -52,7 +57,7 @@ export class ProductsController {
             where: { id: categoryId }
         });
 
-        const product = await this.prisma.product.upsert({
+        await this.prisma.product.upsert({
             where: {
                 id: Number(body.id) || -1
             },
@@ -83,7 +88,7 @@ export class ProductsController {
                 imageUrl: link
             }
         });
-        return product;
+        return true
     }
 
     @UseGuards(JwtAuthGuard)
