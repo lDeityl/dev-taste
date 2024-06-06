@@ -6,6 +6,7 @@ import { Fs12Fw400White, Fs13Fw500White, Fs14Fw500White, Fs16BoldWhite, Fs18Fw40
 import meat1 from '../../assets/images/hot/meat-1.png'
 import { ButtonGreen } from '../../ui/buttons'
 import { VisibleDesktop900, VisibleHandheld900 } from '../../utils/visibleComponents'
+import { useNavigate } from 'react-router-dom'
 const products = [
     {
         id: 1,
@@ -40,6 +41,7 @@ const products = [
 ];
 
 export const Cart = () => {
+    const navigate = useNavigate()
     return (
         <Wrapper>
             <HeadLine title='КОРЗИНА' />
@@ -150,7 +152,7 @@ export const Cart = () => {
                         </Fs13Fw500White.span>
                         <Fs12Fw400White.span>Минимальная сума заказа 1500 ₽</Fs12Fw400White.span>
                     </div>
-                    <ButtonGreen className={styles.offer}><Fs16BoldWhite.span>Оформить заказ</Fs16BoldWhite.span></ButtonGreen>
+                    <ButtonGreen onClick={()=>navigate('/making')} className={styles.offer}><Fs16BoldWhite.span>Оформить заказ</Fs16BoldWhite.span></ButtonGreen>
                 </div>
             </div>
         </Wrapper>
