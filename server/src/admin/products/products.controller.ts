@@ -37,10 +37,9 @@ export class ProductsController {
 
     @Roles(Role.ADMIN)
     @UseGuards(Jwt2faAuthGuard, RolesGuard)
-    @UseInterceptors(FileInterceptor('file', { fileFilter: imageFileFilter, }))
+    @UseInterceptors(FileInterceptor('file', { fileFilter: imageFileFilter }))
     @Post('create')
     async createProduct(@Body() body: CreateProductDto, @UploadedFile() file: Express.Multer.File) {
-
         if (!file && !body.imageUrl) {
             throw new BadRequestException('Wrong image');
         }
@@ -57,38 +56,33 @@ export class ProductsController {
             where: { id: categoryId }
         });
 
+        if (!category) {
+            throw new BadRequestException(`Invalid categoryId: ${categoryId}`);
+        }
+
+        const productData = {
+            name: body.name,
+            description: body.description,
+            price: Number(body.price),
+            squirrels: Number(body.squirrels),
+            fats: Number(body.fats),
+            carbohydrates: Number(body.carbohydrates),
+            calories: Number(body.calories),
+            weight: Number(body.weight),
+            categoryId: category.id,
+            isActive: Boolean(body.isActive),
+            imageUrl: link
+        };
+
         await this.prisma.product.upsert({
             where: {
-                id: Number(body.id) || -1
+                id: Number(body.id)
             },
-            create: {
-                name: body.name,
-                description: body.description,
-                price: body.price,
-                squirrels: body.squirrels,
-                fats: body.fats,
-                carbohydrates: body.carbohydrates,
-                calories: body.calories,
-                weight: body.weight,
-                categoryId: category.id,
-                isActive: body.isActive,
-                imageUrl: link
-            },
-            update: {
-                name: body.name,
-                description: body.description,
-                price: body.price,
-                squirrels: body.squirrels,
-                fats: body.fats,
-                carbohydrates: body.carbohydrates,
-                calories: body.calories,
-                weight: body.weight,
-                categoryId: category.id,
-                isActive: body.isActive,
-                imageUrl: link
-            }
+            create: productData,
+            update: productData
         });
-        return true
+
+        return true;
     }
 
     @UseGuards(JwtAuthGuard)

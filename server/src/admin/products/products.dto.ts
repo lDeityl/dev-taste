@@ -32,7 +32,7 @@ export class CreateProductDto {
     calories: number;
 
     @IsOptional()
-    imageUrl?: string;
+    imageUrl: string;
 
     @IsNotEmpty()
     @IsNumber()
