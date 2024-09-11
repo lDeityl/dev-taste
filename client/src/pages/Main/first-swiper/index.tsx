@@ -45,7 +45,7 @@ export const FirstSwiper = ({ category }: Props) => {
                 }}
             >
                 {category.Product?.map((dish, index) => (
-                    <SwiperSlide key={index} style={{ display: 'flex', justifyContent: 'center' }}>
+                    <SwiperSlide key={index} style={{ display: 'flex', justifyContent: 'center'}}>
                         <Card item={dish} />
                     </SwiperSlide>
                 ))}

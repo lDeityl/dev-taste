@@ -24,9 +24,10 @@ export const Product = () => {
 
     const { id } = useParams();
 
-    const { data: el } = useQuery({
+    const { data: el, isLoading } = useQuery({
         queryFn: () => getUserProduct(Number(id)),
         queryKey: ["get-product", id]
+
     })
 
     return (
