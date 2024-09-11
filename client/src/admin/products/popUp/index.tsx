@@ -17,8 +17,8 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 
 interface Props {
-    isPopUpVisible: PopUpVisibleCategories;
-    setIsPopUpVisible: React.Dispatch<React.SetStateAction<PopUpVisibleCategories>>;
+    isPopUpVisible: PopUpVisibleCategories
+    setIsPopUpVisible: React.Dispatch<React.SetStateAction<PopUpVisibleCategories>>
 }
 
 interface Option {
@@ -26,40 +26,42 @@ interface Option {
     value: string;
 }
 
-export const validationSchema = z.object({
-    id: z.number().optional(),
-    name: z.string(),
-    description: z.string(),
-    price: z.number(),
-    squirrels: z.number(),
-    fats: z.number(),
-    carbohydrates: z.number(),
-    calories: z.number(),
-    weight: z.number(),
+const validationSchema = z.object({
+    name: z.string().min(1, "Название продукта не может быть пустым"),
+    description: z.string().min(1, "Описание продукта не может быть пустым"),
+    price: z.number().min(0, "Цена должна быть положительным числом"),
+    squirrels: z.number().min(0, "Количество белков должно быть положительным числом"),
+    fats: z.number().min(0, "Количество жиров должно быть положительным числом"),
+    carbohydrates: z.number().min(0, "Количество углеводов должно быть положительным числом"),
+    calories: z.number().min(0, "Количество калорий должно быть положительным числом"),
+    weight: z.number().min(0, "Вес должен быть положительным числом"),
     isActive: z.boolean().default(true),
     file: z.union([z.object({ 0: z.instanceof(File) }), z.any()]).optional(),
     imageUrl: z.string().optional(),
-    categoryId: z.number().int(),
+    categoryId: z.number().int("ID категории должно быть целым числом"),
 });
 
 type ValidationSchema = z.infer<typeof validationSchema>;
 
 export const PopUpProducts = ({ isPopUpVisible, setIsPopUpVisible }: Props) => {
+
+    const addNewProducts_ = useMutation({
+        mutationFn: createProducts,
+        onSuccess: () => {
+            toast.success("Продукт добавлен");
+            queryClient.invalidateQueries(['admin-products']);
+        },
+        onError: (error: any) => {
+            toast.error(error.message || "Ошибка при добавлении продукта");
+        },
+    });
+
     const queryClient = useQueryClient();
+
     const [option, setOption] = useState<Option | null>(null);
 
-    const {
-        setValue,
-        register,
-        reset,
-        handleSubmit,
-        watch,
-        formState: { errors },
-    } = useForm<ValidationSchema>({
+    const { setValue, register, reset, handleSubmit, watch, formState: { errors }, } = useForm<ValidationSchema>({
         resolver: zodResolver(validationSchema),
-        defaultValues: {
-            imageUrl: isPopUpVisible?.data?.imageUrl || '',
-        },
     });
 
     const { data: dataCategories } = useQuery({
@@ -67,6 +69,32 @@ export const PopUpProducts = ({ isPopUpVisible, setIsPopUpVisible }: Props) => {
         queryKey: ['admin-categories'],
         keepPreviousData: true,
     });
+
+    const previousImage = isPopUpVisible.data?.imageUrl;
+    const imageUrl = watch('file')?.[0] && URL.createObjectURL(watch('file')?.[0]);
+
+    const onSubmit = async (values: ValidationSchema) => {
+        const formattedData = withImageData({ ...values, id: isPopUpVisible.data?.id, categoryId: Number(option?.value) })
+        addNewProducts_.mutate(formattedData);
+    };
+
+    useEffect(() => {
+        if (isPopUpVisible.data) {
+            reset({
+                imageUrl: isPopUpVisible.data.imageUrl,
+                name: isPopUpVisible.data.name,
+                description: isPopUpVisible.data.description,
+                price: isPopUpVisible.data.price,
+                squirrels: isPopUpVisible.data.squirrels,
+                fats: isPopUpVisible.data.fats,
+                carbohydrates: isPopUpVisible.data.carbohydrates,
+                calories: isPopUpVisible.data.calories,
+                weight: isPopUpVisible.data.weight,
+                categoryId: isPopUpVisible.data.categoryId,
+                isActive: isPopUpVisible.data.isActive,
+            })
+        }
+    }, [isPopUpVisible.data])
 
     const activeCategories = dataCategories?.filter(category => category.isActive);
 
@@ -84,49 +112,10 @@ export const PopUpProducts = ({ isPopUpVisible, setIsPopUpVisible }: Props) => {
         }
     }, [isPopUpVisible, dataCategories]);
 
-    const previousImage = isPopUpVisible.data?.imageUrl;
-    const imageUrl = watch('file')?.[0] ? URL.createObjectURL(watch('file')?.[0]) : undefined;
-
-    const addNewProducts_ = useMutation({
-        mutationFn: createProducts,
-        onSuccess: () => {
-            toast.success("Продукт добавлен");
-            queryClient.invalidateQueries(['admin-products']);
-        },
-        onError: (error: any) => {
-            toast.error(error.message || "Ошибка при добавлении продукта");
-        },
-    });
-
     const handleCategoryChange = (option: Option) => {
         setOption(option);
         setValue('categoryId', Number(option.value));
     };
-
-    const onSubmit = async (values: ValidationSchema) => {
-        const formattedData = withImageData({ ...values, id: isPopUpVisible.data?.id, categoryId: Number(option?.value) });
-        addNewProducts_.mutate(formattedData);
-        setIsPopUpVisible({ data: null, visibility: false });
-    };
-
-    useEffect(() => {
-        if (isPopUpVisible.data) {
-            setValue('id', isPopUpVisible.data.id);
-            setValue('name', isPopUpVisible.data.name);
-            setValue('description', isPopUpVisible.data.description);
-            setValue('price', isPopUpVisible.data.price);
-            setValue('squirrels', isPopUpVisible.data.squirrels);
-            setValue('fats', isPopUpVisible.data.fats);
-            setValue('carbohydrates', isPopUpVisible.data.carbohydrates);
-            setValue('calories', isPopUpVisible.data.calories);
-            setValue('weight', isPopUpVisible.data.weight);
-            setValue('isActive', isPopUpVisible.data.isActive);
-            setValue('imageUrl', isPopUpVisible.data.imageUrl);
-            setValue('categoryId', isPopUpVisible.data.categoryId);
-        } else {
-            reset();
-        }
-    }, [isPopUpVisible, reset, setValue]);
 
     return (
         <PopupComponent
@@ -155,7 +144,6 @@ export const PopUpProducts = ({ isPopUpVisible, setIsPopUpVisible }: Props) => {
             </div>
             <ButtonGreen
                 isLoading={addNewProducts_.isLoading}
-                disabled={addNewProducts_.isLoading}
                 onClick={handleSubmit(onSubmit)}
             >
                 {isPopUpVisible.data ? 'Изменить продукт' : 'Добавить продукт'}

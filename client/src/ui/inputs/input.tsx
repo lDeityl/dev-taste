@@ -139,7 +139,7 @@ const withStyleClearableInput = (styleName: string) => {
 
 
 const withStyleAdmin = (styleName: string) => {
-    return ({ search, value, register, name, error, label, type, className, ...rest }: Input) => {
+    return ({ value, register, name, error, placeholder, label, type, className, ...rest }: Input) => {
         return (
             <div className={`${styles.basis} ${styles[styleName]} ${className}`}>
                 {label &&
@@ -149,7 +149,7 @@ const withStyleAdmin = (styleName: string) => {
                 }
                 <input {...register?.(name, {
                     valueAsNumber: type === "number"
-                })} value={value} type={type} {...rest} className={error?.message && styles.error} />
+                })} value={value} placeholder={placeholder} type={type} {...rest} className={error?.message && styles.error} />
                 <Error isVisible={!!error?.message}>{error?.message}</Error>
             </div>
         );

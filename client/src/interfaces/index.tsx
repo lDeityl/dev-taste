@@ -50,7 +50,7 @@ export interface IProduct {
     carbohydrates: number
     calories: number
     weight: number
-    category: ICategory
+    Category: ICategory
     categoryId: number
     isActive: boolean
     isFavourite?: boolean

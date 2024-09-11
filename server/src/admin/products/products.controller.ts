@@ -11,7 +11,6 @@ import { Jwt2faAuthGuard } from 'auth/jwt-2fa-auth.guard';
 import { Role } from 'entities/role.enum';
 import { Roles } from 'roles/roles.decorator';
 import { RolesGuard } from 'roles/roles.guard';
-import { SharpPipe } from 'pipes/compress-image/compress-image.pipe';
 
 const imageFileFilter = (req: any, file: Express.Multer.File, callback: Function) => {
     if (!file.mimetype.match(/\/(jpg|jpeg|png|svg+xml|webp|avif)$/)) {
@@ -20,7 +19,6 @@ const imageFileFilter = (req: any, file: Express.Multer.File, callback: Function
     callback(null, true);
 };
 
-@UseGuards(JwtAuthGuard)
 @Controller('products')
 export class ProductsController {
     constructor(private prisma: PrismaService,
@@ -32,13 +30,15 @@ export class ProductsController {
             orderBy: {
                 id: "asc",
             },
+            include: {
+                Category: true
+            }
         });
     }
 
-    @Roles(Role.ADMIN)
     @UseGuards(Jwt2faAuthGuard, RolesGuard)
-    @UseInterceptors(FileInterceptor('file', { fileFilter: imageFileFilter }))
     @Post('create')
+    @UseInterceptors(FileInterceptor('file', { fileFilter: imageFileFilter }))
     async createProduct(@Body() body: CreateProductDto, @UploadedFile() file: Express.Multer.File) {
         if (!file && !body.imageUrl) {
             throw new BadRequestException('Wrong image');
@@ -50,39 +50,49 @@ export class ProductsController {
             link = await this.s3.uploadFile(file);
         }
 
-        const categoryId = typeof body.categoryId === 'number' ? body.categoryId : -1;
+        // Преобразование данных
+
+        const categoryId = Number(body.categoryId);
+        const price = Number(body.price);
+        const squirrels = Number(body.squirrels);
+        const fats = Number(body.fats);
+        const carbohydrates = Number(body.carbohydrates);
+        const calories = Number(body.calories);
+        const weight = Number(body.weight);
+        const isActive = body.isActive === true;
+
+        // Проверка на валидность преобразованных данных
+        if (isNaN(price) || isNaN(squirrels) || isNaN(fats) || isNaN(carbohydrates) || isNaN(calories) || isNaN(weight)) {
+            throw new BadRequestException('Invalid numeric value');
+        }
 
         const category = await this.prisma.category.findUnique({
             where: { id: categoryId }
         });
 
-        if (!category) {
-            throw new BadRequestException(`Invalid categoryId: ${categoryId}`);
-        }
-
-        const productData = {
+        let data = {
             name: body.name,
             description: body.description,
-            price: Number(body.price),
-            squirrels: Number(body.squirrels),
-            fats: Number(body.fats),
-            carbohydrates: Number(body.carbohydrates),
-            calories: Number(body.calories),
-            weight: Number(body.weight),
+            price,
+            squirrels,
+            fats,
+            carbohydrates,
+            calories,
+            weight,
             categoryId: category.id,
-            isActive: Boolean(body.isActive),
+            isActive,
             imageUrl: link
-        };
+        }
 
         await this.prisma.product.upsert({
             where: {
-                id: Number(body.id)
+                id: Number(body.id) || -1,
             },
-            create: productData,
-            update: productData
+            create: data,
+            update: data
         });
 
-        return true;
+        return;
     }
 
     @UseGuards(JwtAuthGuard)

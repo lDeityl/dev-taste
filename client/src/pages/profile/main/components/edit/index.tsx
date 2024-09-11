@@ -29,9 +29,7 @@ interface Props {
 
 export const UpdateProfile = ({ setEdit }: Props) => {
 
-    const useFetchProfile = () => useQuery(['profile-info'], getUserById);
 
-    const { data, error } = useFetchProfile();
 
     const queryClient = useQueryClient();
 
@@ -58,6 +56,10 @@ export const UpdateProfile = ({ setEdit }: Props) => {
         },
     });
 
+    const useFetchProfile = () => useQuery(['profile-info'], getUserById);
+
+    const { data, error } = useFetchProfile();
+
     const {
         setValue,
         register,
@@ -69,12 +71,14 @@ export const UpdateProfile = ({ setEdit }: Props) => {
     } = useForm<ValidationSchema>({
         resolver: zodResolver(validationSchema),
         defaultValues: {
+            name: data?.name,
+            email: data?.email,
             imgURL: data?.imgURL,
         },
     });
 
     const previousImage = data?.imgURL;
-    const image = watch('file')?.[0] ? URL.createObjectURL(watch('file')[0]) : undefined;
+    const image = watch('file')?.[0] ? URL.createObjectURL(watch('file')?.[0]) : undefined
 
     const onSubmit = (values: ValidationSchema) => {
         if (!data?.id) {

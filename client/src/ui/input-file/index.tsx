@@ -36,7 +36,7 @@ export const InputFileLight = ({ register, name, error, children, className, ima
                         </div>
                     </>
                 )}
-                <input type="file" accept="image/png, image/jpeg, image/svg+xml, image/webp, image/avif"  {...register?.(name)} {...rest} className={error?.message && styles.error} />
+                <input type="file" accept="image/png, image/jpeg, image/jpg, image/svg+xml"  {...register?.(name)} {...rest} className={error?.message && styles.error} />
             </label>
             <Error isVisible={!!error?.message}>{error?.message}</Error>
         </>
@@ -115,7 +115,7 @@ export const InputFileLight3 = ({ register, name, error, children, className, im
                         {children ? children : 'Upload'}
                     </div>
                 }
-                <input type="file" accept="image/png, image/jpeg, image/svg+xml"  {...register?.(name)} {...rest} className={error?.message && styles.error} />
+                <input type="file" accept="image/png, image/jpeg, image/jpg, image/svg+xml"  {...register?.(name)} {...rest} className={error?.message && styles.error} />
             </label>
             <Error isVisible={!!error?.message}>{error?.message}</Error>
         </div>

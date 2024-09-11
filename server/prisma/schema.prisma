@@ -21,7 +21,7 @@ model Users {
     code_change_password             Int?
     code_confirmation_email          String?
     twoFactorAuthenticationSecret    String?
-    isTwoFactorAuthenticationEnabled Boolean? 
+    isTwoFactorAuthenticationEnabled Boolean?
 }
 
 model Category {

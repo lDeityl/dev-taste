@@ -16,7 +16,8 @@ export class AdminController {
             },
             select: {
                 email: true,
-                name: true
+                name: true,
+                imgURL: true
             }
         });
     }

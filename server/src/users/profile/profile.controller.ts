@@ -17,9 +17,7 @@ const imageFileFilter = (req: any, file: Express.Multer.File, callback: Function
 @UseGuards(JwtAuthGuard)
 @Controller('profile')
 export class ProfileController {
-    constructor(private prisma: PrismaService,
-        private s3: S3Service
-    ) { }
+    constructor(private prisma: PrismaService, private s3: S3Service) { }
 
     @UseGuards(Jwt2faAuthGuard, RolesGuard)
     @Post('update-date')
@@ -37,15 +35,13 @@ export class ProfileController {
         }
 
         return await this.prisma.users.update({
-            where: {
-                id: Number(body.id) || -1
-            },
+            where: { id: Number(body.id) || -1 },
             data: {
                 name: body.name,
                 email: body.email,
                 phone: body.phone,
-                imgURL: link
-            }
-        })
+                imgURL: link,
+            },
+        });
     }
 }

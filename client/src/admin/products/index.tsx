@@ -47,6 +47,7 @@ export const Products = () => {
     const openEditCategoryPopup = (category: IProduct) => {
         setIsPopUpVisible({ visibility: true, data: category });
     };
+    console.log(data, 'asdsadsa');
 
     return (
         <div className={styles.wrapper}>
@@ -66,12 +67,16 @@ export const Products = () => {
                             <Fs16Fw400Black.span>{el.id}</Fs16Fw400Black.span>
                         </div>
                         <div className={styles.bl}>
+                            <Fs13Fw300Black.span>Дата создания</Fs13Fw300Black.span>
+                            <Fs16Fw400Black.span>{getNormalDate(new Date(el.createdAt))}</Fs16Fw400Black.span>
+                        </div>
+                        <div className={styles.bl}>
                             <Fs13Fw300Black.span>Фото</Fs13Fw300Black.span>
                             <img className={styles.image} src={el.imageUrl} alt={el.name} />
                         </div>
                         <div className={styles.bl}>
-                            <Fs13Fw300Black.span>Дата создания</Fs13Fw300Black.span>
-                            <Fs16Fw400Black.span>{getNormalDate(new Date(el.createdAt))}</Fs16Fw400Black.span>
+                            <Fs13Fw300Black.span>Компания</Fs13Fw300Black.span>
+                            <Fs16Fw400Black.span>{el.Category?.name}</Fs16Fw400Black.span>
                         </div>
                         <div className={styles.bl}>
                             <Fs13Fw300Black.span>Имя продукта</Fs13Fw300Black.span>
@@ -100,9 +105,7 @@ export const Products = () => {
                     </div>
                 ))}
             </div>
-            {isPopUpVisible.visibility && (
-                <PopUpProducts isPopUpVisible={isPopUpVisible} setIsPopUpVisible={setIsPopUpVisible} />
-            )}
+            <PopUpProducts isPopUpVisible={isPopUpVisible} setIsPopUpVisible={setIsPopUpVisible} />
         </div>
     );
 };

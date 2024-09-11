@@ -78,7 +78,7 @@ function AdminPanelRoutes() {
                     <Fs18Fw400Gray.span>| Admin panel</Fs18Fw400Gray.span>
                 </div>
                 <div className={styles.profile}>
-                    <img src={img} alt="avatar" className={styles.avatar} />
+                    <img src={data?.imgURL} alt="avatar" className={styles.avatar} />
                     <div className={styles.col}>
                         <Fs14Fw400Black.span>{data?.name}</Fs14Fw400Black.span>
                         <Fs14Fw400Gray.span>{data?.email}</Fs14Fw400Gray.span>

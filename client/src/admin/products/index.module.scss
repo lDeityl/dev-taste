@@ -10,14 +10,13 @@
     }
 
     .block {
-        display: flex;
         gap: 20px;
-        flex-wrap: wrap;
         width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        max-width: 1400px;
 
         .item {
-            width: 100%;
-            max-width: 300px;
             border-radius: 6px;
             border: 1px solid gray;
             padding: 20px;
