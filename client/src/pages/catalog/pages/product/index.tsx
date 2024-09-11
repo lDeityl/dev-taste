@@ -34,7 +34,7 @@ export const Product = () => {
         <div className={styles.box}>
             {el ?
                 <Wrapper className={styles.cart}>
-                    <img src={image} alt="" />
+                    <img src={el.imageUrl} alt="" />
                     <div className={styles.blocks}>
                         <div className={styles.up}>
                             <Fs25BoldWhite.h4>{el.name}</Fs25BoldWhite.h4>

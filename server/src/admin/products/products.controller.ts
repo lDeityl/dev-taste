@@ -31,7 +31,7 @@ export class ProductsController {
                 id: "asc",
             },
             include: {
-                Category: true
+                Category: true,
             }
         });
     }
@@ -59,9 +59,9 @@ export class ProductsController {
         const carbohydrates = Number(body.carbohydrates);
         const calories = Number(body.calories);
         const weight = Number(body.weight);
-        const isActive = body.isActive === true;
+        console.log('Received body:', body);
+        const isActive = String(body.isActive) === 'true';
 
-        // Проверка на валидность преобразованных данных
         if (isNaN(price) || isNaN(squirrels) || isNaN(fats) || isNaN(carbohydrates) || isNaN(calories) || isNaN(weight)) {
             throw new BadRequestException('Invalid numeric value');
         }

@@ -9,10 +9,10 @@ import { useQuery } from 'react-query';
 import { ICategory } from '../../../interfaces';
 
 interface Props {
-    category: ICategory
+    el: ICategory
 }
 
-export const FirstSwiper = ({ category }: Props) => {
+export const FirstSwiper = ({ el }: Props) => {
 
     const swiper = useRef<SwiperCore | null>(null);
 
@@ -44,8 +44,8 @@ export const FirstSwiper = ({ category }: Props) => {
                     }
                 }}
             >
-                {category.Product?.map((dish, index) => (
-                    <SwiperSlide key={index} style={{ display: 'flex', justifyContent: 'center'}}>
+                {el.Product.map((dish, index) => (
+                    <SwiperSlide key={index} style={{ display: 'flex', justifyContent: 'center' }}>
                         <Card item={dish} />
                     </SwiperSlide>
                 ))}

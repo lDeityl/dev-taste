@@ -31,7 +31,7 @@ export const Card = ({ item }: Props) => {
 
     return (
         <div className={styles.cardBox}>
-            <img src={image} alt={item.name} className={styles.image} onClick={() => navigate(`/catalog/${item.id}`)} />
+            <img src={item.imageUrl} alt={item.name} className={styles.image} onClick={() => navigate(`/catalog/${item.id}`)} />
             <div className={styles.characteristic}>
                 <div className={styles.up} onClick={() => navigate(`/catalog/${item.id}`)}>
                     <Fs22BoldWhite.h4 className={styles.h4}>{item.name}</Fs22BoldWhite.h4>

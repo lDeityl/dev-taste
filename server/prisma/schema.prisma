@@ -46,7 +46,7 @@ model Product {
     weight        Int
     Category      Category @relation(fields: [categoryId], references: [id])
     categoryId    Int
-    isActive      Boolean
+    isActive      Boolean  @default(true)
     isFavourite   Boolean? @default(false)
 }
 

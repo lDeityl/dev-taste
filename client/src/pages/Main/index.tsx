@@ -34,7 +34,7 @@ export const Main = () => {
             {categories?.map(category => (
                 <section key={category.id}>
                     <HeadLine title={category.name} />
-                    <FirstSwiper key={category.id} category={category} />
+                    <FirstSwiper key={category.id} el={category} />
                 </section>
             ))}
             <section className={styles.ourCoffe}>

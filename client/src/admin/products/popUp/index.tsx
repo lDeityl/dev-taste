@@ -74,6 +74,7 @@ export const PopUpProducts = ({ isPopUpVisible, setIsPopUpVisible }: Props) => {
     const imageUrl = watch('file')?.[0] && URL.createObjectURL(watch('file')?.[0]);
 
     const onSubmit = async (values: ValidationSchema) => {
+        console.log('Form values before submission:', values);
         const formattedData = withImageData({ ...values, id: isPopUpVisible.data?.id, categoryId: Number(option?.value) })
         addNewProducts_.mutate(formattedData);
     };
@@ -92,7 +93,8 @@ export const PopUpProducts = ({ isPopUpVisible, setIsPopUpVisible }: Props) => {
                 weight: isPopUpVisible.data.weight,
                 categoryId: isPopUpVisible.data.categoryId,
                 isActive: isPopUpVisible.data.isActive,
-            })
+            });
+            setValue('isActive', isPopUpVisible.data.isActive)
         }
     }, [isPopUpVisible.data])
 
