@@ -13,6 +13,7 @@ export class AppController {
         return 'API created by Deity'
     }
 
+    
     @UseGuards(Jwt2faAuthGuard)
     @Get('profile')
     getProfile(@Request() req) {
