@@ -24,17 +24,18 @@ model Users {
     isTwoFactorAuthenticationEnabled Boolean?
 }
 
-model Category {
+model Companies {
     id        Int       @id @default(autoincrement())
     createdAt DateTime  @default(now())
     name      String
+    imageUrl  String
     Product   Product[]
     isActive  Boolean
 }
 
 model Product {
-    id            Int      @id @default(autoincrement())
-    createdAt     DateTime @default(now())
+    id            Int         @id @default(autoincrement())
+    createdAt     DateTime    @default(now())
     imageUrl      String
     name          String
     description   String
@@ -44,10 +45,17 @@ model Product {
     carbohydrates Int
     calories      Int
     weight        Int
-    Category      Category @relation(fields: [categoryId], references: [id])
+    Category      Companies   @relation(fields: [categoryId], references: [id])
     categoryId    Int
-    isActive      Boolean  @default(true)
-    isFavourite   Boolean? @default(false)
+    isActive      Boolean     @default(true)
+    ProductType   ProductType @relation(fields: [productTypeId], references: [id])
+    productTypeId Int
+}
+
+model ProductType {
+    id      Int       @id @default(autoincrement())
+    name    String
+    Product Product[]
 }
 
 model Stock {

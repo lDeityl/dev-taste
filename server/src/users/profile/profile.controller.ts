@@ -1,6 +1,6 @@
 import { BadRequestException, Body, Controller, Get, Post, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
-import { UpdateProfile } from './profile.dto';
+import { UpdateProfile, UpdateProfileImage } from './profile.dto';
 import { JwtAuthGuard } from 'auth/jwt-auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { S3Service } from 's3/s3.service';
@@ -21,8 +21,22 @@ export class ProfileController {
 
     @UseGuards(Jwt2faAuthGuard, RolesGuard)
     @Post('update-date')
+    async updateContact(@Req() req, @Body() body: UpdateProfile) {
+
+        return await this.prisma.users.update({
+            where: { id: Number(req.user.id) },
+            data: {
+                name: String(body.name),
+                email: String(body.email),
+                phone: String(body.phone),
+            },
+        });
+    }
+
+    @UseGuards(Jwt2faAuthGuard, RolesGuard)
+    @Post('update-image')
     @UseInterceptors(FileInterceptor('file', { fileFilter: imageFileFilter }))
-    async updateContact(@Req() req, @Body() body: UpdateProfile, @UploadedFile() file: Express.Multer.File) {
+    async updateImageProfile(@Req() req, @Body() body: UpdateProfileImage, @UploadedFile() file: Express.Multer.File) {
 
         if (!file && !body.imgURL) {
             throw new BadRequestException('Wrong image');
@@ -35,11 +49,8 @@ export class ProfileController {
         }
 
         return await this.prisma.users.update({
-            where: { id: Number(body.id) || -1 },
+            where: { id: Number(req.user.id) },
             data: {
-                name: body.name,
-                email: body.email,
-                phone: body.phone,
                 imgURL: link,
             },
         });

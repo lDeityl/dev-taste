@@ -54,7 +54,8 @@ export class AuthController {
     @UseGuards(JwtAuthGuard)
     @Post('send-confirmation')
     async sendConfirmation(@Request() req) {
-        return await this.authService.sendConfirmation(req.user);
+        // return await this.authService.sendConfirmation(req.user);
+        return '';
     }
 
     @UseGuards(JwtAuthGuard)

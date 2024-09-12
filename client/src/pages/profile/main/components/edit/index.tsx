@@ -7,18 +7,18 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
-import { UpdateProfileReq, getUserById } from '../../../../../api';
+import { UpdateProfileReq, UpdateProfileReqImage, getUserById } from '../../../../../api';
 import { IUsers } from '../../../../../interfaces';
 import { InputFileLight } from '../../../../../ui/input-file';
 import image from '../../../../../assets/images/hot-mini/meat-4.png'
 import { withImageData } from '../../../../../utils/withImageData';
+import { UpdateImage } from './updateImage';
+import styles from '../../index.module.scss'
 
 const validationSchema = z.object({
     name: z.string().min(1, 'Поле не должно быть пустым'),
     email: z.string().email('Введите корректный email').min(1, 'Поле не должно быть пустым'),
     phone: z.string().optional().nullable(),
-    file: z.union([z.object({ 0: z.instanceof(File) }), z.any()]).optional(),
-    imgURL: z.string().optional(),
 });
 
 type ValidationSchema = z.infer<typeof validationSchema>;
@@ -29,9 +29,10 @@ interface Props {
 
 export const UpdateProfile = ({ setEdit }: Props) => {
 
-
-
     const queryClient = useQueryClient();
+
+    const useFetchProfile = () => useQuery(['profile-info'], getUserById);
+    const { data, error } = useFetchProfile();
 
     const upsertInfo_ = useMutation(UpdateProfileReq, {
         onSuccess: (data) => {
@@ -45,20 +46,16 @@ export const UpdateProfile = ({ setEdit }: Props) => {
                     name: data.name,
                     email: data.email,
                     phone: data.phone,
-                    imgURL: data.imgURL,
                 });
             }
 
             setEdit(false);
         },
-        onError: (error) => {
-            toast.error(`Что-то пошло не так... `);
+        onError: (error: any) => {
+            toast.error(`Ошибка: ${error.response?.data?.message || 'Что-то пошло не так...'}`);
         },
     });
 
-    const useFetchProfile = () => useQuery(['profile-info'], getUserById);
-
-    const { data, error } = useFetchProfile();
 
     const {
         setValue,
@@ -73,20 +70,16 @@ export const UpdateProfile = ({ setEdit }: Props) => {
         defaultValues: {
             name: data?.name,
             email: data?.email,
-            imgURL: data?.imgURL,
+            phone: data?.phone,
         },
     });
-
-    const previousImage = data?.imgURL;
-    const image = watch('file')?.[0] ? URL.createObjectURL(watch('file')?.[0]) : undefined
 
     const onSubmit = (values: ValidationSchema) => {
         if (!data?.id) {
             toast.error('User ID is missing');
             return;
         }
-        const formattedData = withImageData({ ...values, id: data.id });
-        upsertInfo_.mutate(formattedData);
+        upsertInfo_.mutate({ ...values });
     };
 
     useEffect(() => {
@@ -95,20 +88,21 @@ export const UpdateProfile = ({ setEdit }: Props) => {
                 name: data.name,
                 email: data.email,
                 phone: data.phone,
-                imgURL: data.imgURL,
             });
         }
     }, [data, reset]);
 
     return (
-        <>
-            <InputFileLight image={image || previousImage} name='file' register={register} />
-            <InputEmail type='text' placeholder='Имя:' name='name' register={register} error={errors.name} />
-            <InputEmail type='email' placeholder='E-mail:' name='email' register={register} error={errors.email} />
-            <InputEmail type='text' placeholder='Телефон:' name='phone' register={register} error={errors.phone} />
-            <ButtonGreen isLoading={upsertInfo_.isLoading} onClick={handleSubmit(onSubmit)}>
-                <Fs18Fw500White.span>Сохранить</Fs18Fw500White.span>
-            </ButtonGreen>
-        </>
+        <div className={styles.rowEdit}>
+            <div className={styles.updateImage}><UpdateImage setEdit={setEdit} /></div>
+            <div className={styles.rightSideEdit}>
+                <InputEmail type='text' placeholder='Имя:' name='name' register={register} error={errors.name} />
+                <InputEmail type='email' placeholder='E-mail:' name='email' register={register} error={errors.email} />
+                <InputEmail type='text' placeholder='Телефон:' name='phone' register={register} error={errors.phone} />
+                <ButtonGreen isLoading={upsertInfo_.isLoading} onClick={handleSubmit(onSubmit)}>
+                    <Fs18Fw500White.span>Сохранить</Fs18Fw500White.span>
+                </ButtonGreen>
+            </div>
+        </div>
     )
 }

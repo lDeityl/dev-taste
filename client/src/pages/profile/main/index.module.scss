@@ -38,3 +38,24 @@
         gap: 15px;
     }
 }
+
+.rowEdit {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+.rightSideEdit {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 900px;
+    width: 100%;
+}
+
+.updateImage {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

@@ -53,6 +53,7 @@ export class ProductsController {
         // Преобразование данных
 
         const categoryId = Number(body.categoryId);
+        const productTypeId = Number(body.productTypeId);
         const price = Number(body.price);
         const squirrels = Number(body.squirrels);
         const fats = Number(body.fats);
@@ -66,8 +67,12 @@ export class ProductsController {
             throw new BadRequestException('Invalid numeric value');
         }
 
-        const category = await this.prisma.category.findUnique({
+        const category = await this.prisma.companies.findUnique({
             where: { id: categoryId }
+        });
+
+        const productType = await this.prisma.productType.findUnique({
+            where: { id: productTypeId }
         });
 
         let data = {
@@ -80,6 +85,7 @@ export class ProductsController {
             calories,
             weight,
             categoryId: category.id,
+            productTypeId: productType.id,
             isActive,
             imageUrl: link
         }

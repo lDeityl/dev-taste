@@ -52,21 +52,32 @@ export interface IProduct {
     weight: number
     Category: ICategory
     categoryId: number
+    productTypeId: number
     isActive: boolean
-    isFavourite?: boolean
 }
 
 export interface ICategory {
     id: number
     createdAt: string
     name: string
-    Product: IProduct[]
+    imageUrl: string
     isActive: boolean
+    Product: IProduct[]
+}
+
+export interface IProductType {
+    name: string
 }
 
 export interface ICrateCategory {
     name: string
     isActive: boolean
+}
+
+export interface IUpdateProfileInfo {
+    name: string
+    email: string
+    phone?: string | null
 }
 
 export interface IUpsertCategory {

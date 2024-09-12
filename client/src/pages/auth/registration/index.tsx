@@ -43,7 +43,7 @@ export const Registration = () => {
         onSuccess: (data) => {
             setJwt(data.access_token)
             setRole(data.role)
-            navigate(`/auth/email-confirm`)
+            navigate(`/profile`)
         },
         onError: (error: any) => {
             toast.error('error');

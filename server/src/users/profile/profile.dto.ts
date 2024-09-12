@@ -1,16 +1,20 @@
 import { IsNotEmpty, IsOptional } from "class-validator"
 
 export class UpdateProfile {
-    id: number
+    id: number;
 
     @IsNotEmpty()
-    name: string
+    name: string;
 
     @IsNotEmpty()
-    email: string
+    email: string;
 
     @IsOptional()
-    phone: string
+    phone?: string;
+}
+
+export class UpdateProfileImage {
+    id: number
 
     @IsOptional()
     imgURL: string

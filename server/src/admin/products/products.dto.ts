@@ -34,6 +34,9 @@ export class CreateProductDto {
     categoryId: number;
 
     @IsNotEmpty()
+    productTypeId: number;
+
+    @IsNotEmpty()
     isActive: boolean;
 }
 

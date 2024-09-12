@@ -25,8 +25,8 @@ export const Login = () => {
 
     const setRole = useJwtStore((state) => state.setRole);
     const setJwt = useJwtStore((state) => state.setJwt);
-    const setEmailActivated = useJwtStore((state) => state.setEmailActivated);
-    const setTwoFactorAuthenticationEnabled = useJwtStore((state) => state.setTwoFactorAuthenticationEnabled);
+    // const setEmailActivated = useJwtStore((state) => state.setEmailActivated);
+    // const setTwoFactorAuthenticationEnabled = useJwtStore((state) => state.setTwoFactorAuthenticationEnabled);
 
     const navigate = useNavigate();
 
@@ -35,16 +35,16 @@ export const Login = () => {
         onSuccess: async (data) => {
             setJwt(data.access_token)
             setRole(data.role)
-            setEmailActivated(data.isEmailActivated)
-            setTwoFactorAuthenticationEnabled(data.isTwoFactorAuthenticationEnabled)
+            // setEmailActivated(data.isEmailActivated)
+            // setTwoFactorAuthenticationEnabled(data.isTwoFactorAuthenticationEnabled)
 
-            if (!data.isEmailActivated) {
-                return navigate('/auth/email-confirm')
-            }
+            // if (!data.isEmailActivated) {
+            //     return navigate('/auth/email-confirm')
+            // }
 
-            if (!data.isEmailActivated) {
-                return navigate('/auth/confirm-email')
-            }
+            // if (!data.isEmailActivated) {
+            //     return navigate('/auth/confirm-email')
+            // }
 
             navigate("/profile/")
         },

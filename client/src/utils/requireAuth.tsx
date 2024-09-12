@@ -6,14 +6,14 @@ export const RequireAuth = () => {
 
     const jwt = useJwtStore((state) => state.jwt);
     const isTwoFactorAuthenticated = useJwtStore((state) => state.isTwoFactorAuthenticated);
-    const isEmailActivated = useJwtStore((state) => state.isEmailActivated);
+    // const isEmailActivated = useJwtStore((state) => state.isEmailActivated);
     const isTwoFactorAuthenticationEnabled = useJwtStore((state) => state.isTwoFactorAuthenticationEnabled);
 
     if (isTwoFactorAuthenticationEnabled && !isTwoFactorAuthenticated) {
         return <Navigate to={'/auth/two-factor'} replace />
     }
 
-    if (!jwt || !isEmailActivated) {
+    if (!jwt) {
         return <Navigate to={'/auth/sign-in'} replace />
     }
 
@@ -22,16 +22,15 @@ export const RequireAuth = () => {
 
 export const useIsAuthenticated = () => {
     const jwt = useJwtStore((state) => state.jwt);
-    const isTwoFactorAuthenticated = useJwtStore((state) => state.isTwoFactorAuthenticated);
-    const isEmailActivated = useJwtStore((state) => state.isEmailActivated);
-    const isTwoFactorAuthenticationEnabled = useJwtStore((state) => state.isTwoFactorAuthenticationEnabled);
+    // const isTwoFactorAuthenticated = useJwtStore((state) => state.isTwoFactorAuthenticated);
+    // const isEmailActivated = useJwtStore((state) => state.isEmailActivated);
+    // const isTwoFactorAuthenticationEnabled = useJwtStore((state) => state.isTwoFactorAuthenticationEnabled);
 
     // Check if JWT exists and email is activated
-    const hasBasicAuth = jwt && isEmailActivated;
+    const hasBasicAuth = jwt;
 
     // If two-factor authentication is enabled, also check if the user is two-factor authenticated
-    const hasTwoFactorAuth = !isTwoFactorAuthenticationEnabled || (isTwoFactorAuthenticationEnabled && isTwoFactorAuthenticated);
 
     // Return true only if all conditions are satisfied
-    return hasBasicAuth && hasTwoFactorAuth;
+    return hasBasicAuth;
 }

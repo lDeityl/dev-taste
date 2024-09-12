@@ -8,6 +8,9 @@ export class CreateCategories {
 
     @IsBoolean()
     isActive: boolean
+
+    @IsOptional()
+    imageUrl: string
 }
 
 export class DeleteCategories {

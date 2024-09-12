@@ -15,9 +15,9 @@ export class Jwt2faStrategy extends PassportStrategy(Strategy, 'jwt-2fa') {
     async validate(payload: any) {
         const user = await this.userService.findOneEmail(payload.email);
 
-        if (!user.isEmailActivated) {
-            throw new BadRequestException('Email not activated');
-        }
+        // if (!user.isEmailActivated) {
+        //     throw new BadRequestException('Email not activated');
+        // }
 
         if (!user.isTwoFactorAuthenticationEnabled) {
             return user;

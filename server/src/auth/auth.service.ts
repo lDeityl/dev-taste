@@ -31,14 +31,14 @@ export class AuthService {
         const payload = {
             email: user.email,
             isTwoFactorAuthenticationEnabled: user.isTwoFactorAuthenticationEnabled,
-            isEmailActivated: user.isEmailActivated,
+            // isEmailActivated: user.isEmailActivated,
             role: user.role
         };
 
         return {
             email: payload.email,
             isTwoFactorAuthenticationEnabled: payload.isTwoFactorAuthenticationEnabled,
-            isEmailActivated: payload.isEmailActivated,
+            // isEmailActivated: payload.isEmailActivated,
             access_token: this.jwtService.sign(payload),
             role: payload.role
         };
@@ -50,29 +50,29 @@ export class AuthService {
             isTwoFactorAuthenticationEnabled: !!userWithoutPsw.isTwoFactorAuthenticationEnabled,
             isTwoFactorAuthenticated: true,
             role: userWithoutPsw.role,
-            isEmailActivated: userWithoutPsw.isEmailActivated,
+            // isEmailActivated: userWithoutPsw.isEmailActivated,
         };
 
         return {
             email: payload.email,
             isTwoFactorAuthenticationEnabled: payload.isTwoFactorAuthenticationEnabled,
-            isEmailActivated: payload.isEmailActivated,
+            // isEmailActivated: payload.isEmailActivated,
             access_token: this.jwtService.sign(payload),
             role: payload.role
         };
     }
 
-    async sendConfirmation(user) {
-        const int = randomIntFromInterval(100000, 999999);
+    // async sendConfirmation(user) {
+    //     const int = randomIntFromInterval(100000, 999999);
 
-        const generatedInt = `${int}`;
+    //     const generatedInt = `${int}`;
 
-        await sendEmail(user.email, generatedInt, 'Подтверждение email');
+    //     await sendEmail(user.email, generatedInt, 'Подтверждение email');
 
-        await this.usersService.setCodeConfirmation(user.email, generatedInt);
+    //     await this.usersService.setCodeConfirmation(user.email, generatedInt);
 
-        return true;
-    }
+    //     return true;
+    // }
 
     async confirmEmail(user, code) {
         return await this.usersService.checkCodeConfirmation(user.email, code);
