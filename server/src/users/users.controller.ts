@@ -35,6 +35,10 @@ export class UsersController {
             where: {
                 id: Number(productId),
                 isActive: true
+            },
+            include: {
+                ProductType: true,
+                Category: true
             }
         });
     }

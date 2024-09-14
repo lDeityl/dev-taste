@@ -6,7 +6,7 @@ export class CreateCategories {
     @IsNotEmpty()
     name: string
 
-    @IsBoolean()
+    @IsNotEmpty()
     isActive: boolean
 
     @IsOptional()

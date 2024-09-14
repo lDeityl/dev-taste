@@ -52,6 +52,7 @@ export interface IProduct {
     weight: number
     Category: ICategory
     categoryId: number
+    ProductType: IProductType
     productTypeId: number
     isActive: boolean
 }
@@ -66,6 +67,8 @@ export interface ICategory {
 }
 
 export interface IProductType {
+    id: number
+    createdAt: string
     name: string
 }
 

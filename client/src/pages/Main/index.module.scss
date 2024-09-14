@@ -63,6 +63,7 @@
             align-items: center;
             justify-content: center;
             gap: 15px;
+
             @media (max-width:320px) {
                 display: none;
             }
@@ -70,4 +71,16 @@
     }
 
 
+}
+
+.rowHeadlineImage {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .companiesLogo {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+    }
 }

@@ -16,6 +16,7 @@ import { FAQ } from './faq';
 import { Settings } from './settings';
 import { useQuery } from 'react-query';
 import { getAdminById } from '../api';
+import { CategoriesMenu } from './categories-menu';
 
 interface Navigation {
     title: string;
@@ -37,7 +38,8 @@ const linksNav: NavMain[] = [
             { title: 'Панель управления', link: '/admin-panel/panel', icon: HiOutlineSquares2X2 },
             { title: 'Пользователи', link: '/admin-panel/users', icon: HiOutlineSquares2X2 },
             { title: 'Админы', link: '/admin-panel/admins', icon: HiOutlineSquares2X2 },
-            { title: 'Категории', link: '/admin-panel/categories', icon: HiOutlineSquares2X2 },
+            { title: 'Компании', link: '/admin-panel/companies', icon: HiOutlineSquares2X2 },
+            { title: 'Категории меню', link: '/admin-panel/categories', icon: HiOutlineSquares2X2 },
             { title: 'Продукты', link: '/admin-panel/products', icon: HiOutlineSquares2X2 },
             { title: 'Акции', link: '/admin-panel/stock', icon: HiOutlineSquares2X2 },
             { title: 'FAQ', link: '/admin-panel/faq', icon: HiOutlineSquares2X2 },
@@ -108,7 +110,8 @@ function AdminPanelRoutes() {
                     <Route path='/panel' element={<PanelMain />}></Route>
                     <Route path='/users' element={<Users />}></Route>
                     <Route path='/admins' element={<Admins />}></Route>
-                    <Route path='/categories' element={<Categories />}></Route>
+                    <Route path='/companies' element={<Categories />}></Route>
+                    <Route path='/categories' element={<CategoriesMenu />}></Route>
                     <Route path='/products' element={<Products />}></Route>
                     <Route path='/stock' element={<Stock />}></Route>
                     <Route path='/faq' element={<FAQ />}></Route>

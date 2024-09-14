@@ -32,6 +32,7 @@ export class ProductsController {
             },
             include: {
                 Category: true,
+                ProductType: true
             }
         });
     }

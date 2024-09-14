@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import styles from './index.module.scss'
 import { z } from 'zod';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { createCategories, deleteCategories, getCategories } from '../../api';
+import { createCategories, createCategoriesMenu, deleteCategories, deleteCategoriesMenu, getCategories, getCategoriesMenu } from '../../api';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ICategory } from '../../interfaces';
+import { ICategory, IProductType } from '../../interfaces';
 import { ButtonGreen, ButtonGreenBorder } from '../../ui/buttons';
 import { InputAdmin, InputEmail } from '../../ui/inputs/input';
 import { SelectWithSearch } from '../../components/cleverSearch';
@@ -24,26 +24,23 @@ export interface Option {
 
 export interface PopUpVisibleCategories {
     visibility: boolean;
-    data: ICategory | null;
+    data: IProductType | null;
 }
 
 export const validationSchema = z.object({
     id: z.number().optional(),
     name: z.string().min(1),
-    isActive: z.boolean().default(true),
-    file: z.union([z.object({ 0: z.instanceof(File) }), z.any()]).optional(),
-    imageUrl: z.string().optional()
 })
 
 type validationSchema = z.infer<typeof validationSchema>;
 
-export const Categories = () => {
+export const CategoriesMenu = () => {
 
     const createCategories_ = useMutation({
-        mutationFn: createCategories,
+        mutationFn: createCategoriesMenu,
         onSuccess: (data) => {
             toast.success("Успешно");
-            queryClient.invalidateQueries(['admin-categories']);
+            queryClient.invalidateQueries(['admin-categories-menu']);
             setIsPopUpVisible({ visibility: false, data: null })
         },
         onError: () => {
@@ -65,8 +62,8 @@ export const Categories = () => {
     });
 
     const { data } = useQuery({
-        queryFn: getCategories,
-        queryKey: ['admin-categories'],
+        queryFn: getCategoriesMenu,
+        queryKey: ['admin-categories-menu'],
         keepPreviousData: true,
     });
 
@@ -75,34 +72,28 @@ export const Categories = () => {
         data: null,
     });
 
-    const previousImage = isPopUpVisible.data?.imageUrl;
-    const imageUrl = watch('file')?.[0] && URL.createObjectURL(watch('file')?.[0]);
-
     const onSubmit = async (values: validationSchema) => {
-        const formattedData = withImageData({ ...values, id: isPopUpVisible.data?.id })
-        createCategories_.mutate(formattedData);
+        createCategories_.mutate({ ...values, id: isPopUpVisible.data?.id });
     };
 
     useEffect(() => {
         if (isPopUpVisible.data) {
             setValue('id', isPopUpVisible.data.id);
             setValue('name', isPopUpVisible.data.name);
-            setValue('isActive', isPopUpVisible.data.isActive);
-            setValue('imageUrl', isPopUpVisible.data.imageUrl);
         } else {
             reset();
         }
     }, [isPopUpVisible, setValue, reset]);
 
-    const openEditCategoryPopup = (category: ICategory) => {
+    const openEditCategoryPopup = (category: IProductType) => {
         setIsPopUpVisible({ visibility: true, data: category });
     };
 
     const deleteCategories_ = useMutation({
-        mutationFn: deleteCategories,
+        mutationFn: deleteCategoriesMenu,
         onSuccess: (data) => {
-            toast.success("Компания удалена");
-            queryClient.invalidateQueries(['admin-categories']);
+            toast.success("Категория удалена");
+            queryClient.invalidateQueries(['admin-categories-menu']);
         },
         onError: () => {
             toast.error("Ошибка");
@@ -112,8 +103,8 @@ export const Categories = () => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.titleBlock}>
-                <Fs32BoldBlack.span>Компании</Fs32BoldBlack.span>
-                <ButtonGreenBorder onClick={() => setIsPopUpVisible({ visibility: true, data: null })}><Fs16Fw400Black.span>+ Добавить компанию</Fs16Fw400Black.span></ButtonGreenBorder>
+                <Fs32BoldBlack.span>Категория</Fs32BoldBlack.span>
+                <ButtonGreenBorder onClick={() => setIsPopUpVisible({ visibility: true, data: null })}><Fs16Fw400Black.span>+ Добавить категорию</Fs16Fw400Black.span></ButtonGreenBorder>
             </div>
             <div className={styles.block}>
                 {
@@ -128,16 +119,8 @@ export const Categories = () => {
                                 <Fs16Fw400Black.span>{getNormalDate(new Date(el.createdAt))}</Fs16Fw400Black.span>
                             </div>
                             <div className={styles.bl}>
-                                <Fs13Fw300Black.span>Компания</Fs13Fw300Black.span>
+                                <Fs13Fw300Black.span>Тип еды</Fs13Fw300Black.span>
                                 <Fs16Fw400Black.span>{el.name}</Fs16Fw400Black.span>
-                            </div>
-                            <div className={styles.bl}>
-                                <Fs13Fw300Black.span>Лого компании</Fs13Fw300Black.span>
-                                <img src={el.imageUrl} alt={el.name} className={styles.logoCompany} />
-                            </div>
-                            <div className={styles.bl}>
-                                <Fs13Fw300Black.span>Активная компания ?</Fs13Fw300Black.span>
-                                <Fs16Fw400Black.span>{el.isActive === true ? 'Активно' : 'Не активно'}</Fs16Fw400Black.span>
                             </div>
                             <div className={styles.btns}>
                                 <ButtonGreen isLoading={deleteCategories_.isLoading} onClick={() => deleteCategories_.mutate(el)}><Fs13Fw500White.span>Удалить</Fs13Fw500White.span></ButtonGreen>
@@ -152,13 +135,8 @@ export const Categories = () => {
             {
                 isPopUpVisible.visibility &&
                 <PopupComponent headline={isPopUpVisible.data ? 'Изменить категорию' : 'Добавить категорию'} isVisible={isPopUpVisible.visibility} setIsVisible={(visible) => setIsPopUpVisible({ visibility: visible, data: isPopUpVisible.data })}>
-                    <InputAdmin type="text" register={register} error={errors.name} name='name' placeholder="Название компании" />
-                    <InputFileLight3 image={imageUrl || previousImage} name='file' register={register} />
-                    <div className={styles.row}>
-                        <Fs16Fw400Black.span>Сделать активной компанией?</Fs16Fw400Black.span>
-                        <PurpleSwitch label='isActive' setFormValue={setValue} watch={watch} />
-                    </div>
-                    <ButtonGreen isLoading={createCategories_.isLoading} onClick={handleSubmit(onSubmit)}>{isPopUpVisible.data ? 'Изменить компанию' : 'Добавить компанию'}</ButtonGreen>
+                    <InputAdmin type="text" register={register} error={errors.name} name='name' placeholder="Категория еды" />
+                    <ButtonGreen isLoading={createCategories_.isLoading} onClick={handleSubmit(onSubmit)}>{isPopUpVisible.data ? 'Изменить категорию' : 'Добавить категорию'}</ButtonGreen>
                 </PopupComponent >
             }
         </div>

@@ -33,7 +33,10 @@ export const Main = () => {
         <Wrapper className={styles.main}>
             {categories?.map(category => (
                 <section key={category.id}>
-                    <HeadLine title={category.name} />
+                    <div className={styles.rowHeadlineImage}>
+                        <HeadLine title={category.name} />
+                        <img src={category.imageUrl} alt={category.name} className={styles.companiesLogo} />
+                    </div>
                     <FirstSwiper key={category.id} el={category} />
                 </section>
             ))}

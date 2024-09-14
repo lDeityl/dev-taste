@@ -53,9 +53,10 @@ model Product {
 }
 
 model ProductType {
-    id      Int       @id @default(autoincrement())
-    name    String
-    Product Product[]
+    id        Int       @id @default(autoincrement())
+    createdAt DateTime? @default(now())
+    name      String
+    Product   Product[]
 }
 
 model Stock {

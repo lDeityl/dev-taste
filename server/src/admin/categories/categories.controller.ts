@@ -30,7 +30,6 @@ export class CategoriesController {
     @Post('create')
     @UseInterceptors(FileInterceptor('file', { fileFilter: imageFileFilter }))
     async createProduct(@Body() body: CreateCategories, @UploadedFile() file: Express.Multer.File) {
-
         if (!file && !body.imageUrl) {
             throw new BadRequestException('Wrong image');
         }
@@ -41,18 +40,20 @@ export class CategoriesController {
             link = await this.s3.uploadFile(file);
         }
 
+        const isActive = String(body.isActive) === 'true';
+
         return await this.prisma.companies.upsert({
             where: {
-                id: body.id ?? -1
+                id: Number(body.id) || -1
             },
             create: {
                 name: body.name,
-                isActive: body.isActive,
+                isActive: isActive,
                 imageUrl: link
             },
             update: {
                 name: body.name,
-                isActive: body.isActive,
+                isActive: isActive,
                 imageUrl: link
             }
         });

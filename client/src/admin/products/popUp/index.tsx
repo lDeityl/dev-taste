@@ -12,7 +12,7 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { withImageData } from '../../../utils/withImageData';
-import { createProducts, getCategories } from '../../../api';
+import { createProducts, getCategories, getCategoriesMenu } from '../../../api';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 
@@ -39,6 +39,7 @@ const validationSchema = z.object({
     file: z.union([z.object({ 0: z.instanceof(File) }), z.any()]).optional(),
     imageUrl: z.string().optional(),
     categoryId: z.number().int("ID категории должно быть целым числом"),
+    productTypeId: z.number().int("ID типа продукта должно быть целым числом"),
 });
 
 type ValidationSchema = z.infer<typeof validationSchema>;
@@ -50,6 +51,7 @@ export const PopUpProducts = ({ isPopUpVisible, setIsPopUpVisible }: Props) => {
         onSuccess: () => {
             toast.success("Продукт добавлен");
             queryClient.invalidateQueries(['admin-products']);
+            setIsPopUpVisible({ visibility: false, data: null })
         },
         onError: (error: any) => {
             toast.error(error.message || "Ошибка при добавлении продукта");
@@ -59,6 +61,7 @@ export const PopUpProducts = ({ isPopUpVisible, setIsPopUpVisible }: Props) => {
     const queryClient = useQueryClient();
 
     const [option, setOption] = useState<Option | null>(null);
+    const [optionProduct, setOptionProduct] = useState<Option | null>(null);
 
     const { setValue, register, reset, handleSubmit, watch, formState: { errors }, } = useForm<ValidationSchema>({
         resolver: zodResolver(validationSchema),
@@ -70,12 +73,17 @@ export const PopUpProducts = ({ isPopUpVisible, setIsPopUpVisible }: Props) => {
         keepPreviousData: true,
     });
 
+    const { data: dataProductType } = useQuery({
+        queryFn: getCategoriesMenu,
+        queryKey: ['admin-categories-menu'],
+        keepPreviousData: true,
+    });
+
     const previousImage = isPopUpVisible.data?.imageUrl;
     const imageUrl = watch('file')?.[0] && URL.createObjectURL(watch('file')?.[0]);
 
     const onSubmit = async (values: ValidationSchema) => {
-        console.log('Form values before submission:', values);
-        const formattedData = withImageData({ ...values, id: isPopUpVisible.data?.id, categoryId: Number(option?.value) })
+        const formattedData = withImageData({ ...values, id: isPopUpVisible.data?.id, categoryId: Number(option?.value), productTypeId: Number(optionProduct?.value) })
         addNewProducts_.mutate(formattedData);
     };
 
@@ -92,6 +100,7 @@ export const PopUpProducts = ({ isPopUpVisible, setIsPopUpVisible }: Props) => {
                 calories: isPopUpVisible.data.calories,
                 weight: isPopUpVisible.data.weight,
                 categoryId: isPopUpVisible.data.categoryId,
+                productTypeId: isPopUpVisible.data.productTypeId,
                 isActive: isPopUpVisible.data.isActive,
             });
             setValue('isActive', isPopUpVisible.data.isActive)
@@ -105,18 +114,33 @@ export const PopUpProducts = ({ isPopUpVisible, setIsPopUpVisible }: Props) => {
         label: el.name,
     }));
 
+    const productTypeOptions = dataProductType?.map(el => ({
+        value: String(el.id),
+        label: el.name,
+    }));
+
     useEffect(() => {
         if (isPopUpVisible.data && dataCategories) {
             const productCategory = dataCategories.find(category => category.id === isPopUpVisible.data?.categoryId);
             if (productCategory) {
                 setOption({ value: String(productCategory.id), label: productCategory.name });
             }
+
+            const productType = dataProductType?.find(productType => productType.id === isPopUpVisible.data?.productTypeId);
+            if (productType) {
+                setOptionProduct({ value: String(productType.id), label: productType.name });
+            }
         }
-    }, [isPopUpVisible, dataCategories]);
+    }, [isPopUpVisible, dataCategories, dataProductType]);
 
     const handleCategoryChange = (option: Option) => {
         setOption(option);
         setValue('categoryId', Number(option.value));
+    };
+
+    const handleProductTypeChange = (option: Option) => {
+        setOptionProduct(option);
+        setValue('productTypeId', Number(option.value));
     };
 
     return (
@@ -137,6 +161,12 @@ export const PopUpProducts = ({ isPopUpVisible, setIsPopUpVisible }: Props) => {
             <div className={styles.row}>
                 <Fs16Fw400Black.span>Сделать активным продуктом?</Fs16Fw400Black.span>
                 <PurpleSwitch label='isActive' setFormValue={setValue} watch={watch} />
+            </div>
+            <div className={styles.bl}>
+                <Fs13Fw300Black.span>Тип продукта</Fs13Fw300Black.span>
+                {productTypeOptions && (
+                    <SelectWithSearch setOption={handleProductTypeChange} option={optionProduct} options={productTypeOptions} />
+                )}
             </div>
             <div className={styles.bl}>
                 <Fs13Fw300Black.span>Категория</Fs13Fw300Black.span>

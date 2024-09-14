@@ -107,9 +107,9 @@ const withStyleClearableInput = (styleName: string) => {
         ...rest
     }: Input) => {
 
-        const [inputValue, setInputValue] = useState<string | number>(value); // Изменяем тип на string | number
+        const [inputValue, setInputValue] = useState<string | number>(value);
 
-        const handleClearInput = () => setInputValue(''); // Устанавливаем пустую строку вместо пустого значения для числового поля
+        const handleClearInput = () => setInputValue('');
 
         return (
             <div className={`${styles.basis} ${styles[styleName]} ${className}`}>
@@ -118,18 +118,20 @@ const withStyleClearableInput = (styleName: string) => {
                         {label}
                     </label>
                 }
-                <input
-                    {...register?.(name)}
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    {...rest}
-                    className={error?.message ? styles.error : ''}
-                    placeholder={placeholder}
-                    type={type} // Устанавливаем тип поля
-                />
-                {inputValue && (
-                    <RxCross1 className={styles.svg} onClick={handleClearInput} />
-                )}
+                <div className={styles.rowFlex}>
+                    <input
+                        {...register?.(name)}
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        {...rest}
+                        className={error?.message ? styles.error : ''}
+                        placeholder={placeholder}
+                        type={type}
+                    />
+                    {inputValue && (
+                        <RxCross1 className={styles.svg} onClick={handleClearInput} />
+                    )}
+                </div>
                 <Error isVisible={!!error?.message}>{error?.message}</Error>
             </div>
         );

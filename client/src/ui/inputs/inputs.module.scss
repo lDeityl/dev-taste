@@ -199,44 +199,45 @@
         font-weight: 700;
     }
 
-    input {
-        border-radius: 11px;
-        border: 1px solid #EFEFEF;
-        font-size: var(--fs-14);
-        color: #ffffff;
-        transition: all .5s ease;
-        appearance: none;
-        padding: 16px 24px;
-        padding-right: 40px;
-
-        &::placeholder {
-            color: #838383;
-            font-size: var(--fs-16);
-            font-weight: 400;
-        }
-
-        &:hover {
-            border-color: #000000;
-            transition-duration: var(--speed-highlightFadeIn);
-        }
-
-        &:focus {
-            box-shadow: none;
-            border-color: #000000;
-            outline: none;
-        }
-    }
-
-    .svg {
-        position: absolute;
-        width: 20px;
-        height: 20px;
+    .rowFlex {
         display: flex;
         align-items: center;
-        justify-content: center;
-        top: 18px;
-        right: 10px;
-        cursor: pointer;
+        gap: 10px;
+        border-radius: 11px;
+        border: 1px solid #EFEFEF;
+        transition: all .5s ease;
+        padding: 16px 8px 16px 24px;
+        justify-content: space-between;
+
+        input {
+            font-size: var(--fs-14);
+            color: #ffffff;
+            appearance: none;
+            width: 100%;
+
+            &::placeholder {
+                color: #838383;
+                font-size: var(--fs-16);
+                font-weight: 400;
+            }
+
+            &:hover {
+                border-color: #000000;
+                transition-duration: var(--speed-highlightFadeIn);
+            }
+
+            &:focus {
+                box-shadow: none;
+                border-color: #000000;
+                outline: none;
+            }
+        }
+
+        .svg {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
     }
 }
 

@@ -41,7 +41,10 @@ export const Product = () => {
                             <Fs13Fw400Gray.p>{el.description}</Fs13Fw400Gray.p>
                         </div>
                         <div className={styles.bottom}>
-                            <Fs16Fw400White.span style={{ paddingLeft: '40px' }}>Вес {el.weight} г</Fs16Fw400White.span>
+                            <div className={styles.up2}>
+                                <Fs16Fw400White.span style={{ paddingLeft: '40px' }}>Компания: <b>{el?.Category?.name}</b></Fs16Fw400White.span>
+                                <Fs16Fw400White.span style={{ paddingLeft: '40px' }}>Тип продукта: <b>{el?.ProductType?.name}</b></Fs16Fw400White.span>
+                            </div>
                             <div className={styles.cartBox}>
                                 <div className={styles.cart} onClick={() => nav('/cart')}>
                                     <Fs14Fw500White.span>Корзина</Fs14Fw500White.span>

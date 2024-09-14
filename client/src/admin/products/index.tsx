@@ -79,6 +79,10 @@ export const Products = () => {
                             <Fs16Fw400Black.span>{el.Category?.name}</Fs16Fw400Black.span>
                         </div>
                         <div className={styles.bl}>
+                            <Fs13Fw300Black.span>Тип продукта</Fs13Fw300Black.span>
+                            <Fs16Fw400Black.span>{el.ProductType.name}</Fs16Fw400Black.span>
+                        </div>
+                        <div className={styles.bl}>
                             <Fs13Fw300Black.span>Имя продукта</Fs13Fw300Black.span>
                             <Fs16Fw400Black.span>{el.name}</Fs16Fw400Black.span>
                         </div>
