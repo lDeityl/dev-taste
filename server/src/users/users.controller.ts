@@ -45,6 +45,7 @@ export class UsersController {
 
     @Get('get-categories')
     async getCategories() {
+
         return await this.prisma.companies.findMany({
             where: {
                 isActive: true,
@@ -55,7 +56,7 @@ export class UsersController {
             include: {
                 Product: {
                     where: {
-                        isActive: true,
+                        isActive: true
                     },
                 },
             },

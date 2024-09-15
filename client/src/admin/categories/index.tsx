@@ -151,7 +151,7 @@ export const Categories = () => {
             </div>
             {
                 isPopUpVisible.visibility &&
-                <PopupComponent headline={isPopUpVisible.data ? 'Изменить категорию' : 'Добавить категорию'} isVisible={isPopUpVisible.visibility} setIsVisible={(visible) => setIsPopUpVisible({ visibility: visible, data: isPopUpVisible.data })}>
+                <PopupComponent key={isPopUpVisible.data ? isPopUpVisible.data.id : 'new'} headline={isPopUpVisible.data ? 'Изменить категорию' : 'Добавить категорию'} isVisible={isPopUpVisible.visibility} setIsVisible={(visible) => setIsPopUpVisible({ visibility: visible, data: isPopUpVisible.data })}>
                     <InputAdmin type="text" register={register} error={errors.name} name='name' placeholder="Название компании" />
                     <InputFileLight3 image={imageUrl || previousImage} name='file' register={register} />
                     <div className={styles.row}>

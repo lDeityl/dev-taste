@@ -5,11 +5,24 @@ import 'swiper/swiper-bundle.css';
 import SwiperCore from 'swiper';
 import { Card } from '../../../components/card';
 import { dishes } from '../../../arraysOfObjects';
+import { ICategory, IProduct } from '../../../interfaces';
+import { getProduct } from '../../../api';
+import { useQuery } from 'react-query';
 
+interface Props {
+    el: IProduct
+}
 
-export const SecondSwiper = () => {
+export const SecondSwiper = ({ el }: Props) => {
 
     const swiper = useRef<SwiperCore | null>(null);
+
+    const { data, isLoading } = useQuery({
+        queryFn: () => getProduct(),
+        queryKey: ["get-product-current"]
+    })
+
+    let alsoBuy = data?.filter((item) => (item.ProductType.name === el.ProductType.name) && (item.id !== el.id))
 
     return (
         <Swiper
@@ -38,17 +51,9 @@ export const SecondSwiper = () => {
                 }
             }}
         >
-            {dishes.map((dish, index) => (
+            {alsoBuy?.map((dish, index) => (
                 <SwiperSlide key={index} style={{ display: 'flex', justifyContent: 'center' }}>
-                    {/* <Card
-                        title={dish.title}
-                        description={dish.description}
-                        weight={dish.weight}
-                        price={dish.price}
-                        link={dish.link}
-                        image={dish.image}
-                    /> */}
-                    админка
+                    <Card item={dish} />
                 </SwiperSlide>
             ))}
         </Swiper>

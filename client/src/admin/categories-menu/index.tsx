@@ -134,7 +134,7 @@ export const CategoriesMenu = () => {
             </div>
             {
                 isPopUpVisible.visibility &&
-                <PopupComponent headline={isPopUpVisible.data ? 'Изменить категорию' : 'Добавить категорию'} isVisible={isPopUpVisible.visibility} setIsVisible={(visible) => setIsPopUpVisible({ visibility: visible, data: isPopUpVisible.data })}>
+                <PopupComponent key={isPopUpVisible.data ? isPopUpVisible.data.id : 'new'} headline={isPopUpVisible.data ? 'Изменить категорию' : 'Добавить категорию'} isVisible={isPopUpVisible.visibility} setIsVisible={(visible) => setIsPopUpVisible({ visibility: visible, data: isPopUpVisible.data })}>
                     <InputAdmin type="text" register={register} error={errors.name} name='name' placeholder="Категория еды" />
                     <ButtonGreen isLoading={createCategories_.isLoading} onClick={handleSubmit(onSubmit)}>{isPopUpVisible.data ? 'Изменить категорию' : 'Добавить категорию'}</ButtonGreen>
                 </PopupComponent >

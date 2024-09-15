@@ -27,14 +27,13 @@ export const Product = () => {
     const { data: el, isLoading } = useQuery({
         queryFn: () => getUserProduct(Number(id)),
         queryKey: ["get-product", id]
-
     })
 
     return (
         <div className={styles.box}>
             {el ?
                 <Wrapper className={styles.cart}>
-                    <img src={el.imageUrl} alt="" />
+                    <img src={el.imageUrl} alt={el.name} />
                     <div className={styles.blocks}>
                         <div className={styles.up}>
                             <Fs25BoldWhite.h4>{el.name}</Fs25BoldWhite.h4>
@@ -80,18 +79,12 @@ export const Product = () => {
                 </Wrapper>
             }
             <div className={styles.customHR} />
-            <Wrapper>
-                <HeadLine title='С ЭТИМ ТОВАРОМ ПОКУПАЮТ' />
-                {/* {
-                    Number(el?.link) >= 1 && Number(el?.link) < 6 && <SecondSwiper />
-                }
-                {
-                    Number(el?.link) >= 6 && Number(el?.link) < 11 && <FirstSwiper />
-                }
-                {
-                    Number(el?.link) >= 11 && Number(el?.link) < 16 && <ThirdSwiper />
-                } */}
-            </Wrapper>
+            {el &&
+                <Wrapper>
+                    <HeadLine title='С ЭТИМ ТОВАРОМ ПОКУПАЮТ' />
+                    <SecondSwiper el={el} />
+                </Wrapper>
+            }
             <Wrapper className={styles.wrapperContacts}>
                 <Contacts />
             </Wrapper>

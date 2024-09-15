@@ -23,8 +23,13 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
+            justify-content: space-between;
 
-
+            .productItem {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     }
 }

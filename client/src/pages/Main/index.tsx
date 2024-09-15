@@ -27,18 +27,21 @@ export const Main = () => {
         queryFn: getUserCategories,
         queryKey: ['categories'],
     });
-    console.log(categories);
 
     return (
         <Wrapper className={styles.main}>
             {categories?.map(category => (
-                <section key={category.id}>
-                    <div className={styles.rowHeadlineImage}>
-                        <HeadLine title={category.name} />
-                        <img src={category.imageUrl} alt={category.name} className={styles.companiesLogo} />
-                    </div>
-                    <FirstSwiper key={category.id} el={category} />
-                </section>
+                <>
+                    {category.Product.length > 0 &&
+                        <section key={category.id}>
+                            <div className={styles.rowHeadlineImage}>
+                                <HeadLine title={category.name} />
+                                <img src={category.imageUrl} alt={category.name} className={styles.companiesLogo} />
+                            </div>
+                            <FirstSwiper key={category.id} el={category} />
+                        </section>
+                    }
+                </>
             ))}
             <section className={styles.ourCoffe}>
                 <div className={styles.leftSide}>

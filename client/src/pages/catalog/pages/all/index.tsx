@@ -6,6 +6,9 @@ import { Card } from '../../../../components/card';
 import { Wrapper } from '../../../../components/wrapper';
 import { Fs20Fw400Gray } from '../../../../components/typography';
 import * as Accordion from '@radix-ui/react-accordion';
+import { useQuery } from 'react-query';
+import { getProduct } from '../../../../api';
+import { IProduct } from '../../../../interfaces';
 
 export const allProducts = [...coldDishes, ...hotDishes, ...dishes];
 
@@ -18,21 +21,15 @@ interface Props {
     link: string
 }
 
-const shuffleArray = (array: any) => {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-};
+
 
 export const AllProducts = () => {
 
-    const [shuffledProducts, setShuffledProducts] = useState([]);
-
-    useEffect(() => {
-        setShuffledProducts(shuffleArray(allProducts));
-    }, [allProducts]);
+    const { data } = useQuery({
+        queryFn: getProduct,
+        queryKey: ['catalog-products-menu'],
+        keepPreviousData: true,
+    });
 
     return (
         <Wrapper className={styles.wrapper}>
@@ -111,17 +108,11 @@ export const AllProducts = () => {
                 </Accordion.Root>
             </div>
             <div className={styles.box}>
-                {shuffleArray(allProducts).map((product: Props) => (
-                    // <Card
-                    //     key={product.link}
-                    //     title={product.title}
-                    //     description={product.description}
-                    //     weight={product.weight}
-                    //     price={product.price}
-                    //     link={product.link}
-                    //     image={product.image}
-                    // />
-                    <>админка</>
+                {data?.map((product: IProduct) => (
+                    <Card
+                        key={product.id}
+                        item={product}
+                    />
                 ))}
             </div>
         </Wrapper>
