@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from "zustand/middleware"
-import { IProduct } from '../interfaces'
+import { ICategory, IProduct } from '../interfaces'
 
 export interface IWallet {
     encryptedKey: string
@@ -32,6 +32,7 @@ export interface CartItem {
     product: IProduct;
     quantity: number;
 }
+
 export interface CartState {
     cartItems: CartItem[];
     userAddress: string | null;

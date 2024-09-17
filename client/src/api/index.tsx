@@ -81,13 +81,20 @@ export const deleteCategories = async (data: DeleteRequest): Promise<boolean> =>
     return response.data;
 }
 
-export const getCatalog = async (limit: number, search: string): Promise<IProductCatalog> => {
-    let response = await api.get(`/catalog/get?limit=${limit}&search=${search}`);
+export const getCatalog = async (limit: number, search: string, categoryId?: number, sort?: 'increase' | 'descrease'): Promise<IProductCatalog> => {
+    const response = await api.get(`/catalog/get`, {
+        params: { limit, search, categoryId, sort, },
+    });
     return response.data;
-}
+};
 
 export const getProduct = async (): Promise<IProduct[]> => {
     let response = await api.get(`/products/get`);
+    return response.data;
+}
+
+export const getProductFive = async (): Promise<IProduct[]> => {
+    let response = await api.get(`/products/get-five`);
     return response.data;
 }
 
@@ -103,5 +110,15 @@ export const getUserProduct = async (id: number): Promise<IProduct> => {
 
 export const getUserCategories = async (): Promise<ICategory[]> => {
     let response = await api.get(`/users/get-categories`);
+    return response.data;
+}
+
+export const getCategoryForCart = async (categoryId: number): Promise<ICategory> => {
+    let response = await api.get(`/users/get-category-cart?categoryId=${categoryId}`);
+    return response.data;
+}
+
+export const getProductForCart = async (productId: number): Promise<IProduct> => {
+    let response = await api.get(`/users/get-product-cart?productId=${productId}`);
     return response.data;
 }

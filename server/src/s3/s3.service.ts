@@ -40,8 +40,6 @@ export class S3Service {
             }
             throw new BadRequestException("Image not saved to s3!");
         } catch (err) {
-            console.log(err)
-
             throw new BadRequestException("Error uploading");
         }
     }

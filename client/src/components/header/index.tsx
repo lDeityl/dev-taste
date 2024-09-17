@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import styles from './index.module.scss'
 import { Wrapper } from '../wrapper'
 import { Fs12Fw300White, Fs12Fw500Black, Fs13Fw400Gray, Fs14Fw500White, Fs16BoldWhite, Fs16Fw400White, Fs18Fw400Gray, Fs25BoldWhite } from '../typography'
@@ -11,6 +11,7 @@ import buy from '../../assets/images/Buy.png'
 import { RxCross2 } from "react-icons/rx";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useCartStore, useFilterStore } from '../../stores'
+import debounce from 'lodash.debounce'
 
 const links = [
     {
@@ -92,7 +93,7 @@ export const Header = () => {
                                 <Fs14Fw500White.span>Корзина</Fs14Fw500White.span>
                                 <div className={styles.unvisibleSqr}>
                                     <div className={styles.circle}>
-                                        <Fs12Fw500Black.span>{quantity > 0 ? <span className={styles.quantity}>{quantity > 99 ? "99+" : quantity}</span> : <></>}</Fs12Fw500Black.span>
+                                        <Fs12Fw500Black.span>{quantity >= 0 ? <span className={styles.quantity}>{quantity > 99 ? "99+" : quantity}</span> : <></>}</Fs12Fw500Black.span>
                                     </div>
                                 </div>
                             </div>

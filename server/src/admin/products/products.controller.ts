@@ -37,6 +37,20 @@ export class ProductsController {
         });
     }
 
+    @Get('get-five')
+    async getProductsFive() {
+        return await this.prisma.product.findMany({
+            orderBy: {
+                id: "asc",
+            },
+            include: {
+                Category: true,
+                ProductType: true
+            },
+            take: 5
+        });
+    }
+
     @UseGuards(Jwt2faAuthGuard, RolesGuard)
     @Post('create')
     @UseInterceptors(FileInterceptor('file', { fileFilter: imageFileFilter }))
@@ -61,7 +75,6 @@ export class ProductsController {
         const carbohydrates = Number(body.carbohydrates);
         const calories = Number(body.calories);
         const weight = Number(body.weight);
-        console.log('Received body:', body);
         const isActive = String(body.isActive) === 'true';
 
         if (isNaN(price) || isNaN(squirrels) || isNaN(fats) || isNaN(carbohydrates) || isNaN(calories) || isNaN(weight)) {

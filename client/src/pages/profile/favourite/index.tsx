@@ -2,7 +2,6 @@ import React from 'react'
 import styles from './index.module.scss'
 import { Fs22BoldWhite } from '../../../components/typography'
 import { Card } from '../../../components/card'
-import { allProducts } from '../../catalog/pages/all'
 
 export const Favourite = () => {
 

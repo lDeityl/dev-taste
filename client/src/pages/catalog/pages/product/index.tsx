@@ -10,17 +10,16 @@ import { ThirdSwiper } from '../../../Main/third-swiper'
 import { SecondSwiper } from '../../../Main/second-swiper'
 import { Contacts } from '../../../../components/contacts'
 import { useParams } from 'react-router-dom';
-import { allProducts } from '../all'
 import ScrollToTop from '../../../../utils/scrollToTop'
 import { FirstSwiper } from '../../../Main/first-swiper'
 import { IProduct } from '../../../../interfaces'
 import image from '../../../../assets/images/hot/meat-3.png'
 import { useQuery } from 'react-query'
 import { getProduct, getUserProduct } from '../../../../api'
+import { useCartStore } from '../../../../stores'
+import { toast } from 'react-toastify'
 
 export const Product = () => {
-
-    const nav = useNavigate();
 
     const { id } = useParams();
 
@@ -28,6 +27,16 @@ export const Product = () => {
         queryFn: () => getUserProduct(Number(id)),
         queryKey: ["get-product", id]
     })
+
+    const { addToCart } = useCartStore()
+
+    const handleAddToCartProduct = () => {
+        if (!el) return;
+        addToCart(el, 1)
+        toast.success(`${String(el.name)} добавлен в корзину`, {
+            position: "top-left"
+        })
+    }
 
     return (
         <div className={styles.box}>
@@ -51,7 +60,7 @@ export const Product = () => {
                                         <Fs16Fw400White.span style={{ paddingLeft: '40px' }}>Тип продукта: <b>{el?.ProductType?.name}</b></Fs16Fw400White.span>
                                     </div>
                                     <div className={styles.cartBox}>
-                                        <div className={styles.cart} onClick={() => nav('/cart')}>
+                                        <div className={styles.cart} onClick={() => { handleAddToCartProduct() }}>
                                             <Fs14Fw500White.span>Корзина</Fs14Fw500White.span>
                                             <div className={styles.unvisibleSqr}>
                                                 <HiOutlineShoppingBag />

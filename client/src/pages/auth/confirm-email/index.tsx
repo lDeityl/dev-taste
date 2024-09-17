@@ -38,7 +38,6 @@ export const ConfirmEmail = () => {
             navigate("/profile/")
         },
         onError: (error: any) => {
-            console.log(error)
             toast.error("Неправильний код")
         }
     })

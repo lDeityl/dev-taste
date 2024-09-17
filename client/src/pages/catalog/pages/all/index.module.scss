@@ -3,12 +3,19 @@
     gap: 20px;
     flex-wrap: wrap;
     justify-content: space-between;
+    height: fit-content;
 }
 
 @import '@radix-ui/colors/black-alpha.css';
 @import '@radix-ui/colors/mauve.css';
 @import '@radix-ui/colors/violet.css';
 
+.boxBtns {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    gap: 10px;
+}
 
 .wrapper {
     display: flex;

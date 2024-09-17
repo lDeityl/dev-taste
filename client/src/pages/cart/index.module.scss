@@ -4,6 +4,11 @@
     background: linear-gradient(45deg, #494544, #504B4A);
     border-radius: 10px;
 
+    @media (max-width: 900px) {
+        background: none;
+        gap: 20px;
+    }
+
     .customProfile {
         width: 100%;
         height: 1px;
@@ -18,6 +23,8 @@
         padding: 20px;
 
         @media (max-width:900px) {
+            background: linear-gradient(45deg, #494544, #504B4A);
+            border-radius: 12px;
             flex-direction: column;
         }
 
@@ -47,7 +54,7 @@
             user-select: none;
             object-fit: cover;
             width: 100%;
-            max-width: 115px;
+            max-width: 100px;
             height: 90px;
             border-radius: 8px;
         }
@@ -58,6 +65,10 @@
             gap: 3px;
             max-width: 700px;
             width: 100%;
+
+            @media (max-width: 1440px) {
+                max-width: 400px;
+            }
 
             span {
                 font-weight: 700;
@@ -120,10 +131,27 @@
             max-width: 250px;
             width: 100%;
 
+            @media (max-width: 1000px) {
+                &.lastHidden {
+                    display: none;
+                }
+            }
+
+            @media (max-width: 750px) {
+                &.prevLastHidden {
+                    display: none;
+                }
+            }
+
+            @media (max-width: 600px) {
+                &.prev2LastHidden {
+                    display: none;
+                }
+            }
+
             img {
                 user-select: none;
                 object-fit: cover;
-                width: 100%;
                 max-width: 210px;
                 max-height: 120px;
                 height: 100%;

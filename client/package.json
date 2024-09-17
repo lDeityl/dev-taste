@@ -20,6 +20,7 @@
         "classnames": "^2.5.1",
         "contexts": "^0.0.0",
         "framer-motion": "^10.16.4",
+        "lodash.debounce": "^4.0.8",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-hook-form": "^7.46.2",
@@ -62,6 +63,8 @@
         ]
     },
     "devDependencies": {
+        "@types/lodash.debounce": "^4.0.9",
+        "@types/lodash.throttle": "^4.1.9",
         "@types/react-scroll": "^1.8.10"
     }
 }

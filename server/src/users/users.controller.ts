@@ -1,4 +1,4 @@
-import { Controller, Get, Query, Req, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Query, Req, UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "auth/jwt-auth.guard";
 import { PrismaService } from "prisma/prisma.service";
 
@@ -39,6 +39,32 @@ export class UsersController {
             include: {
                 ProductType: true,
                 Category: true
+            }
+        });
+    }
+
+    @Get('get-product-cart')
+    async getProductForCart(@Query('productId') productId: string) {
+        return await this.prisma.product.findFirst({
+            where: {
+                id: Number(productId),
+            },
+            include: {
+
+                ProductType: true,
+                Category: true
+            }
+        });
+    }
+
+    @Get('get-category-cart')
+    async getCategoryForCart(@Query('categoryId') categoryId: string) {
+        return await this.prisma.companies.findFirst({
+            where: {
+                id: Number(categoryId),
+            },
+            include: {
+                Product: true,
             }
         });
     }
