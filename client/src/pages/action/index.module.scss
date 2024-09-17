@@ -5,10 +5,10 @@
 }
 
 .actions {
-    padding: 40px 20px 40px 0;
+    padding: 40px 20px 40px 20px;
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
+    justify-content: space-around;
     gap: 25px 15px;
     margin-bottom: 130px;
 

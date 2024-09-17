@@ -16,27 +16,33 @@
         gap: 20px;
         align-items: center;
         padding: 20px;
+
         @media (max-width:900px) {
             flex-direction: column;
         }
-        .parent{
+
+        .parent {
             display: grid;
             grid-template-columns: 0.8fr 1.2fr;
             width: 100%;
+
             @media (max-width:580px) {
                 grid-template-columns: 0.8fr 1.3fr;
             }
+
             @media (max-width:380px) {
                 display: flex;
                 align-items: center;
             }
         }
-        .rowMobile{
+
+        .rowMobile {
             display: flex;
             justify-content: space-between;
             width: 100%;
             gap: 50px;
         }
+
         img {
             user-select: none;
             object-fit: cover;
@@ -50,6 +56,8 @@
             display: flex;
             flex-direction: column;
             gap: 3px;
+            max-width: 700px;
+            width: 100%;
 
             span {
                 font-weight: 700;
@@ -64,6 +72,8 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            max-width: 115px;
+            width: 100%;
         }
 
         .close {

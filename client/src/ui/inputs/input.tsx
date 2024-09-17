@@ -21,10 +21,12 @@ interface Input extends React.HTMLAttributes<HTMLInputElement> {
     currency?: string
     search?: boolean
     placeholder?: string
+    onClick?: React.MouseEventHandler<HTMLInputElement>
 }
 
 const withStyle = (styleName: string) => {
-    return ({ search, value, register, name, error, label, type, className, ...rest }: Input) => {
+    return ({ search, value, register, name, error, label, type, className, onClick, ...rest }: Input) => {
+
         return (
             <div className={`${styles.basis} ${styles[styleName]} ${className}`}>
                 {label &&
@@ -38,7 +40,9 @@ const withStyle = (styleName: string) => {
                         <input {...register?.(name, {
                             valueAsNumber: type === "number"
                         })} value={value} type={type} {...rest} className={error?.message && styles.error} />
-                        <CiSearch />
+                        <div style={{ height: '24px' }} onClick={onClick}>
+                            <CiSearch />
+                        </div>
                     </div>
                     :
                     <input {...register?.(name, {

@@ -7,8 +7,10 @@ import { Wrapper } from '../../../../components/wrapper';
 import { Fs20Fw400Gray } from '../../../../components/typography';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useQuery } from 'react-query';
-import { getProduct } from '../../../../api';
+import { getCatalog, getProduct } from '../../../../api';
 import { IProduct } from '../../../../interfaces';
+import { useFilterStore } from '../../../../stores';
+import { convertObjectToQueryString } from '../../../../utils';
 
 export const allProducts = [...coldDishes, ...hotDishes, ...dishes];
 
@@ -25,9 +27,15 @@ interface Props {
 
 export const AllProducts = () => {
 
-    const { data } = useQuery({
-        queryFn: getProduct,
-        queryKey: ['catalog-products-menu'],
+    const { filters, maxPrice, minPrice, search } = useFilterStore();
+    const convertedFilters = Object.entries(filters).flat().flat();
+
+    const filtersQuery = convertObjectToQueryString(filters);
+    const [limit, setLimit] = useState(30);
+
+    const { data, isLoading } = useQuery({
+        queryFn: () => getCatalog(limit, search),
+        queryKey: ['catalog-products-menu', limit, search],
         keepPreviousData: true,
     });
 
@@ -108,7 +116,7 @@ export const AllProducts = () => {
                 </Accordion.Root>
             </div>
             <div className={styles.box}>
-                {data?.map((product: IProduct) => (
+                {data?.catalog?.map((product: IProduct) => (
                     <Card
                         key={product.id}
                         item={product}

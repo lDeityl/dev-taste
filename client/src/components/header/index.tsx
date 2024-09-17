@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './index.module.scss'
 import { Wrapper } from '../wrapper'
 import { Fs12Fw300White, Fs12Fw500Black, Fs13Fw400Gray, Fs14Fw500White, Fs16BoldWhite, Fs16Fw400White, Fs18Fw400Gray, Fs25BoldWhite } from '../typography'
@@ -10,7 +10,7 @@ import { VisibleDesktop1280, VisibleHandheld1280 } from '../../utils/visibleComp
 import buy from '../../assets/images/Buy.png'
 import { RxCross2 } from "react-icons/rx";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { useCartStore } from '../../stores'
+import { useCartStore, useFilterStore } from '../../stores'
 
 const links = [
     {
@@ -37,15 +37,37 @@ const links = [
 
 export const Header = () => {
 
+    const { search, setSearch } = useFilterStore()
+    const { cartItems } = useCartStore()
+
     const location = useLocation();
-    const nav = useNavigate();
+    const navigate = useNavigate();
+
+    const [searchValue, setSearchValue] = useState(search);
+
+    const quantity = cartItems.reduce((prev, curr) => prev + curr.quantity, 0);
+
+    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchValue(event.target.value);
+    };
+
+    const performSearch = () => {
+        setSearch(searchValue);
+        navigate('/catalog');
+    };
+
+    useEffect(() => {
+        if (location.pathname !== '/catalog') {
+            setSearch('');
+            setSearchValue('');
+        }
+    }, [location.pathname, setSearch, setSearchValue]);
 
     const checkIsActive = (path: string) => location.pathname === path;
 
     const isAuthed = useIsAuthenticated();
 
     const [isBurger, setBurger] = useState<boolean>(false);
-    const { cartItems } = useCartStore()
 
     return (
         <>
@@ -56,21 +78,21 @@ export const Header = () => {
                             <Link to={'/'} className={styles.sadasds} >
                                 <Fs25BoldWhite.h1>DEV - TASTE</Fs25BoldWhite.h1>
                             </Link>
-                            <InputSearch className={styles.input} type='text' placeholder='Введите название блюда' search />
+                            <InputSearch className={styles.input} type='text' placeholder='Введите название блюда' search value={searchValue} onChange={handleSearchChange} onClick={performSearch} />
                             <div className={styles.phone}>
                                 <a href='tel:' className={styles.iconPhone}>
                                     <FiPhoneCall />
                                 </a>
                                 <div className={styles.contacts}>
                                     <Fs13Fw400Gray.span>Контакты:</Fs13Fw400Gray.span>
-                                    <Fs16BoldWhite.span>+7 (917) 510-57-59</Fs16BoldWhite.span>
+                                    <Fs16BoldWhite.span>+7 (423) 424-32-23</Fs16BoldWhite.span>
                                 </div>
                             </div>
-                            <div className={styles.cart} onClick={() => nav('/cart')}>
+                            <div className={styles.cart} onClick={() => navigate('/cart')}>
                                 <Fs14Fw500White.span>Корзина</Fs14Fw500White.span>
                                 <div className={styles.unvisibleSqr}>
                                     <div className={styles.circle}>
-                                        <Fs12Fw500Black.span>{cartItems.length}</Fs12Fw500Black.span>
+                                        <Fs12Fw500Black.span>{quantity > 0 ? <span className={styles.quantity}>{quantity > 99 ? "99+" : quantity}</span> : <></>}</Fs12Fw500Black.span>
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +130,7 @@ export const Header = () => {
                             <Link to={'/'} className={styles.sadasds} >
                                 <Fs25BoldWhite.h1>DEV - TASTE</Fs25BoldWhite.h1>
                             </Link>
-                            <div className={styles.cart} onClick={() => nav('/cart')}>
+                            <div className={styles.cart} onClick={() => navigate('/cart')}>
                                 <img src={buy} alt="icon-buy" />
                                 <Fs12Fw300White.span>корзина</Fs12Fw300White.span>
                             </div>

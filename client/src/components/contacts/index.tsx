@@ -18,14 +18,14 @@ export const Contacts = () => {
                         <img src={loc} alt="" />
                         <div className={styles.right}>
                             <Fs13Fw400Gray.span>Наш адрес:</Fs13Fw400Gray.span>
-                            <Fs16BoldWhite.span>МО, городской округ Красногорск, село Ильинкое, Экспериментальная улица, 10</Fs16BoldWhite.span>
+                            <Fs16BoldWhite.span>г. Чебоксары</Fs16BoldWhite.span>
                         </div>
                     </div>
                     <div className={styles.address}>
                         <img src={message} alt="" />
                         <div className={styles.right}>
                             <Fs13Fw400Gray.span>Наша почта:</Fs13Fw400Gray.span>
-                            <Fs16BoldWhite.span>auto.wash@gmail.com</Fs16BoldWhite.span>
+                            <Fs16BoldWhite.span>mihailov@gmail.com</Fs16BoldWhite.span>
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@ export const Contacts = () => {
                         <Fs13Fw500White.span>ЗАБРОНИРОВАТЬ СТОЛ</Fs13Fw500White.span>
                     </ButtonGreen>
                     <div className={styles.phone}>
-                        <Fs32BoldWhite.span>+7 (917) 510-57-59</Fs32BoldWhite.span>
+                        <Fs32BoldWhite.span>+7 (423) 424-32-23</Fs32BoldWhite.span>
                         <Fs13Fw400Gray.span>Звоните или оставляйте заявку</Fs13Fw400Gray.span>
                     </div>
                 </div>

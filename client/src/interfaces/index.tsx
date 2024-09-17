@@ -57,6 +57,11 @@ export interface IProduct {
     isActive: boolean
 }
 
+export interface IProductCatalog {
+    catalog: IProduct[]
+    totalItems: number
+}
+
 export interface ICategory {
     id: number
     createdAt: string

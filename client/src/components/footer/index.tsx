@@ -111,7 +111,7 @@ export const Footer = () => {
                     ))}
                 </div>
             </Wrapper>
-            <Fs12Fw500Black.span className={styles.rules}>© ООО СК «АПШЕРОН» Все права защищены. 2010-2024</Fs12Fw500Black.span>
+            <Fs12Fw500Black.span className={styles.rules}>© All rights reserved 2024-2025</Fs12Fw500Black.span>
         </footer>
     )
 }

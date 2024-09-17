@@ -29,7 +29,7 @@ export const Delivery = () => {
                     </div>
                     <div className={styles.texts}>
                         <Fs22BoldWhite.span>Минимальный заказ:</Fs22BoldWhite.span>
-                        <Fs22BoldWhite.p className={styles.fontwe}>Бесплатная доставка пешим курьером при сумме заказа от 400 ₽ Доставка оператором такси от любой суммы заказа - по тарифам перевозчика.</Fs22BoldWhite.p>
+                        <Fs22BoldWhite.p className={styles.fontwe}>Бесплатная доставка пешим курьером при сумме заказа от 1200 ₽ Доставка оператором такси от любой суммы заказа - по тарифам перевозчика.</Fs22BoldWhite.p>
                     </div>
                 </div>
             </div>

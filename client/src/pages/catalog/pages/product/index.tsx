@@ -16,7 +16,7 @@ import { FirstSwiper } from '../../../Main/first-swiper'
 import { IProduct } from '../../../../interfaces'
 import image from '../../../../assets/images/hot/meat-3.png'
 import { useQuery } from 'react-query'
-import { getUserProduct } from '../../../../api'
+import { getProduct, getUserProduct } from '../../../../api'
 
 export const Product = () => {
 
@@ -31,57 +31,64 @@ export const Product = () => {
 
     return (
         <div className={styles.box}>
-            {el ?
-                <Wrapper className={styles.cart}>
-                    <img src={el.imageUrl} alt={el.name} />
-                    <div className={styles.blocks}>
-                        <div className={styles.up}>
-                            <Fs25BoldWhite.h4>{el.name}</Fs25BoldWhite.h4>
-                            <Fs13Fw400Gray.p>{el.description}</Fs13Fw400Gray.p>
-                        </div>
-                        <div className={styles.bottom}>
-                            <div className={styles.up2}>
-                                <Fs16Fw400White.span style={{ paddingLeft: '40px' }}>Компания: <b>{el?.Category?.name}</b></Fs16Fw400White.span>
-                                <Fs16Fw400White.span style={{ paddingLeft: '40px' }}>Тип продукта: <b>{el?.ProductType?.name}</b></Fs16Fw400White.span>
-                            </div>
-                            <div className={styles.cartBox}>
-                                <div className={styles.cart} onClick={() => nav('/cart')}>
-                                    <Fs14Fw500White.span>Корзина</Fs14Fw500White.span>
-                                    <div className={styles.unvisibleSqr}>
-                                        <HiOutlineShoppingBag />
-                                    </div>
-                                </div>
-                                <Fs25BoldWhite.span>{el.price} ₽</Fs25BoldWhite.span>
-                            </div>
-                            <div className={styles.bjy}>
-                                <div className={styles.characteristic}>
-                                    <Fs12Fw300White.span>Белки</Fs12Fw300White.span>
-                                    <Fs12Fw300White.span>Жиры</Fs12Fw300White.span>
-                                    <Fs12Fw300White.span>Углеводы</Fs12Fw300White.span>
-                                    <Fs12Fw300White.span>Ккал</Fs12Fw300White.span>
-                                    <Fs12Fw300White.span>Вес</Fs12Fw300White.span>
-                                </div>
-                                <hr />
-                                <div className={styles.digits}>
-                                    <Fs13Fw500White.span>{el.squirrels}</Fs13Fw500White.span>
-                                    <Fs13Fw500White.span>{el.fats}</Fs13Fw500White.span>
-                                    <Fs13Fw500White.span>{el.carbohydrates}</Fs13Fw500White.span>
-                                    <Fs13Fw500White.span>{el.calories}</Fs13Fw500White.span>
-                                    <Fs13Fw500White.span>{el.weight}</Fs13Fw500White.span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            {isLoading ?
+                <Wrapper>
+                    <HeadLine title='Загружаем товар 🤭' />
                 </Wrapper>
                 :
-                <Wrapper>
-                    <HeadLine title='Товар не найден!' />
-                </Wrapper>
+                <>
+                    {el ?
+                        <Wrapper className={styles.cart}>
+                            <img src={el.imageUrl} alt={el.name} />
+                            <div className={styles.blocks}>
+                                <div className={styles.up}>
+                                    <Fs25BoldWhite.h4>{el.name}</Fs25BoldWhite.h4>
+                                    <Fs13Fw400Gray.p>{el.description}</Fs13Fw400Gray.p>
+                                </div>
+                                <div className={styles.bottom}>
+                                    <div className={styles.up2}>
+                                        <Fs16Fw400White.span style={{ paddingLeft: '40px' }}>Компания: <b>{el?.Category?.name}</b></Fs16Fw400White.span>
+                                        <Fs16Fw400White.span style={{ paddingLeft: '40px' }}>Тип продукта: <b>{el?.ProductType?.name}</b></Fs16Fw400White.span>
+                                    </div>
+                                    <div className={styles.cartBox}>
+                                        <div className={styles.cart} onClick={() => nav('/cart')}>
+                                            <Fs14Fw500White.span>Корзина</Fs14Fw500White.span>
+                                            <div className={styles.unvisibleSqr}>
+                                                <HiOutlineShoppingBag />
+                                            </div>
+                                        </div>
+                                        <Fs25BoldWhite.span>{el.price} ₽</Fs25BoldWhite.span>
+                                    </div>
+                                    <div className={styles.bjy}>
+                                        <div className={styles.characteristic}>
+                                            <Fs12Fw300White.span>Белки</Fs12Fw300White.span>
+                                            <Fs12Fw300White.span>Жиры</Fs12Fw300White.span>
+                                            <Fs12Fw300White.span>Углеводы</Fs12Fw300White.span>
+                                            <Fs12Fw300White.span>Ккал</Fs12Fw300White.span>
+                                            <Fs12Fw300White.span>Вес</Fs12Fw300White.span>
+                                        </div>
+                                        <hr />
+                                        <div className={styles.digits}>
+                                            <Fs13Fw500White.span>{el.squirrels}</Fs13Fw500White.span>
+                                            <Fs13Fw500White.span>{el.fats}</Fs13Fw500White.span>
+                                            <Fs13Fw500White.span>{el.carbohydrates}</Fs13Fw500White.span>
+                                            <Fs13Fw500White.span>{el.calories}</Fs13Fw500White.span>
+                                            <Fs13Fw500White.span>{el.weight}</Fs13Fw500White.span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </Wrapper>
+                        :
+                        <Wrapper>
+                            <HeadLine title='Товар не найден 😅' />
+                        </Wrapper>
+                    }
+                </>
             }
             <div className={styles.customHR} />
             {el &&
                 <Wrapper>
-                    <HeadLine title='С ЭТИМ ТОВАРОМ ПОКУПАЮТ' />
                     <SecondSwiper el={el} />
                 </Wrapper>
             }
