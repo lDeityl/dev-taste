@@ -26,7 +26,7 @@ export const UpdateImage = ({ setEdit }: Props) => {
 
     const queryClient = useQueryClient();
 
-    const useFetchProfile = () => useQuery(['profile-info-image'], getUserById);
+    const useFetchProfile = () => useQuery(['profile-info'], getUserById);
 
     const { data, error } = useFetchProfile();
 
@@ -34,10 +34,10 @@ export const UpdateImage = ({ setEdit }: Props) => {
         onSuccess: (data) => {
             toast.success('Фото обновлено');
 
-            const previousData = queryClient.getQueryData<IUsers>(['profile-info-image']);
+            const previousData = queryClient.getQueryData<IUsers>(['profile-info']);
 
             if (previousData) {
-                queryClient.setQueryData<IUsers>(['profile-info-image'], {
+                queryClient.setQueryData<IUsers>(['profile-info'], {
                     ...previousData,
                     imgURL: data.imgURL,
                 });

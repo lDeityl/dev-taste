@@ -6,7 +6,7 @@ import { Card } from '../../../../components/card';
 import { Wrapper } from '../../../../components/wrapper';
 import { Fs16Fw400White, Fs20Fw400Gray } from '../../../../components/typography';
 import { useQuery } from 'react-query';
-import { getCatalog, getCategories, getProduct } from '../../../../api';
+import { getCatalog, getCategories, getCategoriesMenu, getProduct } from '../../../../api';
 import { IProduct } from '../../../../interfaces';
 import { useFilterStore } from '../../../../stores';
 import { ButtonGreen, ButtonGreenBorder } from '../../../../ui/buttons';
@@ -15,13 +15,16 @@ export const AllProducts = () => {
 
     const { search } = useFilterStore();
     const [limit, setLimit] = useState(30);
+
     const [selectedCategory, setSelectedCategory] = useState<number | undefined>(undefined);
+    const [selectedProductType, setSelectedProductType] = useState<number | undefined>(undefined);
     const [sortOption, setSortOption] = useState<'increase' | 'descrease' | undefined>(undefined);
+
     const [applyFilters, setApplyFilters] = useState(false);
 
     const { data, isLoading, error } = useQuery({
-        queryFn: () => getCatalog(limit, search, selectedCategory, sortOption),
-        queryKey: ['catalog-products-menu', limit, search, selectedCategory, sortOption],
+        queryFn: () => getCatalog(limit, search, selectedCategory, selectedProductType, sortOption),
+        queryKey: ['catalog-products-menu', limit, search, selectedCategory, selectedProductType, sortOption],
         keepPreviousData: true,
         enabled: applyFilters || !applyFilters,
     });
@@ -31,10 +34,18 @@ export const AllProducts = () => {
         queryKey: ['category-products-menu'],
         keepPreviousData: true,
     });
+
+    const { data: dataProductType } = useQuery({
+        queryFn: getCategoriesMenu,
+        queryKey: ['user-categories-menu'],
+        keepPreviousData: true,
+    });
+
     const handleApplyFilters = () => setApplyFilters(true);
 
     const handleResetFilters = () => {
         setSelectedCategory(undefined);
+        setSelectedProductType(undefined);
         setSortOption(undefined);
         setApplyFilters(false);
     };
@@ -76,15 +87,42 @@ export const AllProducts = () => {
                     </Accordion.Item>
                     <Accordion.Item value="item-2" className={styles.AccordionItem}>
                         <Accordion.Header className={styles.AccordionHeader}>
+                            <Accordion.Trigger className={styles.AccordionTrigger}>Тип продукта</Accordion.Trigger>
+                        </Accordion.Header>
+                        <Accordion.Content className={styles.AccordionContent}>
+                            <form>
+                                <RadioGroup.Root
+                                    className={styles.RadioGroupRoot}
+                                    defaultValue="defaultProduct"
+                                    aria-label="product type by"
+                                    value={selectedProductType ? `${selectedProductType}` : 'defaultProduct'}
+                                    onValueChange={(value) => setSelectedProductType(Number(value))}
+                                >
+                                    {dataProductType?.map((el, idx) => (
+                                        <div style={{ display: 'flex', alignItems: 'center' }} key={idx}>
+                                            <RadioGroup.Item className={styles.RadioGroupItem} value={`${el.id}`} id={`${el.id}`}>
+                                                <RadioGroup.Indicator className={styles.RadioGroupIndicator} />
+                                            </RadioGroup.Item>
+                                            <label className={styles.Label} htmlFor={`${el.id}`}>
+                                                {el.name}
+                                            </label>
+                                        </div>
+                                    ))}
+                                </RadioGroup.Root>
+                            </form>
+                        </Accordion.Content>
+                    </Accordion.Item>
+                    <Accordion.Item value="item-3" className={styles.AccordionItem}>
+                        <Accordion.Header className={styles.AccordionHeader}>
                             <Accordion.Trigger className={styles.AccordionTrigger}>Сортировка</Accordion.Trigger>
                         </Accordion.Header>
                         <Accordion.Content className={styles.AccordionContent}>
                             <form>
                                 <RadioGroup.Root
                                     className={styles.RadioGroupRoot}
-                                    defaultValue="new"
+                                    defaultValue="descrease"
                                     aria-label="Sort by"
-                                    value={sortOption || 'new'} // Обновляем значение
+                                    value={sortOption || 'descrease'} // Обновляем значение
                                     onValueChange={(value) => setSortOption(value as 'increase' | 'descrease')}
                                 >
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -122,7 +160,7 @@ export const AllProducts = () => {
                             <Card key={product.id} item={product} />
                         ))
                     ) : (
-                        <Fs16Fw400White.span>Товары от компании {dataCompanies?.find(elem => elem.id === selectedCategory)?.name} скоро появятся 😉</Fs16Fw400White.span>
+                        <Fs16Fw400White.span>По вашему запросу ничего не нашлось 😉</Fs16Fw400White.span>
                     )
                 )}
             </div>

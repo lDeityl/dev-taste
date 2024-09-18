@@ -47,6 +47,7 @@ export class CatalogController {
         @Query('limit') limit: string | number,
         @Query('search') search: string,
         @Query('categoryId') categoryId?: string,
+        @Query('productTypeId') productTypeId?: string,
         @Query('sort') sort?: string,
     ) {
         const whereCondition: Prisma.ProductWhereInput = {
@@ -55,6 +56,7 @@ export class CatalogController {
                 mode: Prisma.QueryMode.insensitive,
             },
             ...(categoryId && { categoryId: Number(categoryId) }),
+            ...(productTypeId && { productTypeId: Number(productTypeId) }),
         };
 
         // Устанавливаем сортировку по цене

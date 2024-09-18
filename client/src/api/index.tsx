@@ -81,9 +81,9 @@ export const deleteCategories = async (data: DeleteRequest): Promise<boolean> =>
     return response.data;
 }
 
-export const getCatalog = async (limit: number, search: string, categoryId?: number, sort?: 'increase' | 'descrease'): Promise<IProductCatalog> => {
+export const getCatalog = async (limit: number, search: string, categoryId?: number, productTypeId?: number, sort?: 'increase' | 'descrease'): Promise<IProductCatalog> => {
     const response = await api.get(`/catalog/get`, {
-        params: { limit, search, categoryId, sort, },
+        params: { limit, search, categoryId, productTypeId, sort, },
     });
     return response.data;
 };

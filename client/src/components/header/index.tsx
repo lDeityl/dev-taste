@@ -11,7 +11,7 @@ import buy from '../../assets/images/Buy.png'
 import { RxCross2 } from "react-icons/rx";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useCartStore, useFilterStore } from '../../stores'
-import debounce from 'lodash.debounce'
+import { debounce } from 'lodash';
 
 const links = [
     {
@@ -48,15 +48,18 @@ export const Header = () => {
 
     const quantity = cartItems.reduce((prev, curr) => prev + curr.quantity, 0);
 
-    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchValue(event.target.value);
-    };
-
-    const performSearch = () => {
-        setSearch(searchValue);
+    const handleSearchChange = debounce((value: string) => {
+        setSearch(value);
         navigate('/catalog');
+    }, 2000);
+
+    const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value;
+        setSearchValue(value); // Обновляем локальное состояние
+        handleSearchChange(value); // Передаём значение в функцию с дебаунсом
     };
 
+    // Сброс поиска при изменении маршрута
     useEffect(() => {
         if (location.pathname !== '/catalog') {
             setSearch('');
@@ -67,7 +70,6 @@ export const Header = () => {
     const checkIsActive = (path: string) => location.pathname === path;
 
     const isAuthed = useIsAuthenticated();
-
     const [isBurger, setBurger] = useState<boolean>(false);
 
     return (
@@ -79,7 +81,13 @@ export const Header = () => {
                             <Link to={'/'} className={styles.sadasds} >
                                 <Fs25BoldWhite.h1>DEV - TASTE</Fs25BoldWhite.h1>
                             </Link>
-                            <InputSearch className={styles.input} type='text' placeholder='Введите название блюда' search value={searchValue} onChange={handleSearchChange} onClick={performSearch} />
+                            <InputSearch search
+                                className={styles.input}
+                                type="text"
+                                placeholder="Введите название блюда"
+                                value={searchValue}
+                                onChange={onInputChange}
+                            />
                             <div className={styles.phone}>
                                 <a href='tel:' className={styles.iconPhone}>
                                     <FiPhoneCall />
