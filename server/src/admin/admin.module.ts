@@ -4,9 +4,10 @@ import { ProductsModule } from './products/products.module';
 import { CategoriesModule } from './categories/categories.module';
 import { S3Module } from 's3/s3.module';
 import { ProductTypeModule } from './product-type/product-type.module';
+import { SettingsModule } from './settings/settings.module';
 
 @Module({
-    imports: [ProductsModule, CategoriesModule, S3Module, ProductTypeModule],
+    imports: [ProductsModule, CategoriesModule, S3Module, ProductTypeModule, SettingsModule],
     controllers: [AdminController],
 })
 export class AdminModule { }

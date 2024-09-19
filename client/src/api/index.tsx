@@ -1,4 +1,4 @@
-import { DeleteRequest, ICategory, ICrateCategory, IEmailConfirm, ILoginForm, IProduct, IProductCatalog, IProductType, IRegisterForm, ISignRes, IUpdateProfileInfo, IUpdateUserProfile, IUpsertCategory, IUsers } from '../interfaces';
+import { DeleteRequest, ICategory, ICrateCategory, IEmailConfirm, ILoginForm, IProduct, IProductCatalog, IProductType, IRegisterForm, ISettings, ISignRes, IUpdateProfileInfo, IUpdateUserProfile, IUpsertCategory, IUsers } from '../interfaces';
 import { api } from '../services/api';
 
 export const signUp = async (data: IRegisterForm): Promise<ISignRes> => {
@@ -120,5 +120,15 @@ export const getCategoryForCart = async (categoryId: number): Promise<ICategory>
 
 export const getProductForCart = async (productId: number): Promise<IProduct> => {
     let response = await api.get(`/users/get-product-cart?productId=${productId}`);
+    return response.data;
+}
+
+export const getSettingsAdmin = async (): Promise<ISettings> => {
+    let response = await api.get(`/settings/get`);
+    return response.data;
+}
+
+export const updateSettingsAdmin = async (data: IUpsertCategory): Promise<boolean> => {
+    let response = await api.post(`/settings/update-settings`, data);
     return response.data;
 }

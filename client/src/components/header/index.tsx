@@ -12,6 +12,8 @@ import { RxCross2 } from "react-icons/rx";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useCartStore, useFilterStore } from '../../stores'
 import { debounce } from 'lodash';
+import { useQuery } from 'react-query'
+import { getSettingsAdmin } from '../../api'
 
 const links = [
     {
@@ -72,6 +74,12 @@ export const Header = () => {
     const isAuthed = useIsAuthenticated();
     const [isBurger, setBurger] = useState<boolean>(false);
 
+    const { data } = useQuery({
+        queryFn: getSettingsAdmin,
+        queryKey: ['user-settings'],
+        keepPreviousData: true,
+    });
+
     return (
         <>
             <VisibleDesktop1280>
@@ -89,12 +97,12 @@ export const Header = () => {
                                 onChange={onInputChange}
                             />
                             <div className={styles.phone}>
-                                <a href='tel:' className={styles.iconPhone}>
+                                <a href={`tel:${data?.contactsPhone}`} className={styles.iconPhone}>
                                     <FiPhoneCall />
                                 </a>
                                 <div className={styles.contacts}>
                                     <Fs13Fw400Gray.span>Контакты:</Fs13Fw400Gray.span>
-                                    <Fs16BoldWhite.span>+7 (423) 424-32-23</Fs16BoldWhite.span>
+                                    <Fs16BoldWhite.span>{data?.contactsPhone}</Fs16BoldWhite.span>
                                 </div>
                             </div>
                             <div className={styles.cart} onClick={() => navigate('/cart')}>

@@ -5,8 +5,16 @@ import { HeadLine } from '../../components/headline'
 import { AccordionDevTaste } from './components/accordion'
 import minimap from '../../assets/images/minimap.png'
 import { Fs22BoldWhite } from '../../components/typography'
+import { getSettingsAdmin } from '../../api'
+import { useQuery } from 'react-query'
 
 export const Delivery = () => {
+
+    const { data } = useQuery({
+        queryFn: getSettingsAdmin,
+        queryKey: ['user-settings'],
+        keepPreviousData: true,
+    });
 
     return (
         <Wrapper>
@@ -20,11 +28,11 @@ export const Delivery = () => {
                     <div className={styles.upDel}>
                         <div className={styles.tel}>
                             <Fs22BoldWhite.span>График работы доставки:</Fs22BoldWhite.span>
-                            <Fs22BoldWhite.span className={styles.fontwe}>с 10:00-21:00</Fs22BoldWhite.span>
+                            <Fs22BoldWhite.span className={styles.fontwe}>{data?.delivery_schedule}</Fs22BoldWhite.span>
                         </div>
                         <div className={styles.tel}>
                             <Fs22BoldWhite.span>График работы кафе:</Fs22BoldWhite.span>
-                            <Fs22BoldWhite.span className={styles.fontwe}>с 08:00-21:00</Fs22BoldWhite.span>
+                            <Fs22BoldWhite.span className={styles.fontwe}>{data?.cafe_opening_hours}</Fs22BoldWhite.span>
                         </div>
                     </div>
                     <div className={styles.texts}>

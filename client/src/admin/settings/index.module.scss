@@ -1,0 +1,59 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    .titleBlock {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .block {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        width: 100%;
+
+        .item {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 6px;
+            border: 1px solid gray;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+
+            .bl {
+                display: flex;
+                flex-direction: column;
+                gap: 3px;
+            }
+
+            .btns {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    }
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.logoCompany {
+    max-width: 100px;
+    height: 100px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+}

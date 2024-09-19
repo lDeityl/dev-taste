@@ -15,7 +15,7 @@ import { FirstSwiper } from '../../../Main/first-swiper'
 import { IProduct } from '../../../../interfaces'
 import image from '../../../../assets/images/hot/meat-3.png'
 import { useQuery } from 'react-query'
-import { getProduct, getUserProduct } from '../../../../api'
+import { getProduct, getSettingsAdmin, getUserProduct } from '../../../../api'
 import { useCartStore } from '../../../../stores'
 import { toast } from 'react-toastify'
 
@@ -37,6 +37,12 @@ export const Product = () => {
             position: "top-left"
         })
     }
+
+    const { data } = useQuery({
+        queryFn: getSettingsAdmin,
+        queryKey: ['user-settings'],
+        keepPreviousData: true,
+    });
 
     return (
         <div className={styles.box}>
@@ -101,9 +107,9 @@ export const Product = () => {
                     <SecondSwiper el={el} />
                 </Wrapper>
             }
-            <Wrapper className={styles.wrapperContacts}>
-                <Contacts />
-            </Wrapper>
+            {data && <Wrapper className={styles.wrapperContacts}>
+                <Contacts data={data} />
+            </Wrapper>}
         </div>
     )
 }

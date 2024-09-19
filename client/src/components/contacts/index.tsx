@@ -6,8 +6,13 @@ import here from '../../assets/images/here.png'
 import map from '../../assets/images/map.png'
 import message from '../../assets/icons/Message.png'
 import loc from '../../assets/icons/Location.png'
+import { ISettings } from '../../interfaces'
 
-export const Contacts = () => {
+interface Props {
+    data: ISettings
+}
+
+export const Contacts = ({ data }: Props) => {
     return (
         <section className={styles.contacts}>
             <div className={styles.section}>
@@ -18,14 +23,14 @@ export const Contacts = () => {
                         <img src={loc} alt="" />
                         <div className={styles.right}>
                             <Fs13Fw400Gray.span>Наш адрес:</Fs13Fw400Gray.span>
-                            <Fs16BoldWhite.span>г. Чебоксары</Fs16BoldWhite.span>
+                            <Fs16BoldWhite.span>{data.address}</Fs16BoldWhite.span>
                         </div>
                     </div>
                     <div className={styles.address}>
                         <img src={message} alt="" />
                         <div className={styles.right}>
                             <Fs13Fw400Gray.span>Наша почта:</Fs13Fw400Gray.span>
-                            <Fs16BoldWhite.span>mihailov@gmail.com</Fs16BoldWhite.span>
+                            <Fs16BoldWhite.span>{data.email}</Fs16BoldWhite.span>
                         </div>
                     </div>
                 </div>
@@ -35,7 +40,7 @@ export const Contacts = () => {
                         <Fs13Fw500White.span>ЗАБРОНИРОВАТЬ СТОЛ</Fs13Fw500White.span>
                     </ButtonGreen>
                     <div className={styles.phone}>
-                        <Fs32BoldWhite.span>+7 (423) 424-32-23</Fs32BoldWhite.span>
+                        <Fs32BoldWhite.span>{data.contactsPhone}</Fs32BoldWhite.span>
                         <Fs13Fw400Gray.span>Звоните или оставляйте заявку</Fs13Fw400Gray.span>
                     </div>
                 </div>

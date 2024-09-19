@@ -77,6 +77,18 @@ export interface IProductType {
     name: string
 }
 
+export interface ISettings {
+    id: number
+    createdAt: string
+    contactsPhone: string
+    delivery_schedule: string
+    cafe_opening_hours: string
+    address: string
+    email: string
+    about_title: string
+    about_description: string
+}
+
 export interface ICrateCategory {
     name: string
     isActive: boolean

@@ -17,7 +17,7 @@ import { SecondSwiper } from './second-swiper'
 import { Contacts } from '../../components/contacts'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
-import { getCategories, getProduct, getUserCategories, getUsers } from '../../api'
+import { getCategories, getProduct, getSettingsAdmin, getUserCategories, getUsers } from '../../api'
 
 export const Main = () => {
 
@@ -26,6 +26,12 @@ export const Main = () => {
     const { data: categories } = useQuery({
         queryFn: getUserCategories,
         queryKey: ['categories'],
+    });
+
+    const { data } = useQuery({
+        queryFn: getSettingsAdmin,
+        queryKey: ['user-settings'],
+        keepPreviousData: true,
     });
 
     return (
@@ -45,8 +51,8 @@ export const Main = () => {
             ))}
             <section className={styles.ourCoffe}>
                 <div className={styles.leftSide}>
-                    <Fs32BoldWhite.h4>НАШЕ КАФЕ</Fs32BoldWhite.h4>
-                    <Fs20Fw400Gray.p>Мы расположены в одном из самых живописных мест города — на берегу реки, это ваш оазис в черте города, куда можно сбежать от шумного и пыльного мегаполиса. Мы, действительно уникальные, ведь все продумано до мелочей: проект построен из дикого закарпатского сруба, камин в основном зале ресторана и панорамные окна с видом на реку, уютные беседки на берегу реки и лучшая видовая террасса, шатер с посадкой на 200 человек, сказочный детский домик и бассейн.</Fs20Fw400Gray.p>
+                    <Fs32BoldWhite.h4>{data?.about_title}</Fs32BoldWhite.h4>
+                    <Fs20Fw400Gray.p>{data?.about_description}</Fs20Fw400Gray.p>
                     <ButtonGray className={styles.btnGray} onClick={() => nav('/catalog')}>
                         <Fs16BoldWhite.span>ПОСМОТРЕТЬ МЕНЮ</Fs16BoldWhite.span>
                     </ButtonGray>
@@ -60,7 +66,7 @@ export const Main = () => {
                 <img src={chicken} className={styles.chicken} alt="img" />
                 <img src={schick} className={styles.chicken2} alt="img" />
             </section>
-            <Contacts />
+            {data && <Contacts data={data} />}
         </Wrapper>
     )
 }

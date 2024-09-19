@@ -7,6 +7,8 @@ import { HeadLine } from '../../components/headline'
 import { Wrapper } from '../../components/wrapper'
 import { ActionBlock } from '../../components/action-block'
 import { Contacts } from '../../components/contacts'
+import { getSettingsAdmin } from '../../api'
+import { useQuery } from 'react-query'
 
 const actions = [
     {
@@ -54,6 +56,13 @@ const actions = [
 ];
 
 export const Action = () => {
+
+    const { data } = useQuery({
+        queryFn: getSettingsAdmin,
+        queryKey: ['user-settings'],
+        keepPreviousData: true,
+    });
+
     return (
         <div>
             <Wrapper>
@@ -71,9 +80,9 @@ export const Action = () => {
                     />
                 ))}
             </Wrapper>
-            <Wrapper>
-                <Contacts />
-            </Wrapper>
+            {data && <Wrapper>
+                <Contacts data={data} />
+            </Wrapper>}
         </div>
     )
 }
