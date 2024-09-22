@@ -1,16 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import styles from './index.module.scss'
 import { HeadLine } from '../../components/headline'
 import { Wrapper } from '../../components/wrapper'
 import { Fs12Fw400White, Fs13Fw500White, Fs14Fw500White, Fs16BoldWhite, Fs18Fw400Gray, Fs18Fw500White, Fs20Fw500White, Fs25BoldWhite, Fs30BoldWhite } from '../../components/typography'
-import meat1 from '../../assets/images/hot/meat-1.png'
 import { ButtonGreen } from '../../ui/buttons'
 import { VisibleDesktop900, VisibleHandheld900 } from '../../utils/visibleComponents'
 import { useNavigate } from 'react-router-dom'
 import { useCartStore } from '../../stores'
 import { formatNumber } from '../../utils/formatMoney'
 import { useQuery } from 'react-query'
-import { getCategoryForCart, getProduct, getProductFive, getProductForCart } from '../../api'
+import { getProductFive } from '../../api'
+import { Curtain } from '../../components/curtain'
+import './index.css'
 
 export const Cart = () => {
 
@@ -19,14 +20,46 @@ export const Cart = () => {
     const { cartItems, removeFromCart, removeFromCartTo1, addToCart } = useCartStore()
     let summa = cartItems.reduce((prev, curr) => prev + curr.product.price * curr.quantity, 0)
 
-    const { data } = useQuery({
+    const { data, isLoading } = useQuery({
         keepPreviousData: true,
         queryFn: getProductFive,
         queryKey: ['random-products']
     })
 
+    const cloudRef = useRef<HTMLDivElement>(null);
+
+    const rain = () => {
+        const cloud = cloudRef.current;
+        if (!cloud) return;
+
+        const e = document.createElement('div');
+        e.classList.add('drop');
+
+        let left = Math.floor(Math.random() * 310);
+        let width = Math.random() * 5;
+        let height = Math.random() * 50;
+        let duration = Math.random() * .5;
+
+        cloud.appendChild(e);
+
+        e.style.left = left + 'px';
+        e.style.width = 0.5 + width + 'px';
+        e.style.height = 0.5 + height + 'px';
+        e.style.animationDuration = 1 + duration + 's';
+
+        setTimeout(() => {
+            cloud.removeChild(e);
+        }, 2000);
+    };
+
+    useEffect(() => {
+        const interval = setInterval(rain, 20);
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <Wrapper>
+            <Curtain />
             {cartItems.length > 0 ?
                 <>
                     <HeadLine title='КОРЗИНА' />
@@ -121,7 +154,12 @@ export const Cart = () => {
                     </div>
                 </>
                 :
-                <HeadLine title='Корзина пуста 😞' />
+                <div className={styles.column}>
+                    <HeadLine title='Корзина пуста 😞' />
+                    <div className={styles.container}>
+                        <div className={styles.cloud} id='cloud' ref={cloudRef}></div>
+                    </div>
+                </div>
             }
         </Wrapper>
     )

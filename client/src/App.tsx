@@ -9,7 +9,7 @@ import Catalog from './pages/catalog';
 import ScrollToTop from './utils/scrollToTop';
 import { Authorization } from './pages/auth';
 import { Delivery } from './pages/delivery';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { AxiosJWT } from './services/axiosJWT';
 import { Profile } from './pages/profile';
@@ -17,6 +17,7 @@ import { RequireAuth } from './utils/requireAuth';
 import { RequireRole } from './utils/requireRole';
 import AdminPanelRoutes from './admin';
 import { Making } from './pages/making';
+import { Curtain } from './components/curtain';
 
 function App() {
 

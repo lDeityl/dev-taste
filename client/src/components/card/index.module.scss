@@ -1,4 +1,5 @@
 .cardBox {
+    position: relative;
     border-radius: 10px;
     background: linear-gradient(#494544, #504B4A);
     width: 100%;
@@ -8,7 +9,6 @@
     cursor: pointer;
     transform: scale(.97);
     transition: all .3s ease;
-    position: relative;
 
     &:hover {
         transform: scale(1);

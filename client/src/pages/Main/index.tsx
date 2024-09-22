@@ -18,6 +18,7 @@ import { Contacts } from '../../components/contacts'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import { getCategories, getProduct, getSettingsAdmin, getUserCategories, getUsers } from '../../api'
+import { Curtain } from '../../components/curtain'
 
 export const Main = () => {
 
@@ -36,6 +37,7 @@ export const Main = () => {
 
     return (
         <Wrapper className={styles.main}>
+            <Curtain />
             {categories?.map(category => (
                 <>
                     {category.Product.length > 0 &&

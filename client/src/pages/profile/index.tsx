@@ -12,6 +12,7 @@ import { Fs16Fw400White, Fs18Fw500White, Fs32BoldWhite } from '../../components/
 import { ButtonGreen } from '../../ui/buttons'
 import { Requisites } from './requisites'
 import { useJwtStore } from '../../stores/jwt'
+import { Curtain } from '../../components/curtain'
 
 export const Profile = () => {
 
@@ -27,6 +28,7 @@ export const Profile = () => {
 
     return (
         <Wrapper className={styles.wrapper}>
+            <Curtain />
             <HeadLine title='Личный кабинет' />
             <div className={styles.upNavbar}>
                 <div className={styles.helloExit}>
