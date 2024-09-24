@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import styles from './index.module.scss'
 import * as RadioGroup from '@radix-ui/react-radio-group';
 import * as Accordion from '@radix-ui/react-accordion';
@@ -10,11 +10,14 @@ import { getCatalog, getCategories, getCategoriesMenu, getProduct } from '../../
 import { IProduct } from '../../../../interfaces';
 import { useFilterStore } from '../../../../stores';
 import { ButtonGreen, ButtonGreenBorder } from '../../../../ui/buttons';
+import { PaginationBitCore } from '../../../../components/pagination';
+import debounce from 'lodash.debounce';
 
 export const AllProducts = () => {
 
     const { search } = useFilterStore();
-    const [limit, setLimit] = useState(30);
+    const [limit, setLimit] = useState(20);
+    const [page, setPage] = useState(1);
 
     const [selectedCategory, setSelectedCategory] = useState<number | undefined>(undefined);
     const [selectedProductType, setSelectedProductType] = useState<number | undefined>(undefined);
@@ -48,6 +51,22 @@ export const AllProducts = () => {
         setSelectedProductType(undefined);
         setSortOption(undefined);
         setApplyFilters(false);
+    };
+    const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPage(1)
+    };
+    const debouncedChangeHandler = useMemo(
+        () => debounce(changeHandler, 500)
+        , []);
+
+    useEffect(() => {
+        return () => {
+            debouncedChangeHandler.cancel();
+        }
+    }, []);
+
+    const handleChangePage = (value: number) => {
+        setPage(value);
     };
 
     return (
@@ -163,6 +182,9 @@ export const AllProducts = () => {
                         <Fs16Fw400White.span>По вашему запросу ничего не нашлось 😉</Fs16Fw400White.span>
                     )
                 )}
+                {/* <div className={styles.pagination}>
+                    {(data?.totalItems && data?.totalItems / limit > 1) ? <PaginationBitCore page={page} totalItems={data.totalItems} onChange={handleChangePage} setOption={setLimit} itemsPerPage={limit} /> : <></>}
+                </div> */}
             </div>
         </Wrapper>
     )

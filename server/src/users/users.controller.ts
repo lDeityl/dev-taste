@@ -90,5 +90,15 @@ export class UsersController {
             },
         });
     }
+
+    @Get('/get-categories')
+    async getAllCategories() {
+        const categories = await this.prisma.companies.findMany({
+            select: { id: true, name: true }, // Only select id and name for efficiency
+        });
+
+        return categories;
+    }
+
 }
 

@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { CartItem, useCartStore } from '../../stores'
 import { formatNumber } from '../../utils/formatMoney'
 import { useQuery } from 'react-query'
-import { getProductFive } from '../../api'
+import { getCategoryId, getProductFive } from '../../api'
 import { Curtain } from '../../components/curtain'
 import './index.css'
 
@@ -59,6 +59,12 @@ export const Cart = () => {
         return () => clearInterval(interval);
     }, []);
 
+    const { data: dataCategory } = useQuery({
+        queryFn: getCategoryId,
+        queryKey: ['data-category'],
+        keepPreviousData: true
+    });
+
     return (
         <Wrapper>
             <Curtain />
@@ -68,12 +74,20 @@ export const Cart = () => {
                     <div className={styles.cart}>
                         <VisibleDesktop900>
                             {cartItems?.map((el, idx) => {
+
+                                const category = dataCategory?.find((cat) => cat.id === el.product.categoryId);
+
+                                console.log(category, 'asdasd');
+
+
                                 return (
                                     <React.Fragment key={idx}>
                                         <div className={styles.up}>
                                             <img src={el.product.imageUrl} alt={el.product.name} />
                                             <div className={styles.name}>
-                                                <Fs18Fw500White.span> {el.product.name} </Fs18Fw500White.span>
+                                                <Fs18Fw500White.span>
+                                                    {el.product.name} {category?.name && `(${category.name})`}
+                                                </Fs18Fw500White.span>
                                                 <Fs12Fw400White.p className={styles.gray}>{el.product.description}</Fs12Fw400White.p>
                                             </div>
                                             <div className={styles.count}>
@@ -84,7 +98,7 @@ export const Cart = () => {
                                             <Fs20Fw500White.span>{formatNumber(el.product.price * el.quantity)} ₽</Fs20Fw500White.span>
                                             <div className={`${styles.green} ${styles.close}`} onClick={() => removeFromCart(el.product.id)}>+</div>
                                         </div>
-                                        <div className={cartItems.length - 1 !== idx ? styles.customProfile : undefined} />
+                                        {cartItems.length - 1 !== idx && <div className={styles.customProfile} />}
                                     </React.Fragment>
                                 )
                             })}

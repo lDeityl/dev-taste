@@ -108,6 +108,10 @@ export const getProductFive = async (): Promise<IProduct[]> => {
     return response.data;
 }
 
+export const getCategoryId = async (): Promise<ICategory[]> => {
+    const response = await api.get('/users/get-categories');
+    return response.data;
+};
 export const deleteProducts = async (data: DeleteRequest): Promise<boolean> => {
     let response = await api.post(`/products/delete`, data);
     return response.data;

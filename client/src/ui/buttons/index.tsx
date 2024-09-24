@@ -23,3 +23,4 @@ export const ButtonGreen = withStyle("ButtonGreen");
 export const ButtonGreenBorder = withStyle("ButtonGreenBorder");
 export const ButtonWhite = withStyle("ButtonWhite");
 export const ButtonGray = withStyle("ButtonGray");
+export const ButtonArrow = withStyle("ButtonArrow");
