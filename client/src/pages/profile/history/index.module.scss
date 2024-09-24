@@ -18,5 +18,15 @@
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         width: 100%;
         gap: 5px;
+
+        @media (max-width: 800px) {
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
+    }
+}
+
+.number {
+    @media (max-width: 800px) {
+        display: none;
     }
 }

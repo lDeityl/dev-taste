@@ -9,12 +9,12 @@ datasource db {
 }
 
 model Users {
-    id                               Int      @id @default(autoincrement())
-    createdAt                        DateTime @default(now())
-    email                            String   @unique
+    id                               Int       @id @default(autoincrement())
+    createdAt                        DateTime  @default(now())
+    email                            String    @unique
     name                             String
-    role                             Roles    @default(USER)
-    isEmailActivated                 Boolean  @default(false)
+    role                             Roles     @default(USER)
+    isEmailActivated                 Boolean   @default(false)
     password                         String
     phone                            String?
     imgURL                           String?
@@ -22,6 +22,7 @@ model Users {
     code_confirmation_email          String?
     twoFactorAuthenticationSecret    String?
     isTwoFactorAuthenticationEnabled Boolean?
+    Address                          Address[]
 }
 
 model Companies {
@@ -73,6 +74,19 @@ model Faq {
     createdAt   DateTime @default(now())
     title       String
     description String
+}
+
+model Address {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    city      String
+    street    String
+    house     String
+    apartment String
+    floor     String
+    entrance  String
+    User      Users    @relation(fields: [usersId], references: [id])
+    usersId   Int
 }
 
 model MainSettings {

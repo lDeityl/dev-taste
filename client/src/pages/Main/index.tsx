@@ -51,23 +51,25 @@ export const Main = () => {
                     }
                 </>
             ))}
-            <section className={styles.ourCoffe}>
-                <div className={styles.leftSide}>
-                    <Fs32BoldWhite.h4>{data?.about_title}</Fs32BoldWhite.h4>
-                    <Fs20Fw400Gray.p>{data?.about_description}</Fs20Fw400Gray.p>
-                    <ButtonGray className={styles.btnGray} onClick={() => nav('/catalog')}>
-                        <Fs16BoldWhite.span>ПОСМОТРЕТЬ МЕНЮ</Fs16BoldWhite.span>
-                    </ButtonGray>
-                </div>
-                <div className={styles.rightSide}>
-                    <BlockWithTitle title={'Свежайшие продукты'} image={onion} />
-                    <BlockWithTitle title={'Быстрая доставка'} icon={<BsLightning />} />
-                    <BlockWithTitle title={'Лучшие повора'} image={chef} />
-                    <BlockWithTitle title={'Заказ в 1 клик'} icon={<MdOutlineFavoriteBorder />} />
-                </div>
-                <img src={chicken} className={styles.chicken} alt="img" />
-                <img src={schick} className={styles.chicken2} alt="img" />
-            </section>
+            {data &&
+                <section className={styles.ourCoffe}>
+                    <div className={styles.leftSide}>
+                        <Fs32BoldWhite.h4>{data?.about_title}</Fs32BoldWhite.h4>
+                        <Fs20Fw400Gray.p>{data?.about_description}</Fs20Fw400Gray.p>
+                        <ButtonGray className={styles.btnGray} onClick={() => nav('/catalog')}>
+                            <Fs16BoldWhite.span>ПОСМОТРЕТЬ МЕНЮ</Fs16BoldWhite.span>
+                        </ButtonGray>
+                    </div>
+                    <div className={styles.rightSide}>
+                        <BlockWithTitle title={'Свежайшие продукты'} image={onion} />
+                        <BlockWithTitle title={'Быстрая доставка'} icon={<BsLightning />} />
+                        <BlockWithTitle title={'Лучшие повора'} image={chef} />
+                        <BlockWithTitle title={'Заказ в 1 клик'} icon={<MdOutlineFavoriteBorder />} />
+                    </div>
+                    <img src={chicken} className={styles.chicken} alt="img" />
+                    <img src={schick} className={styles.chicken2} alt="img" />
+                </section>
+            }
             {data && <Contacts data={data} />}
         </Wrapper>
     )

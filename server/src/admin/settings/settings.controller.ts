@@ -7,7 +7,6 @@ import { CreateSettingsDto } from './settings.dto';
 export class SettingsController {
     constructor(private prisma: PrismaService) { }
 
-    @UseGuards(JwtAuthGuard)
     @Get('get')
     async getAdminById() {
         return this.prisma.mainSettings.findFirst({});

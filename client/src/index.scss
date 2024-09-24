@@ -75,6 +75,102 @@ a {
     --fs-48: 48px;
 }
 
+@media (max-width: 1024px) {
+    :root {
+        --fs-8: 7px;
+        --fs-9: 8px;
+        --fs-10: 9px;
+        --fs-11: 10px;
+        --fs-12: 11px;
+        --fs-13: 12px;
+        --fs-14: 13px;
+        --fs-15: 14px;
+        --fs-16: 15px;
+        --fs-17: 16px;
+        --fs-18: 17px;
+        --fs-19: 18px;
+        --fs-20: 19px;
+        --fs-21: 20px;
+        --fs-22: 21px;
+        --fs-23: 22px;
+        --fs-24: 23px;
+        --fs-25: 24px;
+        --fs-26: 25px;
+        --fs-27: 26px;
+        --fs-28: 27px;
+        --fs-29: 28px;
+        --fs-30: 29px;
+        --fs-31: 30px;
+        --fs-32: 31px;
+        --fs-38: 35px;
+        --fs-48: 42px;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --fs-8: 6px;
+        --fs-9: 7px;
+        --fs-10: 8px;
+        --fs-11: 9px;
+        --fs-12: 10px;
+        --fs-13: 11px;
+        --fs-14: 12px;
+        --fs-15: 13px;
+        --fs-16: 14px;
+        --fs-17: 15px;
+        --fs-18: 16px;
+        --fs-19: 17px;
+        --fs-20: 18px;
+        --fs-21: 19px;
+        --fs-22: 20px;
+        --fs-23: 21px;
+        --fs-24: 22px;
+        --fs-25: 23px;
+        --fs-26: 24px;
+        --fs-27: 25px;
+        --fs-28: 26px;
+        --fs-29: 27px;
+        --fs-30: 28px;
+        --fs-31: 29px;
+        --fs-32: 30px;
+        --fs-38: 34px;
+        --fs-48: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --fs-8: 5px;
+        --fs-9: 6px;
+        --fs-10: 7px;
+        --fs-11: 9px;
+        --fs-12: 11px;
+        --fs-13: 11px;
+        --fs-14: 11px;
+        --fs-15: 12px;
+        --fs-16: 13px;
+        --fs-17: 14px;
+        --fs-18: 15px;
+        --fs-19: 16px;
+        --fs-20: 17px;
+        --fs-21: 18px;
+        --fs-22: 19px;
+        --fs-23: 20px;
+        --fs-24: 21px;
+        --fs-25: 22px;
+        --fs-26: 23px;
+        --fs-27: 24px;
+        --fs-28: 25px;
+        --fs-29: 26px;
+        --fs-30: 27px;
+        --fs-31: 28px;
+        --fs-32: 29px;
+        --fs-38: 32px;
+        --fs-48: 36px;
+    }
+}
+
 :root {
     --white: #FFFFFF;
     --dark: #252525;

@@ -126,6 +126,10 @@
         padding: 0;
     }
 
+    .AccordionContent p {
+        padding: 0;
+    }
+
     .AccordionTrigger {
         padding: 10px;
     }

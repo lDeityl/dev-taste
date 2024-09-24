@@ -4,11 +4,7 @@ import { Users } from '@prisma/client';
 
 @Injectable()
 export class UsersService {
-    constructor(
-        private prisma: PrismaService
-    ) {
-
-    }
+    constructor(private prisma: PrismaService) { }
 
     async findOneEmail(email: string): Promise<Users | undefined> {
         const user = await this.prisma.users.findUnique({

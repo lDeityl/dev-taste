@@ -1,4 +1,4 @@
-import { DeleteRequest, ICategory, ICrateCategory, IEmailConfirm, ILoginForm, IProduct, IProductCatalog, IProductType, IRegisterForm, ISettings, ISignRes, IUpdateProfileInfo, IUpdateUserProfile, IUpsertCategory, IUsers } from '../interfaces';
+import { DeleteRequest, IAddress, ICategory, ICrateCategory, IEmailConfirm, ILoginForm, IProduct, IProductCatalog, IProductType, IRegisterForm, ISettings, ISignRes, IUpdateProfileInfo, IUpdateUserProfile, IUpsertCategory, IUsers } from '../interfaces';
 import { api } from '../services/api';
 
 export const signUp = async (data: IRegisterForm): Promise<ISignRes> => {
@@ -38,6 +38,16 @@ export const getAdminById = async (): Promise<IUsers> => {
 
 export const UpdateProfileReq = async (data: IUpdateProfileInfo): Promise<IUsers> => {
     let response = await api.post(`/profile/update-date`, data);
+    return response.data;
+}
+
+export const UpdateProfileAddress = async (data: IUpsertCategory): Promise<IAddress> => {
+    let response = await api.post(`/profile/update-address`, data);
+    return response.data;
+}
+
+export const getProfileAddress = async (userId: number): Promise<IAddress> => {
+    let response = await api.get(`/profile/get-address?userId=${userId}`);
     return response.data;
 }
 

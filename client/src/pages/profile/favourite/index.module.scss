@@ -3,10 +3,21 @@
     flex-direction: column;
     gap: 30px;
 
+    .row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
     .blocks {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
         gap: 15px;
-        flex-wrap: wrap;
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
     }
 }

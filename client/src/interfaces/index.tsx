@@ -71,6 +71,18 @@ export interface ICategory {
     Product: IProduct[]
 }
 
+export interface IAddress {
+    id: number
+    createdAt: string
+    city: string
+    street: string
+    house: string
+    apartment: string
+    floor: string
+    entrance: string
+    User: IUsers
+}
+
 export interface IProductType {
     id: number
     createdAt: string

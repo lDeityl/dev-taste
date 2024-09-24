@@ -14,6 +14,7 @@ import { useCartStore, useFilterStore } from '../../stores'
 import { debounce } from 'lodash';
 import { useQuery } from 'react-query'
 import { getSettingsAdmin } from '../../api'
+import { AnimatePresence, motion } from 'framer-motion'
 
 const links = [
     {
@@ -139,11 +140,11 @@ export const Header = () => {
                 <header className={styles.header}>
                     <Wrapper className={`${styles.up} ${styles.mobileFull}`}>
                         <div className={styles.mobileUp}>
-                            {isBurger ?
+                            {isBurger ? (
                                 <RxCross2 onClick={() => setBurger(el => !el)} className={styles.iconBurger} />
-                                :
+                            ) : (
                                 <RxHamburgerMenu onClick={() => setBurger(el => !el)} className={styles.iconBurger} />
-                            }
+                            )}
                             <Link to={'/'} className={styles.sadasds} >
                                 <Fs25BoldWhite.h1>DEV - TASTE</Fs25BoldWhite.h1>
                             </Link>
@@ -153,17 +154,35 @@ export const Header = () => {
                             </div>
                         </div>
                     </Wrapper>
-                    {isBurger &&
-                        <div className={styles.hrTOp}>
-                            <Wrapper className={styles.linksMobile}>
-                                {links.map((el, idx) => (
-                                    <Link to={el.link} key={idx} onClick={() => setBurger(false)} style={{ cursor: 'pointer' }}>
-                                        <Fs14Fw500White.span className={checkIsActive(el.link) ? styles.activeSpan : ''}>{el.title}</Fs14Fw500White.span>
-                                    </Link>
-                                ))}
-                            </Wrapper>
-                        </div>
-                    }
+                    <AnimatePresence>
+                        {isBurger && (
+                            <motion.div
+                                initial={{ opacity: 0, translateX: -1000 }}
+                                animate={{ opacity: 1, translateX: 0 }}
+                                exit={{ opacity: 0, translateX: -1000 }}
+                                transition={{
+                                    duration: 0.3,
+                                    ease: "easeInOut"
+                                }}
+                                className={styles.hrTOp}
+                            >
+                                <Wrapper className={styles.linksMobile}>
+                                    {links.map((el, idx) => (
+                                        <Link
+                                            to={el.link}
+                                            key={idx}
+                                            onClick={() => setBurger(false)}
+                                            style={{ cursor: 'pointer' }}
+                                        >
+                                            <Fs14Fw500White.span className={checkIsActive(el.link) ? styles.activeSpan : ''}>
+                                                {el.title}
+                                            </Fs14Fw500White.span>
+                                        </Link>
+                                    ))}
+                                </Wrapper>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </header>
             </VisibleHandheld1280>
         </>

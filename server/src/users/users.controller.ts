@@ -1,10 +1,12 @@
-import { Body, Controller, Get, Query, Req, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, NotFoundException, Param, Query, Req, UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "auth/jwt-auth.guard";
 import { PrismaService } from "prisma/prisma.service";
+import { UsersService } from "./users.service";
 
 @Controller('users')
 export class UsersController {
-    constructor(private prisma: PrismaService) { }
+    constructor(private prisma: PrismaService,
+    ) { }
 
     @Get('all-users')
     async getAllUsers() {
@@ -89,3 +91,4 @@ export class UsersController {
         });
     }
 }
+

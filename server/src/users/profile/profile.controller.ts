@@ -1,6 +1,6 @@
-import { BadRequestException, Body, Controller, Get, Post, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post, Query, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
-import { UpdateProfile, UpdateProfileImage } from './profile.dto';
+import { UpdateAddress, UpdateProfile, UpdateProfileImage } from './profile.dto';
 import { JwtAuthGuard } from 'auth/jwt-auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { S3Service } from 's3/s3.service';
@@ -53,6 +53,47 @@ export class ProfileController {
             data: {
                 imgURL: link,
             },
+        });
+    }
+
+
+    @UseGuards(Jwt2faAuthGuard, RolesGuard)
+    @Post('update-address')
+    async updateAddress(@Req() req, @Body() body: UpdateAddress) {
+        console.log('asd');
+
+        return await this.prisma.address.upsert({
+            where: {
+                id: Number(body.id) || -1,
+            },
+            create: {
+                city: String(body.city),
+                street: String(body.street),
+                house: String(body.house),
+                apartment: String(body.apartment),
+                floor: String(body.floor),
+                entrance: String(body.entrance),
+                usersId: Number(req.user.id)
+            },
+            update: {
+                city: String(body.city),
+                street: String(body.street),
+                house: String(body.house),
+                apartment: String(body.apartment),
+                floor: String(body.floor),
+                entrance: String(body.entrance),
+                usersId: Number(req.user.id)
+            },
+        });
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get('get-address')
+    async getUserAddress(@Query('userId') userId?: string) {
+        return this.prisma.address.findFirst({
+            where: {
+                usersId: Number(userId)
+            }
         });
     }
 }

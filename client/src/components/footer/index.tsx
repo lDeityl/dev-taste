@@ -35,32 +35,36 @@ const items: FooterItem[] = [
             },
             {
                 link: '',
-                title: 'Карта сайта',
+                title: 'Политика конфиденциальности',
             },
             {
                 link: '',
-                title: 'Политика конфиденциальности',
+                title: 'Карта сайта',
             },
         ]
     },
     {
-        name: 'О нас',
+        name: 'Навигация',
         first: [
             {
-                link: '',
-                title: 'О ресторане',
+                link: '/catalog',
+                title: 'Меню',
             },
             {
-                link: '',
-                title: 'Условия доставки',
-            },
-            {
-                link: '',
-                title: 'Возврат товара',
-            },
-            {
-                link: '',
+                link: '/action',
                 title: 'Акции',
+            },
+            {
+                link: '/delivery',
+                title: 'Доставка',
+            },
+            {
+                link: '/cart',
+                title: 'Корзина',
+            },
+            {
+                link: '/profile',
+                title: 'Профиль',
             },
         ]
     },
@@ -82,11 +86,6 @@ const items: FooterItem[] = [
                 image: vk,
                 title: 'Вконтакте',
             },
-            {
-                link: '',
-                image: discord,
-                title: 'Discord',
-            },
         ]
     }
 ]
@@ -98,7 +97,7 @@ export const Footer = () => {
                 <div className={styles.blocks_1}>
                     {items.map((el, idx) => (
                         <div className={styles.blocks} key={idx}>
-                            <span className={styles.span}>{el.name} {el.name === 'DEV - TASTE' && <img src={logo} alt="" />}</span>
+                            <span className={styles.span}>{el.name}</span>
                             <div className={styles.column}>
                                 {el.first.map((item, index) => (
                                     <Link to={item.link} key={index} className={styles.link}>

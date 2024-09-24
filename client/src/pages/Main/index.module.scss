@@ -20,12 +20,22 @@
         z-index: 2;
         overflow: hidden;
 
+        @media (max-width: 1200px) {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+        }
+
         .leftSide {
             display: flex;
             flex-direction: column;
             gap: 20px;
             max-width: 650px;
             width: 100%;
+
+            @media (max-width: 1200px) {
+                max-width: 100%;
+            }
 
             .btnGray {
                 max-width: 250px;
@@ -43,6 +53,10 @@
             opacity: .5;
             height: 100%;
             user-select: none;
+
+            @media (max-width: 1200px) {
+                display: none;
+            }
         }
 
         .chicken2 {
@@ -53,6 +67,10 @@
             z-index: -1;
             height: 100%;
             user-select: none;
+
+            @media (max-width: 1200px) {
+                display: none;
+            }
         }
 
         .rightSide {
@@ -63,6 +81,11 @@
             align-items: center;
             justify-content: center;
             gap: 15px;
+
+            @media (max-width: 1200px) {
+                max-width: 100%;
+                justify-content: space-evenly;
+            }
 
             @media (max-width:320px) {
                 display: none;

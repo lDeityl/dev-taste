@@ -6,12 +6,14 @@ import { Fs12Fw400White, Fs13Fw500White, Fs14Fw500White, Fs16BoldWhite, Fs18Fw40
 import { ButtonGreen } from '../../ui/buttons'
 import { VisibleDesktop900, VisibleHandheld900 } from '../../utils/visibleComponents'
 import { useNavigate } from 'react-router-dom'
-import { useCartStore } from '../../stores'
+import { CartItem, useCartStore } from '../../stores'
 import { formatNumber } from '../../utils/formatMoney'
 import { useQuery } from 'react-query'
 import { getProductFive } from '../../api'
 import { Curtain } from '../../components/curtain'
 import './index.css'
+
+
 
 export const Cart = () => {
 
@@ -65,28 +67,27 @@ export const Cart = () => {
                     <HeadLine title='КОРЗИНА' />
                     <div className={styles.cart}>
                         <VisibleDesktop900>
-                            {cartItems?.map((el, idx) => (
-                                <React.Fragment key={idx}>
-                                    <div className={styles.up}>
-                                        <img src={el.product.imageUrl} alt="cart_name" />
-                                        <div className={styles.name}>
-                                            <Fs18Fw500White.span>
-                                                {el.product.name}
-                                                <Fs12Fw400White.p className={styles.gray}>{el.product.Category?.name}</Fs12Fw400White.p>
-                                            </Fs18Fw500White.span>
-                                            <Fs12Fw400White.p className={styles.gray}>{el.product.description}</Fs12Fw400White.p>
+                            {cartItems?.map((el, idx) => {
+                                return (
+                                    <React.Fragment key={idx}>
+                                        <div className={styles.up}>
+                                            <img src={el.product.imageUrl} alt={el.product.name} />
+                                            <div className={styles.name}>
+                                                <Fs18Fw500White.span> {el.product.name} </Fs18Fw500White.span>
+                                                <Fs12Fw400White.p className={styles.gray}>{el.product.description}</Fs12Fw400White.p>
+                                            </div>
+                                            <div className={styles.count}>
+                                                <div className={styles.green} onClick={() => removeFromCartTo1(el.product.id)}>-</div>
+                                                <Fs20Fw500White.span>{formatNumber(el.quantity)}</Fs20Fw500White.span>
+                                                <div className={styles.green} onClick={() => addToCart(el.product, 1)}>+</div>
+                                            </div>
+                                            <Fs20Fw500White.span>{formatNumber(el.product.price * el.quantity)} ₽</Fs20Fw500White.span>
+                                            <div className={`${styles.green} ${styles.close}`} onClick={() => removeFromCart(el.product.id)}>+</div>
                                         </div>
-                                        <div className={styles.count}>
-                                            <div className={styles.green} onClick={() => removeFromCartTo1(el.product.id)}>-</div>
-                                            <Fs20Fw500White.span>{formatNumber(el.quantity)}</Fs20Fw500White.span>
-                                            <div className={styles.green} onClick={() => addToCart(el.product, 1)}>+</div>
-                                        </div>
-                                        <Fs20Fw500White.span>{formatNumber(el.product.price * el.quantity)} ₽</Fs20Fw500White.span>
-                                        <div className={`${styles.green} ${styles.close}`} onClick={() => removeFromCart(el.product.id)}>+</div>
-                                    </div>
-                                    <div className={cartItems.length - 1 !== idx ? styles.customProfile : undefined} />
-                                </React.Fragment>
-                            ))}
+                                        <div className={cartItems.length - 1 !== idx ? styles.customProfile : undefined} />
+                                    </React.Fragment>
+                                )
+                            })}
                         </VisibleDesktop900>
                         <VisibleHandheld900>
                             {cartItems.map((el, idx) => (

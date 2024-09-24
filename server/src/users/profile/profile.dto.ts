@@ -13,6 +13,28 @@ export class UpdateProfile {
     phone?: string;
 }
 
+export class UpdateAddress {
+    id: number;
+
+    @IsNotEmpty()
+    city: string
+
+    @IsNotEmpty()
+    street: string
+
+    @IsNotEmpty()
+    house: string
+
+    @IsNotEmpty()
+    apartment: string
+
+    @IsNotEmpty()
+    floor: string
+
+    @IsNotEmpty()
+    entrance: string
+}
+
 export class UpdateProfileImage {
     id: number
 

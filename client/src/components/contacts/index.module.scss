@@ -75,6 +75,10 @@
         height: 200%;
         user-select: none;
         z-index: -1;
+
+        @media (max-width: 1000px) {
+            width: 150%;
+        }
     }
 
     .here {
