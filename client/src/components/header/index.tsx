@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import styles from './index.module.scss'
 import { Wrapper } from '../wrapper'
 import { Fs12Fw300White, Fs12Fw500Black, Fs13Fw400Gray, Fs14Fw500White, Fs16BoldWhite, Fs16Fw400White, Fs18Fw400Gray, Fs25BoldWhite } from '../typography'
@@ -57,16 +57,16 @@ export const Header = () => {
 
     const quantity = cartItems.reduce((prev, curr) => prev + curr.quantity, 0);
 
-    const handleSearchChange = debounce((value: string) => {
+    const handleSearchChange = useCallback(debounce((value: string) => {
         setSearch(value);
         navigate('/catalog');
-    }, 2000);
+    }, 2000), [setSearch, navigate]);
 
     const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
-        setSearchValue(value); // Обновляем локальное состояние
-        handleSearchChange(value); // Передаём значение в функцию с дебаунсом
-    };
+        setSearchValue(value); // Update local state
+        handleSearchChange(value); // Call debounced function
+    }
 
     // Сброс поиска при изменении маршрута
     useEffect(() => {
@@ -74,7 +74,7 @@ export const Header = () => {
             setSearch('');
             setSearchValue('');
         }
-    }, [location.pathname, setSearch, setSearchValue]);
+    }, [location.pathname, setSearch]);
 
     const checkIsActive = (path: string) => location.pathname === path;
 
