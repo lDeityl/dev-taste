@@ -66,7 +66,7 @@ export const Product = () => {
                                         <Fs16Fw400White.span style={{ paddingLeft: '40px' }}>Тип продукта: <b>{el?.ProductType?.name}</b></Fs16Fw400White.span>
                                     </div>
                                     <div className={styles.cartBox}>
-                                        <div className={styles.cart} onClick={() => { handleAddToCartProduct() }}>
+                                        <div className={styles.cartt} onClick={() => { handleAddToCartProduct() }}>
                                             <Fs14Fw500White.span>Корзина</Fs14Fw500White.span>
                                             <div className={styles.unvisibleSqr}>
                                                 <HiOutlineShoppingBag />

@@ -19,7 +19,7 @@ const imageFileFilter = (req: any, file: Express.Multer.File, callback: Function
 export class ProfileController {
     constructor(private prisma: PrismaService, private s3: S3Service) { }
 
-    @UseGuards(Jwt2faAuthGuard, RolesGuard)
+    @UseGuards(Jwt2faAuthGuard)
     @Post('update-date')
     async updateContact(@Req() req, @Body() body: UpdateProfile) {
 
@@ -33,7 +33,7 @@ export class ProfileController {
         });
     }
 
-    @UseGuards(Jwt2faAuthGuard, RolesGuard)
+    @UseGuards(Jwt2faAuthGuard)
     @Post('update-image')
     @UseInterceptors(FileInterceptor('file', { fileFilter: imageFileFilter }))
     async updateImageProfile(@Req() req, @Body() body: UpdateProfileImage, @UploadedFile() file: Express.Multer.File) {
@@ -57,10 +57,9 @@ export class ProfileController {
     }
 
 
-    @UseGuards(Jwt2faAuthGuard, RolesGuard)
+    @UseGuards(Jwt2faAuthGuard)
     @Post('update-address')
     async updateAddress(@Req() req, @Body() body: UpdateAddress) {
-        console.log('asd');
 
         return await this.prisma.address.upsert({
             where: {

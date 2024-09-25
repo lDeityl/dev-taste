@@ -65,6 +65,15 @@ export const Cart = () => {
         keepPreviousData: true
     });
 
+    const groupedItems = cartItems.reduce((acc, el) => {
+        const categoryId = el.product.categoryId;
+        if (!acc[categoryId]) {
+            acc[categoryId] = { category: dataCategory?.find(cat => cat.id === categoryId), items: [] };
+        }
+        acc[categoryId].items.push(el);
+        return acc;
+    }, {} as Record<string, { category: any; items: any[] }>);
+
     return (
         <Wrapper>
             <Curtain />
@@ -73,56 +82,55 @@ export const Cart = () => {
                     <HeadLine title='КОРЗИНА' />
                     <div className={styles.cart}>
                         <VisibleDesktop900>
-                            {cartItems?.map((el, idx) => {
-
-                                const category = dataCategory?.find((cat) => cat.id === el.product.categoryId);
-
-                                console.log(category, 'asdasd');
-
-
-                                return (
-                                    <React.Fragment key={idx}>
-                                        <div className={styles.up}>
-                                            <img src={el.product.imageUrl} alt={el.product.name} />
+                            {Object.entries(groupedItems).map(([_, group]) => (
+                                <div key={group.category?.id}>
+                                    <HeadLine color='#89e7ff' title={group.category ? group.category.name : 'Поиск компании...'} />
+                                    <div className={styles.up2}>
+                                        {group.items.map((el, idx) => (
+                                            <div className={styles.up} key={idx}>
+                                                <img src={el.product.imageUrl} alt={el.product.name} />
+                                                <div className={styles.name}>
+                                                    <Fs20Fw500White.span>{el.product.name}</Fs20Fw500White.span>
+                                                    <Fs12Fw400White.p className={styles.gray}>{el.product.description}</Fs12Fw400White.p>
+                                                </div>
+                                                <div className={styles.count}>
+                                                    <div className={styles.green} onClick={() => removeFromCartTo1(el.product.id)}>-</div>
+                                                    <Fs20Fw500White.span>{formatNumber(el.quantity)}</Fs20Fw500White.span>
+                                                    <div className={styles.green} onClick={() => addToCart(el.product, 1)}>+</div>
+                                                </div>
+                                                <Fs20Fw500White.span>{formatNumber(el.product.price * el.quantity)} ₽</Fs20Fw500White.span>
+                                                <div className={`${styles.green} ${styles.close}`} onClick={() => removeFromCart(el.product.id)}>+</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </VisibleDesktop900>
+                        <VisibleHandheld900>
+                            {Object.entries(groupedItems).map(([_, group]) => (
+                                <div key={group.category?.id} className={styles.fglexCol}>
+                                    <HeadLine color='#89e7ff' title={group.category ? group.category.name : 'Unknown Category'} />
+                                    {group.items.map((el, idx) => (
+                                        <div className={styles.up} key={idx}>
+                                            <div className={styles.parent}>
+                                                <div></div>
+                                                <div className={styles.rowMobile}>
+                                                    <img src={el.product.imageUrl} alt="cart_name" />
+                                                    <div className={`${styles.green} ${styles.close}`} onClick={() => removeFromCart(el?.product?.id)}>+</div>
+                                                </div>
+                                            </div>
                                             <div className={styles.name}>
-                                                <Fs18Fw500White.span>
-                                                    {el.product.name} {category?.name && `(${category.name})`}
-                                                </Fs18Fw500White.span>
+                                                <Fs18Fw500White.span>{el.product.name}</Fs18Fw500White.span>
                                                 <Fs12Fw400White.p className={styles.gray}>{el.product.description}</Fs12Fw400White.p>
                                             </div>
                                             <div className={styles.count}>
                                                 <div className={styles.green} onClick={() => removeFromCartTo1(el.product.id)}>-</div>
-                                                <Fs20Fw500White.span>{formatNumber(el.quantity)}</Fs20Fw500White.span>
+                                                <Fs20Fw500White.span>{formatNumber(el?.quantity)}</Fs20Fw500White.span>
                                                 <div className={styles.green} onClick={() => addToCart(el.product, 1)}>+</div>
                                             </div>
                                             <Fs20Fw500White.span>{formatNumber(el.product.price * el.quantity)} ₽</Fs20Fw500White.span>
-                                            <div className={`${styles.green} ${styles.close}`} onClick={() => removeFromCart(el.product.id)}>+</div>
                                         </div>
-                                        {cartItems.length - 1 !== idx && <div className={styles.customProfile} />}
-                                    </React.Fragment>
-                                )
-                            })}
-                        </VisibleDesktop900>
-                        <VisibleHandheld900>
-                            {cartItems.map((el, idx) => (
-                                <div className={styles.up} key={idx}>
-                                    <div className={styles.parent}>
-                                        <div></div>
-                                        <div className={styles.rowMobile}>
-                                            <img src={el.product.imageUrl} alt="cart_name" />
-                                            <div className={`${styles.green} ${styles.close}`} onClick={() => removeFromCart(el?.product?.id)}>+</div>
-                                        </div>
-                                    </div>
-                                    <div className={styles.name}>
-                                        <Fs18Fw500White.span>{el.product.name}</Fs18Fw500White.span>
-                                        <Fs12Fw400White.p className={styles.gray}>{el.product.description}</Fs12Fw400White.p>
-                                    </div>
-                                    <div className={styles.count}>
-                                        <div className={styles.green} onClick={() => removeFromCartTo1(el.product.id)}>-</div>
-                                        <Fs20Fw500White.span>{formatNumber(el?.quantity)}</Fs20Fw500White.span>
-                                        <div className={styles.green} onClick={() => addToCart(el.product, 1)}>+</div>
-                                    </div>
-                                    <Fs20Fw500White.span>{formatNumber(el.product.price * el.quantity)} ₽</Fs20Fw500White.span>
+                                    ))}
                                 </div>
                             ))}
                         </VisibleHandheld900>

@@ -4,4 +4,9 @@
     text-transform: uppercase;
     line-height: 1.2;
     margin: 50px 0;
+
+    &.colorPadding {
+        margin: 30px 0;
+        margin-left: 30px;
+    }
 }

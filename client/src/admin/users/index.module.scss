@@ -1,0 +1,27 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .item {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        gap: 20px;
+        border-radius: 8px;
+        padding: 8px 16px;
+        border: 1px solid gray;
+
+        .bl {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+    }
+}

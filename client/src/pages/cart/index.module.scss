@@ -1,7 +1,7 @@
 .cart {
     display: flex;
     flex-direction: column;
-    background: linear-gradient(45deg, #494544, #504B4A);
+    // background: linear-gradient(45deg, #494544, #504B4A);
     border-radius: 10px;
 
     @media (max-width: 900px) {
@@ -15,6 +15,11 @@
         background: linear-gradient(45deg, #ffffff3a, #ffffff00);
     }
 
+    .up2 {
+        border-radius: 12px;
+        background: linear-gradient(45deg, #494544, #504B4A);
+    }
+
     .up {
         display: flex;
         justify-content: space-between;
@@ -26,6 +31,7 @@
             background: linear-gradient(45deg, #494544, #504B4A);
             border-radius: 12px;
             flex-direction: column;
+            margin-bottom: 20px;
         }
 
         .parent {
@@ -83,6 +89,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            justify-content: center;
             max-width: 115px;
             width: 100%;
         }
@@ -181,6 +188,11 @@
     background: linear-gradient(45deg, #494544, #504B4A);
     margin: 0 auto;
     padding: 30px;
+
+    @media (max-width: 500px) {
+        flex-direction: column;
+        gap: 30px;
+    }
 
     .total {
         display: flex;

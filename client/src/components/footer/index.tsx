@@ -7,7 +7,7 @@ import discord from "../../assets/icons/discord.png"
 import vk from "../../assets/icons/vk.png"
 import youtube from "../../assets/icons/youtube.png"
 import telegram from "../../assets/icons/telegram.png"
-import logo from '../../assets/icons/logo.svg'
+import logo from '../../assets/icons/logo.png'
 
 interface ItemWithoutImage {
     link: string;

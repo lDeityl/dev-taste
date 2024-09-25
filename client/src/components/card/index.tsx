@@ -1,10 +1,10 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from './index.module.scss'
 import { Fs12Fw400White, Fs13Fw400Gray, Fs14Fw500White, Fs20Fw500White, Fs22BoldWhite } from '../typography'
 import { ButtonGreen } from '../../ui/buttons'
 import { Link, useNavigate } from 'react-router-dom'
 import but from '../../assets/icons/Buy.svg'
-import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
+import { IoIosHeartEmpty, IoIosHeart, IoIosStats } from "react-icons/io";
 import { useCartStore } from '../../stores'
 import { IProduct } from '../../interfaces'
 import { toast } from 'react-toastify'
@@ -19,6 +19,14 @@ export const Card = ({ item }: Props) => {
     const { addToCart } = useCartStore();
     const navigate = useNavigate();
 
+    const [isInComparison, setIsInComparison] = useState(false);
+
+    useEffect(() => {
+        const comparisonItems = JSON.parse(localStorage.getItem('comparisonItems') || '[]');
+        const itemExists = comparisonItems.find((i: IProduct) => i.id === item.id);
+        setIsInComparison(!!itemExists); // если товар есть, устанавливаем true
+    }, [item.id]);
+
     const handleAddToCartProduct = () => {
         if (!item) return;
 
@@ -26,6 +34,25 @@ export const Card = ({ item }: Props) => {
         toast.success(`${String(item.name)} добавлен в корзину`, {
             position: "top-left"
         });
+    };
+
+    const handleToggleComparison = () => {
+        const comparisonItems = JSON.parse(localStorage.getItem('comparisonItems') || '[]');
+        const itemExists = comparisonItems.find((i: IProduct) => i.id === item.id);
+
+        if (itemExists) {
+            // Удаляем товар из сравнения
+            const updatedItems = comparisonItems.filter((i: IProduct) => i.id !== item.id);
+            localStorage.setItem('comparisonItems', JSON.stringify(updatedItems));
+            setIsInComparison(false);
+            toast.info(`${String(item.name)} удален из сравнения`, { position: "top-left" });
+        } else {
+            // Добавляем товар в сравнение
+            comparisonItems.push(item);
+            localStorage.setItem('comparisonItems', JSON.stringify(comparisonItems));
+            setIsInComparison(true);
+            toast.success(`${String(item.name)} добавлен в сравнение`, { position: "top-left" });
+        }
     };
 
     return (
@@ -50,6 +77,7 @@ export const Card = ({ item }: Props) => {
                     </ButtonGreen>
                 </div>
             </div>
+            <IoIosStats onClick={handleToggleComparison} className={`${styles.simile} ${isInComparison ? styles.active : undefined}`} />
         </div>
     )
 }

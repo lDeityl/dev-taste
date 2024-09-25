@@ -7,7 +7,6 @@ export const RequireRole = () => {
 
     const role = useJwtStore((state) => state.role);
     const isAuthed = useIsAuthenticated();
-    console.log(role, 'role');
 
     if (role !== "ADMIN") {
         return <Navigate to={'/'} replace />

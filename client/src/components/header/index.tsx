@@ -15,6 +15,8 @@ import { debounce } from 'lodash';
 import { useQuery } from 'react-query'
 import { getSettingsAdmin } from '../../api'
 import { AnimatePresence, motion } from 'framer-motion'
+import { IoIosStats } from 'react-icons/io'
+import { IProduct } from '../../interfaces'
 
 const links = [
     {
@@ -36,6 +38,10 @@ const links = [
     {
         link: '/cart',
         title: 'Корзина'
+    },
+    {
+        link: '/simile',
+        title: 'Сравнение'
     },
 ];
 
@@ -81,6 +87,13 @@ export const Header = () => {
         keepPreviousData: true,
     });
 
+    const [comparisonItems, setComparisonItems] = useState<IProduct[]>([]);
+
+    useEffect(() => {
+        const items = JSON.parse(localStorage.getItem('comparisonItems') || '[]');
+        setComparisonItems(items);
+    }, []);
+
     return (
         <>
             <VisibleDesktop1280>
@@ -106,11 +119,16 @@ export const Header = () => {
                                     <Fs16BoldWhite.span>{data?.contactsPhone}</Fs16BoldWhite.span>
                                 </div>
                             </div>
-                            <div className={styles.cart} onClick={() => navigate('/cart')}>
-                                <Fs14Fw500White.span>Корзина</Fs14Fw500White.span>
-                                <div className={styles.unvisibleSqr}>
-                                    <div className={styles.circle}>
-                                        <Fs12Fw500Black.span>{quantity >= 0 ? <span className={styles.quantity}>{quantity > 99 ? "99+" : quantity}</span> : <></>}</Fs12Fw500Black.span>
+                            <div className={styles.row}>
+                                {comparisonItems.length > 0 &&
+                                    <IoIosStats className={`${styles.simile} `} onClick={() => navigate('/simile')} />
+                                }
+                                <div className={styles.cart} onClick={() => navigate('/cart')}>
+                                    <Fs14Fw500White.span>Корзина</Fs14Fw500White.span>
+                                    <div className={styles.unvisibleSqr}>
+                                        <div className={styles.circle}>
+                                            <Fs12Fw500Black.span>{quantity >= 0 ? <span className={styles.quantity}>{quantity > 99 ? "99+" : quantity}</span> : <></>}</Fs12Fw500Black.span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

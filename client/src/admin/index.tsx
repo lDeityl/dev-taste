@@ -35,14 +35,14 @@ const linksNav: NavMain[] = [
         title: 'Главная панель',
         icon: HiOutlineSquares2X2,
         navigation: [
-            { title: 'Панель управления', link: '/admin-panel/panel', icon: HiOutlineSquares2X2 },
+            // { title: 'Панель управления', link: '/admin-panel/panel', icon: HiOutlineSquares2X2 },
             { title: 'Пользователи', link: '/admin-panel/users', icon: HiOutlineSquares2X2 },
-            { title: 'Админы', link: '/admin-panel/admins', icon: HiOutlineSquares2X2 },
+            // { title: 'Админы', link: '/admin-panel/admins', icon: HiOutlineSquares2X2 },
             { title: 'Компании', link: '/admin-panel/companies', icon: HiOutlineSquares2X2 },
             { title: 'Категории меню', link: '/admin-panel/categories', icon: HiOutlineSquares2X2 },
             { title: 'Продукты', link: '/admin-panel/products', icon: HiOutlineSquares2X2 },
-            { title: 'Акции', link: '/admin-panel/stock', icon: HiOutlineSquares2X2 },
-            { title: 'FAQ', link: '/admin-panel/faq', icon: HiOutlineSquares2X2 },
+            // { title: 'Акции', link: '/admin-panel/stock', icon: HiOutlineSquares2X2 },
+            // { title: 'FAQ', link: '/admin-panel/faq', icon: HiOutlineSquares2X2 },
         ]
     },
     // {

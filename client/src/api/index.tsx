@@ -66,6 +66,11 @@ export const getCategories = async (): Promise<ICategory[]> => {
     return response.data;
 }
 
+export const getUsersAdmin = async (): Promise<IUsers[]> => {
+    let response = await api.get(`/admin/get-users`);
+    return response.data;
+}
+
 export const createCategories = async (data: IUpsertCategory): Promise<boolean> => {
     let response = await api.post(`/categories/create`, data);
     return response.data;
@@ -91,9 +96,9 @@ export const deleteCategories = async (data: DeleteRequest): Promise<boolean> =>
     return response.data;
 }
 
-export const getCatalog = async (limit: number, search: string, categoryId?: number, productTypeId?: number, sort?: 'increase' | 'descrease'): Promise<IProductCatalog> => {
+export const getCatalog = async (pageParam = 1, limit: number, search: string, categoryId?: number, productTypeId?: number, sort?: 'increase' | 'descrease'): Promise<IProductCatalog> => {
     const response = await api.get(`/catalog/get`, {
-        params: { limit, search, categoryId, productTypeId, sort, },
+        params: { pageParam, limit, search, categoryId, productTypeId, sort, },
     });
     return response.data;
 };

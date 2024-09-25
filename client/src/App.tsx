@@ -18,6 +18,7 @@ import { RequireRole } from './utils/requireRole';
 import AdminPanelRoutes from './admin';
 import { Making } from './pages/making';
 import { Curtain } from './components/curtain';
+import { Simile } from './pages/simile';
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
                 <Route path={"/delivery"} element={<Delivery />}></Route>
                 <Route path={"/catalog/*"} element={<Catalog />}></Route>
                 <Route path={"/making"} element={<Making />}></Route>
+                <Route path={"/simile"} element={<Simile />}></Route>
                 <Route element={<RequireAuth />} >
                     <Route path={"/profile/*"} element={<Profile />}></Route>
                 </Route>

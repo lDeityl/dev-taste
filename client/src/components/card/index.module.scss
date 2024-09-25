@@ -68,11 +68,14 @@
         }
     }
 
-    .heart {
+    .simile {
         position: absolute;
         top: 15px;
         font-size: 30px;
         right: 15px;
-        fill: rgb(252, 72, 72);
+
+        &.active {
+            fill: rgb(252, 72, 72);
+        }
     }
 }

@@ -44,12 +44,14 @@ export class CatalogController {
 
     @Get('get')
     async getCatalog(
+        @Query('pageParam') page: number = 1,
         @Query('limit') limit: string | number,
         @Query('search') search: string,
         @Query('categoryId') categoryId?: string,
         @Query('productTypeId') productTypeId?: string,
         @Query('sort') sort?: string,
     ) {
+
         const whereCondition: Prisma.ProductWhereInput = {
             name: {
                 contains: search,
@@ -64,7 +66,8 @@ export class CatalogController {
             ? { price: 'asc' }   // По возрастанию цены
             : { price: 'desc' }; // По убыванию цены
 
-        const limitValue = limit ? Number(limit) : 10;
+        limit = Number(limit);
+        const offset = (page - 1) * limit;
 
         const catalog = await this.prisma.product.findMany({
             where: whereCondition,
@@ -72,7 +75,8 @@ export class CatalogController {
             include: {
                 Category: true,
             },
-            take: limitValue,
+            take: limit,
+            skip: offset
         });
 
         const totalItems = await this.prisma.product.count({

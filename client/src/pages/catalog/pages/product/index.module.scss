@@ -2,8 +2,7 @@
     display: flex;
     flex-direction: column;
     gap: 50px;
-    padding: 40px 0;
-
+    padding: 40px 10px;
 
     .cart {
         display: flex;
@@ -13,6 +12,14 @@
         max-width: 1000px;
         margin: 0 auto;
 
+        @media (max-width: 1720px) {
+            padding: 0;
+        }
+
+        @media (max-width: 900px) {
+            flex-direction: column;
+        }
+
         img {
             max-height: 600px;
             min-height: 500px;
@@ -20,6 +27,17 @@
             user-select: none;
             object-fit: cover;
             border-radius: 10px 0 0 10px;
+
+            @media (max-width: 1100px) {
+                min-height: 100%;
+                width: 100%;
+            }
+
+            @media (max-width: 900px) {
+                max-width: 100%;
+                border-radius: 10px 10px 0 0;
+
+            }
         }
 
         .blocks {
@@ -34,6 +52,10 @@
                 flex-direction: column;
                 padding: 40px;
                 gap: 5px;
+
+                @media (max-width: 600px) {
+                    padding: 20px;
+                }
             }
 
             .bottom {
@@ -47,7 +69,15 @@
                     padding: 0 40px;
                     gap: 20px;
 
-                    .cart {
+                    @media (max-width: 900px) {
+                        justify-content: left;
+                    }
+
+                    @media (max-width: 600px) {
+                        padding: 20px;
+                    }
+
+                    .cartt {
                         display: flex;
                         align-items: center;
                         gap: 10px;
