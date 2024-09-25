@@ -197,6 +197,15 @@ export const Header = () => {
                                             </Fs14Fw500White.span>
                                         </Link>
                                     ))}
+                                    {isAuthed ?
+                                        <Link to="/profile">
+                                            <Fs14Fw500White.span className={checkIsActive('/profile') ? styles.activeSpan : ''}>Профиль</Fs14Fw500White.span>
+                                        </Link>
+                                        :
+                                        <Link to="/auth/register">
+                                            <Fs14Fw500White.span className={checkIsActive('/auth/register') || checkIsActive('/auth/sign-in') ? styles.activeSpan : ''}>Вход / Регистрация</Fs14Fw500White.span>
+                                        </Link>
+                                    }
                                 </Wrapper>
                             </motion.div>
                         )}

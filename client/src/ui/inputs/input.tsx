@@ -78,21 +78,23 @@ const withStylePassword = (styleName: string) => {
                     <label>
                         {label}
                     </label>}
-                <input
-                    {...register?.(name, {
-                        valueAsNumber: type === 'number',
-                    })}
-                    value={value}
-                    type={inputType}
-                    {...rest}
-                    className={error?.message && styles.error}
-                    placeholder={placeholder}
-                />
-                {eye ?
-                    <LuEye className={styles.svg} onClick={() => setEye((el) => !el)} />
-                    :
-                    <LuEyeOff className={styles.svg} onClick={() => setEye((el) => !el)} />
-                }
+                <div className={styles.box}>
+                    <input
+                        {...register?.(name, {
+                            valueAsNumber: type === 'number',
+                        })}
+                        value={value}
+                        type={inputType}
+                        {...rest}
+                        className={error?.message && styles.error}
+                        placeholder={placeholder}
+                    />
+                    {eye ?
+                        <LuEye className={styles.svg} onClick={() => setEye((el) => !el)} />
+                        :
+                        <LuEyeOff className={styles.svg} onClick={() => setEye((el) => !el)} />
+                    }
+                </div>
                 <Error isVisible={!!error?.message}>{error?.message}</Error>
             </div>
         );

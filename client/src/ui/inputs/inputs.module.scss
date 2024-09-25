@@ -251,22 +251,16 @@
         font-weight: 700;
     }
 
-    input {
-        border-radius: 11px;
+    .box {
+        display: flex;
+        align-items: center;
+        gap: 10px;
         border: 1px solid #EFEFEF;
-        font-size: var(--fs-14);
-        color: #ffffff;
-        appearance: none;
         transition: border var(--speed-regularTransition);
-        padding: 16px 24px;
-        padding-right: 40px;
+        border-radius: 11px;
         transition: all .5s ease;
-
-        &::placeholder {
-            color: #838383;
-            font-size: var(--fs-16);
-            font-weight: 400;
-        }
+        justify-content: space-between;
+        padding: 16px 16px 16px 24px;
 
         &:hover {
             border-color: #000000;
@@ -278,18 +272,28 @@
             border-color: #000000;
             outline: none;
         }
-    }
 
-    .svg {
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        top: 48px;
-        right: 10px;
-        cursor: pointer;
+        input {
+            font-size: var(--fs-14);
+            color: #ffffff;
+            appearance: none;
+            width: 85%;
+
+            &::placeholder {
+                color: #838383;
+                font-size: var(--fs-16);
+                font-weight: 400;
+            }
+
+
+
+        }
+
+        .svg {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
     }
 }
 

@@ -46,7 +46,7 @@ export const Registration = () => {
             navigate(`/profile`)
         },
         onError: (error: any) => {
-            toast.error('error');
+            toast.error('Пароль должен содержать хотя бы одну заглавную букву, одну строчную букву и одну цифру.');
         }
     })
 

@@ -12,6 +12,10 @@
             align-items: center;
             justify-content: space-between;
             gap: 10px;
+
+            @media (max-width: 600px) {
+                flex-wrap: wrap;
+            }
         }
 
         .helloExit {
